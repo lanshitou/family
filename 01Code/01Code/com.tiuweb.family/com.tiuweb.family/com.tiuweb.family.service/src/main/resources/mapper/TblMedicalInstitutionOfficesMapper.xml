@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.offices.mapper.TblMedicalInstitutionOfficesMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.offices.domain.TblMedicalInstitutionOffices">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="MEDICAL_INSTITUTION_IDENTITY" property="medicalinstitutionidentity" jdbcType="VARCHAR" />             
+       <result column="OFFICES_IDENTITY" property="officesidentity" jdbcType="VARCHAR" />             
+       <result column="OFFICES_NAME" property="officesname" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        MEDICAL_INSTITUTION_IDENTITY,
+        OFFICES_IDENTITY,
+        OFFICES_NAME,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+<!--         DATE_FORMAT(CREATE_DATE,'%Y-%m-%d %H:%i:%s') AS CREATE_DATE, -->
+		CREATE_DATE,
+        UPDATE_USER,
+<!--         DATE_FORMAT(UPDATE_DATE,'%Y-%m-%d %H:%i:%s') AS UPDATE_DATE -->
+		UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_offices
+        where DELETE_SIGN=0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_offices	
+        where DELETE_SIGN=0
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_offices
+        where DELETE_SIGN = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="medicalinstitutionidentity!=null">
+            AND MEDICAL_INSTITUTION_IDENTITY = #{medicalinstitutionidentity}
+        </if>
+        <if test="officesidentity!=null">
+            AND OFFICES_IDENTITY = #{officesidentity}
+        </if>
+        <if test="officesname!=null">
+            AND OFFICES_NAME = #{officesname}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_offices
+        where DELETE_SIGN = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.medicalinstitutionidentity!=null">
+            AND MEDICAL_INSTITUTION_IDENTITY = #{searchParams.medicalinstitutionidentity}
+        </if>
+        <if test="searchParams.officesidentity!=null">
+            AND OFFICES_IDENTITY = #{searchParams.officesidentity}
+        </if>
+        <if test="searchParams.officesname!=null">
+            AND OFFICES_NAME = #{searchParams.officesname}
+        </if>
+        <if test="searchParams.deletesign!=null">
+            AND DELETE_SIGN = #{searchParams.deletesign}
+        </if>
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.offices.domain.TblMedicalInstitutionOffices">
+       insert into tbl_medical_institution_offices 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="medicalinstitutionidentity!=null">
+                MEDICAL_INSTITUTION_IDENTITY, 
+            </if>
+            <if test="officesidentity!=null">
+                OFFICES_IDENTITY, 
+            </if>
+            <if test="officesname!=null">
+                OFFICES_NAME, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalinstitutionidentity!=null">      
+                #{medicalinstitutionidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="officesidentity!=null">      
+                #{officesidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="officesname!=null">      
+                #{officesname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.offices.domain.TblMedicalInstitutionOffices" >
+        delete from tbl_medical_institution_offices  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalinstitutionidentity!=null">    
+           and MEDICAL_INSTITUTION_IDENTITY = #{medicalinstitutionidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="officesidentity!=null">    
+           and OFFICES_IDENTITY = #{officesidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="officesname!=null">    
+           and OFFICES_NAME = #{officesname,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.offices.domain.TblMedicalInstitutionOffices" >
+        update tbl_medical_institution_offices   
+        <set>
+            <if test="medicalinstitutionidentity!=null"> 
+              MEDICAL_INSTITUTION_IDENTITY = #{medicalinstitutionidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="officesidentity!=null"> 
+              OFFICES_IDENTITY = #{officesidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="officesname!=null"> 
+              OFFICES_NAME = #{officesname,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_medical_institution_offices
+        (
+            ID,
+        MEDICAL_INSTITUTION_IDENTITY,
+        OFFICES_IDENTITY,
+        OFFICES_NAME,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.medicalinstitutionidentity,jdbcType=VARCHAR},   
+            #{item.officesidentity,jdbcType=VARCHAR},   
+            #{item.officesname,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

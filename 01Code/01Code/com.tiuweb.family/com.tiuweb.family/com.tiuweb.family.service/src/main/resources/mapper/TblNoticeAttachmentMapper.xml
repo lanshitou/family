@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.notice.mapper.TblNoticeAttachmentMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.notice.domain.TblNoticeAttachment">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="NOTICE_IDENTITY" property="noticeidentity" jdbcType="VARCHAR" />             
+       <result column="ATTACHMENT_NAME" property="attachmentname" jdbcType="VARCHAR" />             
+       <result column="STORE_PATH" property="storepath" jdbcType="VARCHAR" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        NOTICE_IDENTITY,
+        ATTACHMENT_NAME,
+        STORE_PATH,
+        AREA_CODE,
+        DELETE_SIGN,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_notice_attachment
+        where delete_sign = 0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_notice_attachment	
+        where delete_sign = 0
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_notice_attachment
+        where delete_sign = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="noticeidentity!=null">
+            AND NOTICE_IDENTITY = #{noticeidentity}
+        </if>
+        <if test="attachmentname!=null">
+            AND ATTACHMENT_NAME = #{attachmentname}
+        </if>
+        <if test="storepath!=null">
+            AND STORE_PATH = #{storepath}
+        </if>
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_notice_attachment
+        where delete_sign = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.noticeidentity!=null">
+            AND NOTICE_IDENTITY = #{searchParams.noticeidentity}
+        </if>
+        <if test="searchParams.attachmentname!=null">
+            AND ATTACHMENT_NAME = #{searchParams.attachmentname}
+        </if>
+        <if test="searchParams.storepath!=null">
+            AND STORE_PATH = #{searchParams.storepath}
+        </if>
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.notice.domain.TblNoticeAttachment">
+       insert into tbl_notice_attachment 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="noticeidentity!=null">
+                NOTICE_IDENTITY, 
+            </if>
+            <if test="attachmentname!=null">
+                ATTACHMENT_NAME, 
+            </if>
+            <if test="storepath!=null">
+                STORE_PATH, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="noticeidentity!=null">      
+                #{noticeidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="attachmentname!=null">      
+                #{attachmentname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="storepath!=null">      
+                #{storepath,jdbcType=VARCHAR}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.notice.domain.TblNoticeAttachment" >
+        delete from tbl_notice_attachment  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="noticeidentity!=null">    
+           and NOTICE_IDENTITY = #{noticeidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="attachmentname!=null">    
+           and ATTACHMENT_NAME = #{attachmentname,jdbcType=VARCHAR}        
+        </if>
+        <if test="storepath!=null">    
+           and STORE_PATH = #{storepath,jdbcType=VARCHAR}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.notice.domain.TblNoticeAttachment" >
+        update tbl_notice_attachment   
+        <set>
+            <if test="noticeidentity!=null"> 
+              NOTICE_IDENTITY = #{noticeidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentname!=null"> 
+              ATTACHMENT_NAME = #{attachmentname,jdbcType=VARCHAR},
+            </if>
+            <if test="storepath!=null"> 
+              STORE_PATH = #{storepath,jdbcType=VARCHAR},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_notice_attachment
+        (
+            ID,
+        NOTICE_IDENTITY,
+        ATTACHMENT_NAME,
+        STORE_PATH,
+        AREA_CODE,
+        DELETE_SIGN,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.noticeidentity,jdbcType=VARCHAR},   
+            #{item.attachmentname,jdbcType=VARCHAR},   
+            #{item.storepath,jdbcType=VARCHAR},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

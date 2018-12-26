@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.contact.mapper.TblResidentHealthArchivesMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.contact.domain.TblResidentHealthArchives">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="ARCHIVES_NUMBER" property="archivesnumber" jdbcType="VARCHAR" />             
+       <result column="IDENTITY_NUMBER" property="identitynumber" jdbcType="VARCHAR" />             
+       <result column="PRESENT_ADDRESS" property="presentaddress" jdbcType="VARCHAR" />             
+       <result column="PERMANENT_ADDRESS" property="permanentaddress" jdbcType="VARCHAR" />             
+       <result column="CONTACT_PHONE" property="contactphone" jdbcType="VARCHAR" />             
+       <result column="TOWNSHIP_NAME" property="townshipname" jdbcType="VARCHAR" />             
+       <result column="VILLAGE_NAME" property="villagename" jdbcType="VARCHAR" />             
+       <result column="FILING_UNIT" property="filingunit" jdbcType="VARCHAR" />             
+       <result column="FILING_MAN" property="filingman" jdbcType="VARCHAR" />             
+       <result column="RESPONSIBLE_DOCTOR" property="responsibledoctor" jdbcType="VARCHAR" />             
+       <result column="FILINH_DATE" property="filinhdate" jdbcType="TIMESTAMP" />             
+       <result column="BIRTH_DATE" property="birthdate" jdbcType="DATE" />             
+       <result column="RESIDENT_NAME" property="residentname" jdbcType="VARCHAR" />             
+       <result column="SEX" property="sex" jdbcType="SMALLINT" />             
+       <result column="AGE" property="age" jdbcType="SMALLINT" />             
+       <result column="OCCUPATION" property="occupation" jdbcType="SMALLINT" />             
+       <result column="NATION" property="nation" jdbcType="SMALLINT" />             
+       <result column="JOB_ADDRESS" property="jobaddress" jdbcType="VARCHAR" />             
+       <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />             
+       <result column="LINKMAN_PHONE" property="linkmanphone" jdbcType="VARCHAR" />             
+       <result column="RESIDENT_TYPE" property="residenttype" jdbcType="SMALLINT" />             
+       <result column="BLOOD_TYPE" property="bloodtype" jdbcType="SMALLINT" />             
+       <result column="RH_NEGATIVE" property="rhnegative" jdbcType="SMALLINT" />             
+       <result column="MARITAL_STATUS" property="maritalstatus" jdbcType="SMALLINT" />             
+       <result column="EDUCATION" property="education" jdbcType="SMALLINT" />             
+       <result column="ARCHIVES_KEYWORDS" property="archiveskeywords" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        ARCHIVES_NUMBER,
+        IDENTITY_NUMBER,
+        PRESENT_ADDRESS,
+        PERMANENT_ADDRESS,
+        CONTACT_PHONE,
+        TOWNSHIP_NAME,
+        VILLAGE_NAME,
+        FILING_UNIT,
+        FILING_MAN,
+        RESPONSIBLE_DOCTOR,
+        FILINH_DATE,
+        BIRTH_DATE,
+        RESIDENT_NAME,
+        SEX,
+        AGE,
+        OCCUPATION,
+        NATION,
+        JOB_ADDRESS,
+        LINKMAN,
+        LINKMAN_PHONE,
+        RESIDENT_TYPE,
+        BLOOD_TYPE,
+        RH_NEGATIVE,
+        MARITAL_STATUS,
+        EDUCATION,
+        ARCHIVES_KEYWORDS,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_health_archives
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_health_archives	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_health_archives
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="archivesnumber!=null">
+            AND ARCHIVES_NUMBER = #{archivesnumber}
+        </if>
+        <if test="identitynumber!=null">
+            AND IDENTITY_NUMBER = #{identitynumber}
+        </if>
+        <if test="presentaddress!=null">
+            AND PRESENT_ADDRESS = #{presentaddress}
+        </if>
+        <if test="permanentaddress!=null">
+            AND PERMANENT_ADDRESS = #{permanentaddress}
+        </if>
+        <if test="contactphone!=null">
+            AND CONTACT_PHONE = #{contactphone}
+        </if>
+        <if test="townshipname!=null">
+            AND TOWNSHIP_NAME = #{townshipname}
+        </if>
+        <if test="villagename!=null">
+            AND VILLAGE_NAME = #{villagename}
+        </if>
+        <if test="filingunit!=null">
+            AND FILING_UNIT = #{filingunit}
+        </if>
+        <if test="filingman!=null">
+            AND FILING_MAN = #{filingman}
+        </if>
+        <if test="responsibledoctor!=null">
+            AND RESPONSIBLE_DOCTOR = #{responsibledoctor}
+        </if>
+        <if test="filinhdate!=null">
+            AND FILINH_DATE = #{filinhdate}
+        </if>
+        <if test="birthdate!=null">
+            AND BIRTH_DATE = #{birthdate}
+        </if>
+        <if test="residentname!=null">
+            AND RESIDENT_NAME = #{residentname}
+        </if>
+        <if test="sex!=null">
+            AND SEX = #{sex}
+        </if>
+        <if test="age!=null">
+            AND AGE = #{age}
+        </if>
+        <if test="occupation!=null">
+            AND OCCUPATION = #{occupation}
+        </if>
+        <if test="nation!=null">
+            AND NATION = #{nation}
+        </if>
+        <if test="jobaddress!=null">
+            AND JOB_ADDRESS = #{jobaddress}
+        </if>
+        <if test="linkman!=null">
+            AND LINKMAN = #{linkman}
+        </if>
+        <if test="linkmanphone!=null">
+            AND LINKMAN_PHONE = #{linkmanphone}
+        </if>
+        <if test="residenttype!=null">
+            AND RESIDENT_TYPE = #{residenttype}
+        </if>
+        <if test="bloodtype!=null">
+            AND BLOOD_TYPE = #{bloodtype}
+        </if>
+        <if test="rhnegative!=null">
+            AND RH_NEGATIVE = #{rhnegative}
+        </if>
+        <if test="maritalstatus!=null">
+            AND MARITAL_STATUS = #{maritalstatus}
+        </if>
+        <if test="education!=null">
+            AND EDUCATION = #{education}
+        </if>
+        <if test="archiveskeywords!=null">
+            AND ARCHIVES_KEYWORDS = #{archiveskeywords}
+        </if>
+        <if test="deletesign!=null">
+            AND DELETE_SIGN = #{deletesign}
+        </if>
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_health_archives
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.archivesnumber!=null">
+            AND ARCHIVES_NUMBER = #{searchParams.archivesnumber}
+        </if>
+        <if test="searchParams.identitynumber!=null">
+            AND IDENTITY_NUMBER = #{searchParams.identitynumber}
+        </if>
+        <if test="searchParams.presentaddress!=null">
+            AND PRESENT_ADDRESS = #{searchParams.presentaddress}
+        </if>
+        <if test="searchParams.permanentaddress!=null">
+            AND PERMANENT_ADDRESS = #{searchParams.permanentaddress}
+        </if>
+        <if test="searchParams.contactphone!=null">
+            AND CONTACT_PHONE = #{searchParams.contactphone}
+        </if>
+        <if test="searchParams.townshipname!=null">
+            AND TOWNSHIP_NAME = #{searchParams.townshipname}
+        </if>
+        <if test="searchParams.villagename!=null">
+            AND VILLAGE_NAME = #{searchParams.villagename}
+        </if>
+        <if test="searchParams.filingunit!=null">
+            AND FILING_UNIT = #{searchParams.filingunit}
+        </if>
+        <if test="searchParams.filingman!=null">
+            AND FILING_MAN = #{searchParams.filingman}
+        </if>
+        <if test="searchParams.responsibledoctor!=null">
+            AND RESPONSIBLE_DOCTOR = #{searchParams.responsibledoctor}
+        </if>
+        <if test="searchParams.filinhdate!=null">
+            AND FILINH_DATE = #{searchParams.filinhdate}
+        </if>
+        <if test="searchParams.birthdate!=null">
+            AND BIRTH_DATE = #{searchParams.birthdate}
+        </if>
+        <if test="searchParams.residentname!=null">
+            AND RESIDENT_NAME = #{searchParams.residentname}
+        </if>
+        <if test="searchParams.sex!=null">
+            AND SEX = #{searchParams.sex}
+        </if>
+        <if test="searchParams.age!=null">
+            AND AGE = #{searchParams.age}
+        </if>
+        <if test="searchParams.occupation!=null">
+            AND OCCUPATION = #{searchParams.occupation}
+        </if>
+        <if test="searchParams.nation!=null">
+            AND NATION = #{searchParams.nation}
+        </if>
+        <if test="searchParams.jobaddress!=null">
+            AND JOB_ADDRESS = #{searchParams.jobaddress}
+        </if>
+        <if test="searchParams.linkman!=null">
+            AND LINKMAN = #{searchParams.linkman}
+        </if>
+        <if test="searchParams.linkmanphone!=null">
+            AND LINKMAN_PHONE = #{searchParams.linkmanphone}
+        </if>
+        <if test="searchParams.residenttype!=null">
+            AND RESIDENT_TYPE = #{searchParams.residenttype}
+        </if>
+        <if test="searchParams.bloodtype!=null">
+            AND BLOOD_TYPE = #{searchParams.bloodtype}
+        </if>
+        <if test="searchParams.rhnegative!=null">
+            AND RH_NEGATIVE = #{searchParams.rhnegative}
+        </if>
+        <if test="searchParams.maritalstatus!=null">
+            AND MARITAL_STATUS = #{searchParams.maritalstatus}
+        </if>
+        <if test="searchParams.education!=null">
+            AND EDUCATION = #{searchParams.education}
+        </if>
+        <if test="searchParams.archiveskeywords!=null">
+            AND ARCHIVES_KEYWORDS = #{searchParams.archiveskeywords}
+        </if>
+        <if test="searchParams.deletesign!=null">
+            AND DELETE_SIGN = #{searchParams.deletesign}
+        </if>
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.contact.domain.TblResidentHealthArchives">
+       insert into tbl_resident_health_archives 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="archivesnumber!=null">
+                ARCHIVES_NUMBER, 
+            </if>
+            <if test="identitynumber!=null">
+                IDENTITY_NUMBER, 
+            </if>
+            <if test="presentaddress!=null">
+                PRESENT_ADDRESS, 
+            </if>
+            <if test="permanentaddress!=null">
+                PERMANENT_ADDRESS, 
+            </if>
+            <if test="contactphone!=null">
+                CONTACT_PHONE, 
+            </if>
+            <if test="townshipname!=null">
+                TOWNSHIP_NAME, 
+            </if>
+            <if test="villagename!=null">
+                VILLAGE_NAME, 
+            </if>
+            <if test="filingunit!=null">
+                FILING_UNIT, 
+            </if>
+            <if test="filingman!=null">
+                FILING_MAN, 
+            </if>
+            <if test="responsibledoctor!=null">
+                RESPONSIBLE_DOCTOR, 
+            </if>
+            <if test="filinhdate!=null">
+                FILINH_DATE, 
+            </if>
+            <if test="birthdate!=null">
+                BIRTH_DATE, 
+            </if>
+            <if test="residentname!=null">
+                RESIDENT_NAME, 
+            </if>
+            <if test="sex!=null">
+                SEX, 
+            </if>
+            <if test="age!=null">
+                AGE, 
+            </if>
+            <if test="occupation!=null">
+                OCCUPATION, 
+            </if>
+            <if test="nation!=null">
+                NATION, 
+            </if>
+            <if test="jobaddress!=null">
+                JOB_ADDRESS, 
+            </if>
+            <if test="linkman!=null">
+                LINKMAN, 
+            </if>
+            <if test="linkmanphone!=null">
+                LINKMAN_PHONE, 
+            </if>
+            <if test="residenttype!=null">
+                RESIDENT_TYPE, 
+            </if>
+            <if test="bloodtype!=null">
+                BLOOD_TYPE, 
+            </if>
+            <if test="rhnegative!=null">
+                RH_NEGATIVE, 
+            </if>
+            <if test="maritalstatus!=null">
+                MARITAL_STATUS, 
+            </if>
+            <if test="education!=null">
+                EDUCATION, 
+            </if>
+            <if test="archiveskeywords!=null">
+                ARCHIVES_KEYWORDS, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="archivesnumber!=null">      
+                #{archivesnumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="identitynumber!=null">      
+                #{identitynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="presentaddress!=null">      
+                #{presentaddress,jdbcType=VARCHAR}, 
+            </if>
+            <if test="permanentaddress!=null">      
+                #{permanentaddress,jdbcType=VARCHAR}, 
+            </if>
+            <if test="contactphone!=null">      
+                #{contactphone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="townshipname!=null">      
+                #{townshipname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="villagename!=null">      
+                #{villagename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="filingunit!=null">      
+                #{filingunit,jdbcType=VARCHAR}, 
+            </if>
+            <if test="filingman!=null">      
+                #{filingman,jdbcType=VARCHAR}, 
+            </if>
+            <if test="responsibledoctor!=null">      
+                #{responsibledoctor,jdbcType=VARCHAR}, 
+            </if>
+            <if test="filinhdate!=null">      
+                #{filinhdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="birthdate!=null">      
+                #{birthdate,jdbcType=DATE}, 
+            </if>
+            <if test="residentname!=null">      
+                #{residentname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="sex!=null">      
+                #{sex,jdbcType=SMALLINT}, 
+            </if>
+            <if test="age!=null">      
+                #{age,jdbcType=SMALLINT}, 
+            </if>
+            <if test="occupation!=null">      
+                #{occupation,jdbcType=SMALLINT}, 
+            </if>
+            <if test="nation!=null">      
+                #{nation,jdbcType=SMALLINT}, 
+            </if>
+            <if test="jobaddress!=null">      
+                #{jobaddress,jdbcType=VARCHAR}, 
+            </if>
+            <if test="linkman!=null">      
+                #{linkman,jdbcType=VARCHAR}, 
+            </if>
+            <if test="linkmanphone!=null">      
+                #{linkmanphone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="residenttype!=null">      
+                #{residenttype,jdbcType=SMALLINT}, 
+            </if>
+            <if test="bloodtype!=null">      
+                #{bloodtype,jdbcType=SMALLINT}, 
+            </if>
+            <if test="rhnegative!=null">      
+                #{rhnegative,jdbcType=SMALLINT}, 
+            </if>
+            <if test="maritalstatus!=null">      
+                #{maritalstatus,jdbcType=SMALLINT}, 
+            </if>
+            <if test="education!=null">      
+                #{education,jdbcType=SMALLINT}, 
+            </if>
+            <if test="archiveskeywords!=null">      
+                #{archiveskeywords,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.contact.domain.TblResidentHealthArchives" >
+        delete from tbl_resident_health_archives  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="archivesnumber!=null">    
+           and ARCHIVES_NUMBER = #{archivesnumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="identitynumber!=null">    
+           and IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="presentaddress!=null">    
+           and PRESENT_ADDRESS = #{presentaddress,jdbcType=VARCHAR}        
+        </if>
+        <if test="permanentaddress!=null">    
+           and PERMANENT_ADDRESS = #{permanentaddress,jdbcType=VARCHAR}        
+        </if>
+        <if test="contactphone!=null">    
+           and CONTACT_PHONE = #{contactphone,jdbcType=VARCHAR}        
+        </if>
+        <if test="townshipname!=null">    
+           and TOWNSHIP_NAME = #{townshipname,jdbcType=VARCHAR}        
+        </if>
+        <if test="villagename!=null">    
+           and VILLAGE_NAME = #{villagename,jdbcType=VARCHAR}        
+        </if>
+        <if test="filingunit!=null">    
+           and FILING_UNIT = #{filingunit,jdbcType=VARCHAR}        
+        </if>
+        <if test="filingman!=null">    
+           and FILING_MAN = #{filingman,jdbcType=VARCHAR}        
+        </if>
+        <if test="responsibledoctor!=null">    
+           and RESPONSIBLE_DOCTOR = #{responsibledoctor,jdbcType=VARCHAR}        
+        </if>
+        <if test="filinhdate!=null">    
+           and FILINH_DATE = #{filinhdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="birthdate!=null">    
+           and BIRTH_DATE = #{birthdate,jdbcType=DATE}        
+        </if>
+        <if test="residentname!=null">    
+           and RESIDENT_NAME = #{residentname,jdbcType=VARCHAR}        
+        </if>
+        <if test="sex!=null">    
+           and SEX = #{sex,jdbcType=SMALLINT}        
+        </if>
+        <if test="age!=null">    
+           and AGE = #{age,jdbcType=SMALLINT}        
+        </if>
+        <if test="occupation!=null">    
+           and OCCUPATION = #{occupation,jdbcType=SMALLINT}        
+        </if>
+        <if test="nation!=null">    
+           and NATION = #{nation,jdbcType=SMALLINT}        
+        </if>
+        <if test="jobaddress!=null">    
+           and JOB_ADDRESS = #{jobaddress,jdbcType=VARCHAR}        
+        </if>
+        <if test="linkman!=null">    
+           and LINKMAN = #{linkman,jdbcType=VARCHAR}        
+        </if>
+        <if test="linkmanphone!=null">    
+           and LINKMAN_PHONE = #{linkmanphone,jdbcType=VARCHAR}        
+        </if>
+        <if test="residenttype!=null">    
+           and RESIDENT_TYPE = #{residenttype,jdbcType=SMALLINT}        
+        </if>
+        <if test="bloodtype!=null">    
+           and BLOOD_TYPE = #{bloodtype,jdbcType=SMALLINT}        
+        </if>
+        <if test="rhnegative!=null">    
+           and RH_NEGATIVE = #{rhnegative,jdbcType=SMALLINT}        
+        </if>
+        <if test="maritalstatus!=null">    
+           and MARITAL_STATUS = #{maritalstatus,jdbcType=SMALLINT}        
+        </if>
+        <if test="education!=null">    
+           and EDUCATION = #{education,jdbcType=SMALLINT}        
+        </if>
+        <if test="archiveskeywords!=null">    
+           and ARCHIVES_KEYWORDS = #{archiveskeywords,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.contact.domain.TblResidentHealthArchives" >
+        update tbl_resident_health_archives   
+        <set>
+            <if test="archivesnumber!=null"> 
+              ARCHIVES_NUMBER = #{archivesnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="identitynumber!=null"> 
+              IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="presentaddress!=null"> 
+              PRESENT_ADDRESS = #{presentaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="permanentaddress!=null"> 
+              PERMANENT_ADDRESS = #{permanentaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="contactphone!=null"> 
+              CONTACT_PHONE = #{contactphone,jdbcType=VARCHAR},
+            </if>
+            <if test="townshipname!=null"> 
+              TOWNSHIP_NAME = #{townshipname,jdbcType=VARCHAR},
+            </if>
+            <if test="villagename!=null"> 
+              VILLAGE_NAME = #{villagename,jdbcType=VARCHAR},
+            </if>
+            <if test="filingunit!=null"> 
+              FILING_UNIT = #{filingunit,jdbcType=VARCHAR},
+            </if>
+            <if test="filingman!=null"> 
+              FILING_MAN = #{filingman,jdbcType=VARCHAR},
+            </if>
+            <if test="responsibledoctor!=null"> 
+              RESPONSIBLE_DOCTOR = #{responsibledoctor,jdbcType=VARCHAR},
+            </if>
+            <if test="filinhdate!=null"> 
+              FILINH_DATE = #{filinhdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="birthdate!=null"> 
+              BIRTH_DATE = #{birthdate,jdbcType=DATE},
+            </if>
+            <if test="residentname!=null"> 
+              RESIDENT_NAME = #{residentname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex!=null"> 
+              SEX = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="age!=null"> 
+              AGE = #{age,jdbcType=SMALLINT},
+            </if>
+            <if test="occupation!=null"> 
+              OCCUPATION = #{occupation,jdbcType=SMALLINT},
+            </if>
+            <if test="nation!=null"> 
+              NATION = #{nation,jdbcType=SMALLINT},
+            </if>
+            <if test="jobaddress!=null"> 
+              JOB_ADDRESS = #{jobaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="linkman!=null"> 
+              LINKMAN = #{linkman,jdbcType=VARCHAR},
+            </if>
+            <if test="linkmanphone!=null"> 
+              LINKMAN_PHONE = #{linkmanphone,jdbcType=VARCHAR},
+            </if>
+            <if test="residenttype!=null"> 
+              RESIDENT_TYPE = #{residenttype,jdbcType=SMALLINT},
+            </if>
+            <if test="bloodtype!=null"> 
+              BLOOD_TYPE = #{bloodtype,jdbcType=SMALLINT},
+            </if>
+            <if test="rhnegative!=null"> 
+              RH_NEGATIVE = #{rhnegative,jdbcType=SMALLINT},
+            </if>
+            <if test="maritalstatus!=null"> 
+              MARITAL_STATUS = #{maritalstatus,jdbcType=SMALLINT},
+            </if>
+            <if test="education!=null"> 
+              EDUCATION = #{education,jdbcType=SMALLINT},
+            </if>
+            <if test="archiveskeywords!=null"> 
+              ARCHIVES_KEYWORDS = #{archiveskeywords,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_resident_health_archives
+        (
+            ID,
+        ARCHIVES_NUMBER,
+        IDENTITY_NUMBER,
+        PRESENT_ADDRESS,
+        PERMANENT_ADDRESS,
+        CONTACT_PHONE,
+        TOWNSHIP_NAME,
+        VILLAGE_NAME,
+        FILING_UNIT,
+        FILING_MAN,
+        RESPONSIBLE_DOCTOR,
+        FILINH_DATE,
+        BIRTH_DATE,
+        RESIDENT_NAME,
+        SEX,
+        AGE,
+        OCCUPATION,
+        NATION,
+        JOB_ADDRESS,
+        LINKMAN,
+        LINKMAN_PHONE,
+        RESIDENT_TYPE,
+        BLOOD_TYPE,
+        RH_NEGATIVE,
+        MARITAL_STATUS,
+        EDUCATION,
+        ARCHIVES_KEYWORDS,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.archivesnumber,jdbcType=VARCHAR},   
+            #{item.identitynumber,jdbcType=VARCHAR},   
+            #{item.presentaddress,jdbcType=VARCHAR},   
+            #{item.permanentaddress,jdbcType=VARCHAR},   
+            #{item.contactphone,jdbcType=VARCHAR},   
+            #{item.townshipname,jdbcType=VARCHAR},   
+            #{item.villagename,jdbcType=VARCHAR},   
+            #{item.filingunit,jdbcType=VARCHAR},   
+            #{item.filingman,jdbcType=VARCHAR},   
+            #{item.responsibledoctor,jdbcType=VARCHAR},   
+            #{item.filinhdate,jdbcType=TIMESTAMP},   
+            #{item.birthdate,jdbcType=DATE},   
+            #{item.residentname,jdbcType=VARCHAR},   
+            #{item.sex,jdbcType=SMALLINT},   
+            #{item.age,jdbcType=SMALLINT},   
+            #{item.occupation,jdbcType=SMALLINT},   
+            #{item.nation,jdbcType=SMALLINT},   
+            #{item.jobaddress,jdbcType=VARCHAR},   
+            #{item.linkman,jdbcType=VARCHAR},   
+            #{item.linkmanphone,jdbcType=VARCHAR},   
+            #{item.residenttype,jdbcType=SMALLINT},   
+            #{item.bloodtype,jdbcType=SMALLINT},   
+            #{item.rhnegative,jdbcType=SMALLINT},   
+            #{item.maritalstatus,jdbcType=SMALLINT},   
+            #{item.education,jdbcType=SMALLINT},   
+            #{item.archiveskeywords,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

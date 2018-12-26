@@ -1,0 +1,42 @@
+[
+  {
+    "planTime": "2017-07-09",
+    "serviceObject": "王慧",
+    "contractNo": "201707091001",
+    "phone": "13987654321",
+    "address": "西安市高新区高新二路3号",
+    "serviceType": "其他服务",
+    "serviceStatus": "待确认",
+    "serviceContent": "耳鸣、头晕",
+    "serviceWay": "预约就诊",
+    "serviceDoctor": "孙杨",
+    "serviceCost": 20
+  },
+  {
+    "planTime": "2017-07-09",
+    "serviceObject": "张宇",
+    "contractNo": "201707091001",
+    "phone": "13987654321",
+    "address": "西安市高新区高新二路3号",
+    "serviceType": "其他服务",
+    "serviceStatus": "待确认",
+    "serviceContent": "针灸",
+    "serviceWay": "预约就诊",
+    "serviceDoctor": "张可",
+    "serviceCost": 20
+  },
+  {
+    "planTime": "2017-07-09",
+    "serviceObject": "高亮",
+    "contractNo": "201707091001",
+    "phone": "13987654321",
+    "address": "西安市高新区高新二路3号",
+    "serviceType": "签约服务",
+    "serviceStatus": "已完成",
+    "serviceContent": "血糖检测，血压检测",
+    "serviceWay": "上门服务",
+    "serviceDoctor": "李建",
+    "serviceCost": 20
+    
+  }
+]

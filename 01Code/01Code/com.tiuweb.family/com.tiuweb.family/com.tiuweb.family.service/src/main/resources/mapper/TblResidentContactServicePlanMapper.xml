@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.plan.mapper.TblResidentContactServicePlanMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.plan.domain.TblResidentContactServicePlan">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="SERVICE_CATEGORY_ID" property="servicecategoryid" jdbcType="VARCHAR" />             
+       <result column="SERVICE_CATEGORY_NAME" property="servicecategoryname" jdbcType="VARCHAR" />             
+       <result column="SERVICE_IDENTIFY" property="serviceidentify" jdbcType="VARCHAR" />             
+       <result column="SERVICE_NAME" property="servicename" jdbcType="VARCHAR" />             
+       <result column="DETAIL" property="detail" jdbcType="VARCHAR" />             
+       <result column="RECORD_IDENTIFY" property="recordidentify" jdbcType="VARCHAR" />             
+       <result column="CONTACT_IDENTIFY" property="contactidentify" jdbcType="VARCHAR" />             
+       <result column="SERVICE_NUMBER" property="servicenumber" jdbcType="VARCHAR" />             
+       <result column="CONTACT_NUMBER" property="contactnumber" jdbcType="VARCHAR" />             
+       <result column="EXPECT_SERVICE_DATE" property="expectservicedate" jdbcType="TIMESTAMP" />             
+       <result column="SERVICE_DATE" property="servicedate" jdbcType="TIMESTAMP" />             
+       <result column="MEMBER_IDENTITY" property="memberidentity" jdbcType="VARCHAR" />             
+       <result column="MEMBER_NAME" property="membername" jdbcType="VARCHAR" />             
+       <result column="SEX" property="sex" jdbcType="SMALLINT" />             
+       <result column="AGE" property="age" jdbcType="SMALLINT" />             
+       <result column="IDENTITY_NUMBER" property="identitynumber" jdbcType="VARCHAR" />             
+       <result column="RESIDENT_TELPHONE" property="residenttelphone" jdbcType="VARCHAR" />             
+       <result column="RESIDENT_ADDRESS" property="residentaddress" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_TEAM_IDENTITY" property="medicalteamidentity" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_TEAM_NAME" property="medicalteamname" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_IDENTITY" property="doctoridentity" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_NAME" property="doctorname" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_ROLE_IDENTITY" property="doctorroleidentity" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_ROLE_NAME" property="doctorrolename" jdbcType="VARCHAR" />             
+       <result column="IS_APPOINTMENT" property="isappointment" jdbcType="SMALLINT" />             
+       <result column="SERVICE_RATE" property="servicerate" jdbcType="SMALLINT" />             
+       <result column="IS_TRANSFER" property="istransfer" jdbcType="BIT" />             
+       <result column="STATUS" property="status" jdbcType="SMALLINT" />             
+       <result column="START_DATE" property="startdate" jdbcType="TIMESTAMP" />             
+       <result column="END_DATE" property="enddate" jdbcType="TIMESTAMP" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        SERVICE_CATEGORY_ID,
+        SERVICE_CATEGORY_NAME,
+        SERVICE_IDENTIFY,
+        SERVICE_NAME,
+        DETAIL,
+        RECORD_IDENTIFY,
+        CONTACT_IDENTIFY,
+        SERVICE_NUMBER,
+        CONTACT_NUMBER,
+        EXPECT_SERVICE_DATE,
+        SERVICE_DATE,
+        MEMBER_IDENTITY,
+        MEMBER_NAME,
+        SEX,
+        AGE,
+        IDENTITY_NUMBER,
+        RESIDENT_TELPHONE,
+        RESIDENT_ADDRESS,
+        MEDICAL_TEAM_IDENTITY,
+        MEDICAL_TEAM_NAME,
+        DOCTOR_IDENTITY,
+        DOCTOR_NAME,
+        DOCTOR_ROLE_IDENTITY,
+        DOCTOR_ROLE_NAME,
+        IS_APPOINTMENT,
+        SERVICE_RATE,
+        IS_TRANSFER,
+        STATUS,
+        START_DATE,
+        END_DATE,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_service_plan
+        WHERE DELETE_SIGN = 0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_service_plan	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_service_plan
+        where DELETE_SIGN = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="servicecategoryid!=null">
+            AND SERVICE_CATEGORY_ID = #{servicecategoryid}
+        </if>
+        <if test="servicecategoryname!=null">
+            AND SERVICE_CATEGORY_NAME = #{servicecategoryname}
+        </if>
+        <if test="serviceidentify!=null">
+            AND SERVICE_IDENTIFY = #{serviceidentify}
+        </if>
+        <if test="servicename!=null">
+            AND SERVICE_NAME = #{servicename}
+        </if>
+        <if test="detail!=null">
+            AND DETAIL = #{detail}
+        </if>
+        <if test="recordidentify!=null">
+            AND RECORD_IDENTIFY = #{recordidentify}
+        </if>
+        <if test="contactidentify!=null">
+            AND CONTACT_IDENTIFY = #{contactidentify}
+        </if>
+        <if test="servicenumber!=null">
+            AND SERVICE_NUMBER = #{servicenumber}
+        </if>
+        <if test="contactnumber!=null">
+            AND CONTACT_NUMBER = #{contactnumber}
+        </if>
+        <if test="expectservicedate!=null">
+            AND EXPECT_SERVICE_DATE = #{expectservicedate}
+        </if>
+        <if test="servicedate!=null">
+            AND SERVICE_DATE = #{servicedate}
+        </if>
+        <if test="memberidentity!=null">
+            AND MEMBER_IDENTITY = #{memberidentity}
+        </if>
+        <if test="membername!=null">
+            AND MEMBER_NAME = #{membername}
+        </if>
+        <if test="sex!=null">
+            AND SEX = #{sex}
+        </if>
+        <if test="age!=null">
+            AND AGE = #{age}
+        </if>
+        <if test="identitynumber!=null">
+            AND IDENTITY_NUMBER = #{identitynumber}
+        </if>
+        <if test="residenttelphone!=null">
+            AND RESIDENT_TELPHONE = #{residenttelphone}
+        </if>
+        <if test="residentaddress!=null">
+            AND RESIDENT_ADDRESS = #{residentaddress}
+        </if>
+        <if test="medicalteamidentity!=null">
+            AND MEDICAL_TEAM_IDENTITY = #{medicalteamidentity}
+        </if>
+        <if test="medicalteamname!=null">
+            AND MEDICAL_TEAM_NAME = #{medicalteamname}
+        </if>
+        <if test="doctoridentity!=null">
+            AND DOCTOR_IDENTITY = #{doctoridentity}
+        </if>
+        <if test="doctorname!=null">
+            AND DOCTOR_NAME = #{doctorname}
+        </if>
+        <if test="doctorroleidentity!=null">
+            AND DOCTOR_ROLE_IDENTITY = #{doctorroleidentity}
+        </if>
+        <if test="doctorrolename!=null">
+            AND DOCTOR_ROLE_NAME = #{doctorrolename}
+        </if>
+        <if test="isappointment!=null">
+            AND IS_APPOINTMENT = #{isappointment}
+        </if>
+        <if test="servicerate!=null">
+            AND SERVICE_RATE = #{servicerate}
+        </if>
+        <if test="istransfer!=null">
+            AND IS_TRANSFER = #{istransfer}
+        </if>
+        <if test="status!=null">
+            AND STATUS = #{status}
+        </if>
+        <if test="startdate!=null">
+            AND START_DATE = #{startdate}
+        </if>
+        <if test="enddate!=null">
+            AND END_DATE = #{enddate}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_service_plan
+        where DELETE_SIGN = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.servicecategoryid!=null">
+            AND SERVICE_CATEGORY_ID = #{searchParams.servicecategoryid}
+        </if>
+        <if test="searchParams.servicecategoryname!=null">
+            AND SERVICE_CATEGORY_NAME = #{searchParams.servicecategoryname}
+        </if>
+        <if test="searchParams.serviceidentify!=null">
+            AND SERVICE_IDENTIFY = #{searchParams.serviceidentify}
+        </if>
+        <if test="searchParams.servicename!=null">
+            AND SERVICE_NAME = #{searchParams.servicename}
+        </if>
+        <if test="searchParams.detail!=null">
+            AND DETAIL = #{searchParams.detail}
+        </if>
+        <if test="searchParams.recordidentify!=null">
+            AND RECORD_IDENTIFY = #{searchParams.recordidentify}
+        </if>
+        <if test="searchParams.contactidentify!=null">
+            AND CONTACT_IDENTIFY = #{searchParams.contactidentify}
+        </if>
+        <if test="searchParams.servicenumber!=null">
+            AND SERVICE_NUMBER = #{searchParams.servicenumber}
+        </if>
+        <if test="searchParams.contactnumber!=null">
+            AND CONTACT_NUMBER = #{searchParams.contactnumber}
+        </if>
+        <if test="searchParams.expectservicedate!=null">
+            AND EXPECT_SERVICE_DATE = #{searchParams.expectservicedate}
+        </if>
+        <if test="searchParams.servicedate!=null">
+            AND SERVICE_DATE = #{searchParams.servicedate}
+        </if>
+        <if test="searchParams.memberidentity!=null">
+            AND MEMBER_IDENTITY = #{searchParams.memberidentity}
+        </if>
+        <if test="searchParams.membername!=null">
+            AND MEMBER_NAME = #{searchParams.membername}
+        </if>
+        <if test="searchParams.sex!=null">
+            AND SEX = #{searchParams.sex}
+        </if>
+        <if test="searchParams.age!=null">
+            AND AGE = #{searchParams.age}
+        </if>
+        <if test="searchParams.identitynumber!=null">
+            AND IDENTITY_NUMBER = #{searchParams.identitynumber}
+        </if>
+        <if test="searchParams.residenttelphone!=null">
+            AND RESIDENT_TELPHONE = #{searchParams.residenttelphone}
+        </if>
+        <if test="searchParams.residentaddress!=null">
+            AND RESIDENT_ADDRESS = #{searchParams.residentaddress}
+        </if>
+        <if test="searchParams.medicalteamidentity!=null">
+            AND MEDICAL_TEAM_IDENTITY = #{searchParams.medicalteamidentity}
+        </if>
+        <if test="searchParams.medicalteamname!=null">
+            AND MEDICAL_TEAM_NAME = #{searchParams.medicalteamname}
+        </if>
+        <if test="searchParams.doctoridentity!=null">
+            AND DOCTOR_IDENTITY = #{searchParams.doctoridentity}
+        </if>
+        <if test="searchParams.doctorname!=null">
+            AND DOCTOR_NAME = #{searchParams.doctorname}
+        </if>
+        <if test="searchParams.doctorroleidentity!=null">
+            AND DOCTOR_ROLE_IDENTITY = #{searchParams.doctorroleidentity}
+        </if>
+        <if test="searchParams.doctorrolename!=null">
+            AND DOCTOR_ROLE_NAME = #{searchParams.doctorrolename}
+        </if>
+        <if test="searchParams.isappointment!=null">
+            AND IS_APPOINTMENT = #{searchParams.isappointment}
+        </if>
+        <if test="searchParams.servicerate!=null">
+            AND SERVICE_RATE = #{searchParams.servicerate}
+        </if>
+        <if test="searchParams.istransfer!=null">
+            AND IS_TRANSFER = #{searchParams.istransfer}
+        </if>
+        <if test="searchParams.status!=null">
+            AND STATUS = #{searchParams.status}
+        </if>
+        <if test="searchParams.startdate!=null">
+            AND START_DATE = #{searchParams.startdate}
+        </if>
+        <if test="searchParams.enddate!=null">
+            AND END_DATE = #{searchParams.enddate}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+        <if test="searchParams.beginDate!=null and searchParams.beginDate!=''">
+            AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[>=]]> DATE_FORMAT(#{searchParams.beginDate},'%Y-%m-%d')
+        </if> 
+        <if test="searchParams.endDate!=null and searchParams.endDate!=''">
+<!--             AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[<=]]> DATE_FORMAT(#{searchParams.beginDate},'%Y-%m-%d') -->
+			AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[<=]]> DATE_FORMAT(#{searchParams.endDate},'%Y-%m-%d')
+        </if> 
+        <if test="searchParams.recently!=null and searchParams.recently!=''">
+          <choose>  
+             <!--最近一个月-->
+             <when test="searchParams.recently == 1">
+                AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[>=]]> date_sub(DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d'), interval 1 month)
+             </when>  
+             <!--最近三个月-->
+             <when test="searchParams.recently == 2">
+                AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[>=]]> date_sub(DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d'), interval 3 month)
+             </when>
+             <!--最近半年-->
+             <when test="searchParams.recently == 3">
+                AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[>=]]> date_sub(DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d'), interval 6 month)             
+             </when>
+             <!--最近一年-->
+             <when test="searchParams.recently == 4">
+                AND DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d') <![CDATA[>=]]> date_sub(DATE_FORMAT(EXPECT_SERVICE_DATE,'%Y-%m-%d'), interval 1 year)             
+             </when>                                 
+          </choose>
+        </if>
+        <if test="searchParams.keyWords!=null and searchParams.keyWords!=''">
+          AND (APPLY_NAME like '%${searchParams.keyWords}%' OR IDENTITY_NUMBER like '%${searchParams.keyWords}%')
+        </if>        
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.plan.domain.TblResidentContactServicePlan">
+       insert into tbl_resident_contact_service_plan 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="servicecategoryid!=null">
+                SERVICE_CATEGORY_ID, 
+            </if>
+            <if test="servicecategoryname!=null">
+                SERVICE_CATEGORY_NAME, 
+            </if>
+            <if test="serviceidentify!=null">
+                SERVICE_IDENTIFY, 
+            </if>
+            <if test="servicename!=null">
+                SERVICE_NAME, 
+            </if>
+            <if test="detail!=null">
+                DETAIL, 
+            </if>
+            <if test="recordidentify!=null">
+                RECORD_IDENTIFY, 
+            </if>
+            <if test="contactidentify!=null">
+                CONTACT_IDENTIFY, 
+            </if>
+            <if test="servicenumber!=null">
+                SERVICE_NUMBER, 
+            </if>
+            <if test="contactnumber!=null">
+                CONTACT_NUMBER, 
+            </if>
+            <if test="expectservicedate!=null">
+                EXPECT_SERVICE_DATE, 
+            </if>
+            <if test="servicedate!=null">
+                SERVICE_DATE, 
+            </if>
+            <if test="memberidentity!=null">
+                MEMBER_IDENTITY, 
+            </if>
+            <if test="membername!=null">
+                MEMBER_NAME, 
+            </if>
+            <if test="sex!=null">
+                SEX, 
+            </if>
+            <if test="age!=null">
+                AGE, 
+            </if>
+            <if test="identitynumber!=null">
+                IDENTITY_NUMBER, 
+            </if>
+            <if test="residenttelphone!=null">
+                RESIDENT_TELPHONE, 
+            </if>
+            <if test="residentaddress!=null">
+                RESIDENT_ADDRESS, 
+            </if>
+            <if test="medicalteamidentity!=null">
+                MEDICAL_TEAM_IDENTITY, 
+            </if>
+            <if test="medicalteamname!=null">
+                MEDICAL_TEAM_NAME, 
+            </if>
+            <if test="doctoridentity!=null">
+                DOCTOR_IDENTITY, 
+            </if>
+            <if test="doctorname!=null">
+                DOCTOR_NAME, 
+            </if>
+            <if test="doctorroleidentity!=null">
+                DOCTOR_ROLE_IDENTITY, 
+            </if>
+            <if test="doctorrolename!=null">
+                DOCTOR_ROLE_NAME, 
+            </if>
+            <if test="isappointment!=null">
+                IS_APPOINTMENT, 
+            </if>
+            <if test="servicerate!=null">
+                SERVICE_RATE, 
+            </if>
+            <if test="istransfer!=null">
+                IS_TRANSFER, 
+            </if>
+            <if test="status!=null">
+                STATUS, 
+            </if>
+            <if test="startdate!=null">
+                START_DATE, 
+            </if>
+            <if test="enddate!=null">
+                END_DATE, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicecategoryid!=null">      
+                #{servicecategoryid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicecategoryname!=null">      
+                #{servicecategoryname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="serviceidentify!=null">      
+                #{serviceidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicename!=null">      
+                #{servicename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="detail!=null">      
+                #{detail,jdbcType=VARCHAR}, 
+            </if>
+            <if test="recordidentify!=null">      
+                #{recordidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="contactidentify!=null">      
+                #{contactidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicenumber!=null">      
+                #{servicenumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="contactnumber!=null">      
+                #{contactnumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="expectservicedate!=null">      
+                #{expectservicedate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="servicedate!=null">      
+                #{servicedate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="memberidentity!=null">      
+                #{memberidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="membername!=null">      
+                #{membername,jdbcType=VARCHAR}, 
+            </if>
+            <if test="sex!=null">      
+                #{sex,jdbcType=SMALLINT}, 
+            </if>
+            <if test="age!=null">      
+                #{age,jdbcType=SMALLINT}, 
+            </if>
+            <if test="identitynumber!=null">      
+                #{identitynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="residenttelphone!=null">      
+                #{residenttelphone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="residentaddress!=null">      
+                #{residentaddress,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalteamidentity!=null">      
+                #{medicalteamidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalteamname!=null">      
+                #{medicalteamname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctoridentity!=null">      
+                #{doctoridentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorname!=null">      
+                #{doctorname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorroleidentity!=null">      
+                #{doctorroleidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorrolename!=null">      
+                #{doctorrolename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="isappointment!=null">      
+                #{isappointment,jdbcType=SMALLINT}, 
+            </if>
+            <if test="servicerate!=null">      
+                #{servicerate,jdbcType=SMALLINT}, 
+            </if>
+            <if test="istransfer!=null">      
+                #{istransfer,jdbcType=BIT}, 
+            </if>
+            <if test="status!=null">      
+                #{status,jdbcType=SMALLINT}, 
+            </if>
+            <if test="startdate!=null">      
+                #{startdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="enddate!=null">      
+                #{enddate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.plan.domain.TblResidentContactServicePlan" >
+        delete from tbl_resident_contact_service_plan  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicecategoryid!=null">    
+           and SERVICE_CATEGORY_ID = #{servicecategoryid,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicecategoryname!=null">    
+           and SERVICE_CATEGORY_NAME = #{servicecategoryname,jdbcType=VARCHAR}        
+        </if>
+        <if test="serviceidentify!=null">    
+           and SERVICE_IDENTIFY = #{serviceidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicename!=null">    
+           and SERVICE_NAME = #{servicename,jdbcType=VARCHAR}        
+        </if>
+        <if test="detail!=null">    
+           and DETAIL = #{detail,jdbcType=VARCHAR}        
+        </if>
+        <if test="recordidentify!=null">    
+           and RECORD_IDENTIFY = #{recordidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="contactidentify!=null">    
+           and CONTACT_IDENTIFY = #{contactidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicenumber!=null">    
+           and SERVICE_NUMBER = #{servicenumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="contactnumber!=null">    
+           and CONTACT_NUMBER = #{contactnumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="expectservicedate!=null">    
+           and EXPECT_SERVICE_DATE = #{expectservicedate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="servicedate!=null">    
+           and SERVICE_DATE = #{servicedate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="memberidentity!=null">    
+           and MEMBER_IDENTITY = #{memberidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="membername!=null">    
+           and MEMBER_NAME = #{membername,jdbcType=VARCHAR}        
+        </if>
+        <if test="sex!=null">    
+           and SEX = #{sex,jdbcType=SMALLINT}        
+        </if>
+        <if test="age!=null">    
+           and AGE = #{age,jdbcType=SMALLINT}        
+        </if>
+        <if test="identitynumber!=null">    
+           and IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="residenttelphone!=null">    
+           and RESIDENT_TELPHONE = #{residenttelphone,jdbcType=VARCHAR}        
+        </if>
+        <if test="residentaddress!=null">    
+           and RESIDENT_ADDRESS = #{residentaddress,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalteamidentity!=null">    
+           and MEDICAL_TEAM_IDENTITY = #{medicalteamidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalteamname!=null">    
+           and MEDICAL_TEAM_NAME = #{medicalteamname,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctoridentity!=null">    
+           and DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorname!=null">    
+           and DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorroleidentity!=null">    
+           and DOCTOR_ROLE_IDENTITY = #{doctorroleidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorrolename!=null">    
+           and DOCTOR_ROLE_NAME = #{doctorrolename,jdbcType=VARCHAR}        
+        </if>
+        <if test="isappointment!=null">    
+           and IS_APPOINTMENT = #{isappointment,jdbcType=SMALLINT}        
+        </if>
+        <if test="servicerate!=null">    
+           and SERVICE_RATE = #{servicerate,jdbcType=SMALLINT}        
+        </if>
+        <if test="istransfer!=null">    
+           and IS_TRANSFER = #{istransfer,jdbcType=BIT}        
+        </if>
+        <if test="status!=null">    
+           and STATUS = #{status,jdbcType=SMALLINT}        
+        </if>
+        <if test="startdate!=null">    
+           and START_DATE = #{startdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="enddate!=null">    
+           and END_DATE = #{enddate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="relieve" parameterType="com.tiuweb.family.plan.domain.TblResidentContactServicePlan" >
+        update tbl_resident_contact_service_plan   
+        <set>
+            <if test="servicecategoryid!=null"> 
+              SERVICE_CATEGORY_ID = #{servicecategoryid,jdbcType=VARCHAR},
+            </if>
+            <if test="servicecategoryname!=null"> 
+              SERVICE_CATEGORY_NAME = #{servicecategoryname,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceidentify!=null"> 
+              SERVICE_IDENTIFY = #{serviceidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="servicename!=null"> 
+              SERVICE_NAME = #{servicename,jdbcType=VARCHAR},
+            </if>
+            <if test="detail!=null"> 
+              DETAIL = #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="contactidentify!=null"> 
+              CONTACT_IDENTIFY = #{contactidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="contactnumber!=null"> 
+              CONTACT_NUMBER = #{contactnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expectservicedate!=null"> 
+              EXPECT_SERVICE_DATE = #{expectservicedate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberidentity!=null"> 
+              MEMBER_IDENTITY = #{memberidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="membername!=null"> 
+              MEMBER_NAME = #{membername,jdbcType=VARCHAR},
+            </if>
+            <if test="sex!=null"> 
+              SEX = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="age!=null"> 
+              AGE = #{age,jdbcType=SMALLINT},
+            </if>
+            <if test="identitynumber!=null"> 
+              IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="residenttelphone!=null"> 
+              RESIDENT_TELPHONE = #{residenttelphone,jdbcType=VARCHAR},
+            </if>
+            <if test="residentaddress!=null"> 
+              RESIDENT_ADDRESS = #{residentaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="doctoridentity!=null"> 
+              DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorname!=null"> 
+              DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorroleidentity!=null"> 
+              DOCTOR_ROLE_IDENTITY = #{doctorroleidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorrolename!=null"> 
+              DOCTOR_ROLE_NAME = #{doctorrolename,jdbcType=VARCHAR},
+            </if>
+            <if test="isappointment!=null"> 
+              IS_APPOINTMENT = #{isappointment,jdbcType=SMALLINT},
+            </if>
+            <if test="istransfer!=null"> 
+              IS_TRANSFER = #{istransfer,jdbcType=BIT},
+            </if>
+            <if test="status!=null"> 
+              STATUS = #{status,jdbcType=SMALLINT},
+            </if>
+            <if test="startdate!=null"> 
+              START_DATE = #{startdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate!=null"> 
+              END_DATE = #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="recordidentify!=null"> 
+              AND RECORD_IDENTIFY = #{recordidentify,jdbcType=VARCHAR}
+            </if>
+        </where> 
+    </update>
+    
+    <update id="update" parameterType="com.tiuweb.family.plan.domain.TblResidentContactServicePlan" >
+        update tbl_resident_contact_service_plan   
+        <set>
+            <if test="servicecategoryid!=null"> 
+              SERVICE_CATEGORY_ID = #{servicecategoryid,jdbcType=VARCHAR},
+            </if>
+            <if test="servicecategoryname!=null"> 
+              SERVICE_CATEGORY_NAME = #{servicecategoryname,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceidentify!=null"> 
+              SERVICE_IDENTIFY = #{serviceidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="servicename!=null"> 
+              SERVICE_NAME = #{servicename,jdbcType=VARCHAR},
+            </if>
+            <if test="detail!=null"> 
+              DETAIL = #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="recordidentify!=null"> 
+              RECORD_IDENTIFY = #{recordidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="contactidentify!=null"> 
+              CONTACT_IDENTIFY = #{contactidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="servicenumber!=null"> 
+              SERVICE_NUMBER = #{servicenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="contactnumber!=null"> 
+              CONTACT_NUMBER = #{contactnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expectservicedate!=null"> 
+              EXPECT_SERVICE_DATE = #{expectservicedate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="servicedate!=null"> 
+              SERVICE_DATE = #{servicedate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberidentity!=null"> 
+              MEMBER_IDENTITY = #{memberidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="membername!=null"> 
+              MEMBER_NAME = #{membername,jdbcType=VARCHAR},
+            </if>
+            <if test="sex!=null"> 
+              SEX = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="age!=null"> 
+              AGE = #{age,jdbcType=SMALLINT},
+            </if>
+            <if test="identitynumber!=null"> 
+              IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="residenttelphone!=null"> 
+              RESIDENT_TELPHONE = #{residenttelphone,jdbcType=VARCHAR},
+            </if>
+            <if test="residentaddress!=null"> 
+              RESIDENT_ADDRESS = #{residentaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalteamidentity!=null"> 
+              MEDICAL_TEAM_IDENTITY = #{medicalteamidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalteamname!=null"> 
+              MEDICAL_TEAM_NAME = #{medicalteamname,jdbcType=VARCHAR},
+            </if>
+            <if test="doctoridentity!=null"> 
+              DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorname!=null"> 
+              DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorroleidentity!=null"> 
+              DOCTOR_ROLE_IDENTITY = #{doctorroleidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorrolename!=null"> 
+              DOCTOR_ROLE_NAME = #{doctorrolename,jdbcType=VARCHAR},
+            </if>
+            <if test="isappointment!=null"> 
+              IS_APPOINTMENT = #{isappointment,jdbcType=SMALLINT},
+            </if>
+            <if test="servicerate!=null"> 
+              SERVICE_RATE = #{servicerate,jdbcType=SMALLINT},
+            </if>
+            <if test="istransfer!=null"> 
+              IS_TRANSFER = #{istransfer,jdbcType=BIT},
+            </if>
+            <if test="status!=null"> 
+              STATUS = #{status,jdbcType=SMALLINT},
+            </if>
+            <if test="startdate!=null"> 
+              START_DATE = #{startdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate!=null"> 
+              END_DATE = #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_resident_contact_service_plan
+        (
+            ID,
+        SERVICE_CATEGORY_ID,
+        SERVICE_CATEGORY_NAME,
+        SERVICE_IDENTIFY,
+        SERVICE_NAME,
+        DETAIL,
+        RECORD_IDENTIFY,
+        CONTACT_IDENTIFY,
+        SERVICE_NUMBER,
+        CONTACT_NUMBER,
+        EXPECT_SERVICE_DATE,
+        SERVICE_DATE,
+        MEMBER_IDENTITY,
+        MEMBER_NAME,
+        SEX,
+        AGE,
+        IDENTITY_NUMBER,
+        RESIDENT_TELPHONE,
+        RESIDENT_ADDRESS,
+        MEDICAL_TEAM_IDENTITY,
+        MEDICAL_TEAM_NAME,
+        DOCTOR_IDENTITY,
+        DOCTOR_NAME,
+        DOCTOR_ROLE_IDENTITY,
+        DOCTOR_ROLE_NAME,
+        IS_APPOINTMENT,
+        SERVICE_RATE,
+        IS_TRANSFER,
+        STATUS,
+        START_DATE,
+        END_DATE,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.servicecategoryid,jdbcType=VARCHAR},   
+            #{item.servicecategoryname,jdbcType=VARCHAR},   
+            #{item.serviceidentify,jdbcType=VARCHAR},   
+            #{item.servicename,jdbcType=VARCHAR},   
+            #{item.detail,jdbcType=VARCHAR},   
+            #{item.recordidentify,jdbcType=VARCHAR},   
+            #{item.contactidentify,jdbcType=VARCHAR},   
+            #{item.servicenumber,jdbcType=VARCHAR},   
+            #{item.contactnumber,jdbcType=VARCHAR},   
+            #{item.expectservicedate,jdbcType=TIMESTAMP},   
+            #{item.servicedate,jdbcType=TIMESTAMP},   
+            #{item.memberidentity,jdbcType=VARCHAR},   
+            #{item.membername,jdbcType=VARCHAR},   
+            #{item.sex,jdbcType=SMALLINT},   
+            #{item.age,jdbcType=SMALLINT},   
+            #{item.identitynumber,jdbcType=VARCHAR},   
+            #{item.residenttelphone,jdbcType=VARCHAR},   
+            #{item.residentaddress,jdbcType=VARCHAR},   
+            #{item.medicalteamidentity,jdbcType=VARCHAR},   
+            #{item.medicalteamname,jdbcType=VARCHAR},   
+            #{item.doctoridentity,jdbcType=VARCHAR},   
+            #{item.doctorname,jdbcType=VARCHAR},   
+            #{item.doctorroleidentity,jdbcType=VARCHAR},   
+            #{item.doctorrolename,jdbcType=VARCHAR},   
+            #{item.isappointment,jdbcType=SMALLINT},   
+            #{item.servicerate,jdbcType=SMALLINT},   
+            #{item.istransfer,jdbcType=BIT},   
+            #{item.status,jdbcType=SMALLINT},   
+            #{item.startdate,jdbcType=TIMESTAMP},   
+            #{item.enddate,jdbcType=TIMESTAMP},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

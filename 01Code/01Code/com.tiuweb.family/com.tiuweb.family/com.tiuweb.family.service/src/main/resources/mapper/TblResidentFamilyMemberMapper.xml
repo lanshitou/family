@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.home.mapper.TblResidentFamilyMemberMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.home.domain.TblResidentFamilyMember">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="FAMILY_IDENTITY" property="familyidentity" jdbcType="VARCHAR" />             
+       <result column="FAMILY_NUMBER" property="familynumber" jdbcType="VARCHAR" />             
+       <result column="HEALTH_IDENTITY" property="healthidentity" jdbcType="VARCHAR" />             
+       <result column="ARCHIVES_NUMBER" property="archivesnumber" jdbcType="VARCHAR" />             
+       <result column="MEMBERSHIP" property="membership" jdbcType="SMALLINT" />             
+       <result column="BIRTH_DATE" property="birthdate" jdbcType="DATE" />             
+       <result column="IDENTITY_NUMBER" property="identitynumber" jdbcType="VARCHAR" />             
+       <result column="AGE" property="age" jdbcType="SMALLINT" />             
+       <result column="SEX" property="sex" jdbcType="SMALLINT" />             
+       <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />             
+       <result column="ADDRESS" property="address" jdbcType="VARCHAR" />             
+       <result column="MEMBER_NAME" property="membername" jdbcType="VARCHAR" />             
+       <result column="IS_MASTER" property="ismaster" jdbcType="BIT" />             
+       <result column="IS_SERVED" property="isserved" jdbcType="BIT" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        FAMILY_IDENTITY,
+        FAMILY_NUMBER,
+        HEALTH_IDENTITY,
+        ARCHIVES_NUMBER,
+        MEMBERSHIP,
+        BIRTH_DATE,
+        IDENTITY_NUMBER,
+        AGE,
+        SEX,
+        TELEPHONE,
+        ADDRESS,
+        MEMBER_NAME,
+        IS_MASTER,
+        IS_SERVED,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family_member
+        where DELETE_SIGN=0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family_member	
+        where DELETE_SIGN=0
+        AND ID = #{id}  		  
+    </select> 
+
+   <select id="findAllMemberByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family_member
+        WHERE DELETE_SIGN=0
+        AND family_identity IN(
+          SELECT family_identity FROM tbl_resident_family_member
+	      where 1=1
+	      AND DELETE_SIGN=0
+	        <if test="id!=null">
+	            AND ID = #{id}
+	        </if>
+	        <if test="familyidentity!=null">
+	            AND FAMILY_IDENTITY = #{familyidentity}
+	        </if>
+	        <if test="familynumber!=null">
+	            AND FAMILY_NUMBER = #{familynumber}
+	        </if>
+	        <if test="healthidentity!=null">
+	            AND HEALTH_IDENTITY = #{healthidentity}
+	        </if>
+	        <if test="archivesnumber!=null">
+	            AND ARCHIVES_NUMBER = #{archivesnumber}
+	        </if>
+	        <if test="membership!=null">
+	            AND MEMBERSHIP = #{membership}
+	        </if>
+	        <if test="birthdate!=null">
+	            AND BIRTH_DATE = #{birthdate}
+	        </if>
+	        <if test="identitynumber!=null">
+	            AND IDENTITY_NUMBER = #{identitynumber}
+	        </if>
+	        <if test="age!=null">
+	            AND AGE = #{age}
+	        </if>
+	        <if test="sex!=null">
+	            AND SEX = #{sex}
+	        </if>
+	        <if test="telephone!=null">
+	            AND TELEPHONE = #{telephone}
+	        </if>
+	        <if test="address!=null">
+	            AND ADDRESS = #{address}
+	        </if>
+	        <if test="membername!=null">
+	            AND MEMBER_NAME = #{membername}
+	        </if>
+	        <if test="ismaster!=null">
+	            AND IS_MASTER = #{ismaster}
+	        </if>
+	        <if test="isserved!=null">
+	            AND IS_SERVED = #{isserved}
+	        </if>
+	<!--         <if test="deletesign!=null"> -->
+	<!--             AND DELETE_SIGN = #{deletesign} -->
+	<!--         </if> -->
+	        <if test="areacode!=null">
+	            AND AREA_CODE = #{areacode}
+	        </if>
+	        <if test="orgid!=null">
+	            AND ORG_ID = #{orgid}
+	        </if>
+	        <if test="createuser!=null">
+	            AND CREATE_USER = #{createuser}
+	        </if>
+	        <if test="createdate!=null">
+	            AND CREATE_DATE = #{createdate}
+	        </if>
+	        <if test="updateuser!=null">
+	            AND UPDATE_USER = #{updateuser}
+	        </if>
+	        <if test="updatedate!=null">
+	            AND UPDATE_DATE = #{updatedate}
+	        </if>      
+        )
+    </select>
+    
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family_member
+        where DELETE_SIGN=0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="familyidentity!=null">
+            AND FAMILY_IDENTITY = #{familyidentity}
+        </if>
+        <if test="familynumber!=null">
+            AND FAMILY_NUMBER = #{familynumber}
+        </if>
+        <if test="healthidentity!=null">
+            AND HEALTH_IDENTITY = #{healthidentity}
+        </if>
+        <if test="archivesnumber!=null">
+            AND ARCHIVES_NUMBER = #{archivesnumber}
+        </if>
+        <if test="membership!=null">
+            AND MEMBERSHIP = #{membership}
+        </if>
+        <if test="birthdate!=null">
+            AND BIRTH_DATE = #{birthdate}
+        </if>
+        <if test="identitynumber!=null">
+            AND IDENTITY_NUMBER = #{identitynumber}
+        </if>
+        <if test="age!=null">
+            AND AGE = #{age}
+        </if>
+        <if test="sex!=null">
+            AND SEX = #{sex}
+        </if>
+        <if test="telephone!=null">
+            AND TELEPHONE = #{telephone}
+        </if>
+        <if test="address!=null">
+            AND ADDRESS = #{address}
+        </if>
+        <if test="membername!=null">
+            AND MEMBER_NAME = #{membername}
+        </if>
+        <if test="ismaster!=null">
+            AND IS_MASTER = #{ismaster}
+        </if>
+        <if test="isserved!=null">
+            AND IS_SERVED = #{isserved}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family_member
+        where DELETE_SIGN=0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.familyidentity!=null">
+            AND FAMILY_IDENTITY = #{searchParams.familyidentity}
+        </if>
+        <if test="searchParams.familynumber!=null">
+            AND FAMILY_NUMBER = #{searchParams.familynumber}
+        </if>
+        <if test="searchParams.healthidentity!=null">
+            AND HEALTH_IDENTITY = #{searchParams.healthidentity}
+        </if>
+        <if test="searchParams.archivesnumber!=null">
+            AND ARCHIVES_NUMBER = #{searchParams.archivesnumber}
+        </if>
+        <if test="searchParams.membership!=null">
+            AND MEMBERSHIP = #{searchParams.membership}
+        </if>
+        <if test="searchParams.birthdate!=null">
+            AND BIRTH_DATE = #{searchParams.birthdate}
+        </if>
+        <if test="searchParams.identitynumber!=null">
+            AND IDENTITY_NUMBER = #{searchParams.identitynumber}
+        </if>
+        <if test="searchParams.age!=null">
+            AND AGE = #{searchParams.age}
+        </if>
+        <if test="searchParams.sex!=null">
+            AND SEX = #{searchParams.sex}
+        </if>
+        <if test="searchParams.telephone!=null">
+            AND TELEPHONE = #{searchParams.telephone}
+        </if>
+        <if test="searchParams.address!=null">
+            AND ADDRESS = #{searchParams.address}
+        </if>
+        <if test="searchParams.membername!=null">
+            AND MEMBER_NAME = #{searchParams.membername}
+        </if>
+        <if test="searchParams.ismaster!=null">
+            AND IS_MASTER = #{searchParams.ismaster}
+        </if>
+        <if test="searchParams.isserved!=null">
+            AND IS_SERVED = #{searchParams.isserved}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+<!--         <if test="searchParams.keywords!=null and searchParams.keywords!=''"> -->
+<!--             AND (member_name like '%${searchParams.keywords}%' OR address like '%${searchParams.keywords}%') -->
+<!--         </if>    -->
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.home.domain.TblResidentFamilyMember">
+       insert into tbl_resident_family_member 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="familyidentity!=null">
+                FAMILY_IDENTITY, 
+            </if>
+            <if test="familynumber!=null">
+                FAMILY_NUMBER, 
+            </if>
+            <if test="healthidentity!=null">
+                HEALTH_IDENTITY, 
+            </if>
+            <if test="archivesnumber!=null">
+                ARCHIVES_NUMBER, 
+            </if>
+            <if test="membership!=null">
+                MEMBERSHIP, 
+            </if>
+            <if test="birthdate!=null">
+                BIRTH_DATE, 
+            </if>
+            <if test="identitynumber!=null">
+                IDENTITY_NUMBER, 
+            </if>
+            <if test="age!=null">
+                AGE, 
+            </if>
+            <if test="sex!=null">
+                SEX, 
+            </if>
+            <if test="telephone!=null">
+                TELEPHONE, 
+            </if>
+            <if test="address!=null">
+                ADDRESS, 
+            </if>
+            <if test="membername!=null">
+                MEMBER_NAME, 
+            </if>
+            <if test="ismaster!=null">
+                IS_MASTER, 
+            </if>
+            <if test="isserved!=null">
+                IS_SERVED, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="familyidentity!=null">      
+                #{familyidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="familynumber!=null">      
+                #{familynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="healthidentity!=null">      
+                #{healthidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="archivesnumber!=null">      
+                #{archivesnumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="membership!=null">      
+                #{membership,jdbcType=SMALLINT}, 
+            </if>
+            <if test="birthdate!=null">      
+                #{birthdate,jdbcType=DATE}, 
+            </if>
+            <if test="identitynumber!=null">      
+                #{identitynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="age!=null">      
+                #{age,jdbcType=SMALLINT}, 
+            </if>
+            <if test="sex!=null">      
+                #{sex,jdbcType=SMALLINT}, 
+            </if>
+            <if test="telephone!=null">      
+                #{telephone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="address!=null">      
+                #{address,jdbcType=VARCHAR}, 
+            </if>
+            <if test="membername!=null">      
+                #{membername,jdbcType=VARCHAR}, 
+            </if>
+            <if test="ismaster!=null">      
+                #{ismaster,jdbcType=BIT}, 
+            </if>
+            <if test="isserved!=null">      
+                #{isserved,jdbcType=BIT}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.home.domain.TblResidentFamilyMember" >
+        delete from tbl_resident_family_member  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="familyidentity!=null">    
+           and FAMILY_IDENTITY = #{familyidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="familynumber!=null">    
+           and FAMILY_NUMBER = #{familynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="healthidentity!=null">    
+           and HEALTH_IDENTITY = #{healthidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="archivesnumber!=null">    
+           and ARCHIVES_NUMBER = #{archivesnumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="membership!=null">    
+           and MEMBERSHIP = #{membership,jdbcType=SMALLINT}        
+        </if>
+        <if test="birthdate!=null">    
+           and BIRTH_DATE = #{birthdate,jdbcType=DATE}        
+        </if>
+        <if test="identitynumber!=null">    
+           and IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="age!=null">    
+           and AGE = #{age,jdbcType=SMALLINT}        
+        </if>
+        <if test="sex!=null">    
+           and SEX = #{sex,jdbcType=SMALLINT}        
+        </if>
+        <if test="telephone!=null">    
+           and TELEPHONE = #{telephone,jdbcType=VARCHAR}        
+        </if>
+        <if test="address!=null">    
+           and ADDRESS = #{address,jdbcType=VARCHAR}        
+        </if>
+        <if test="membername!=null">    
+           and MEMBER_NAME = #{membername,jdbcType=VARCHAR}        
+        </if>
+        <if test="ismaster!=null">    
+           and IS_MASTER = #{ismaster,jdbcType=BIT}        
+        </if>
+        <if test="isserved!=null">    
+           and IS_SERVED = #{isserved,jdbcType=BIT}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.home.domain.TblResidentFamilyMember" >
+        update tbl_resident_family_member   
+        <set>
+            <if test="familyidentity!=null"> 
+              FAMILY_IDENTITY = #{familyidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="familynumber!=null"> 
+              FAMILY_NUMBER = #{familynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="healthidentity!=null"> 
+              HEALTH_IDENTITY = #{healthidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="archivesnumber!=null"> 
+              ARCHIVES_NUMBER = #{archivesnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="membership!=null"> 
+              MEMBERSHIP = #{membership,jdbcType=SMALLINT},
+            </if>
+            <if test="birthdate!=null"> 
+              BIRTH_DATE = #{birthdate,jdbcType=DATE},
+            </if>
+            <if test="identitynumber!=null"> 
+              IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="age!=null"> 
+              AGE = #{age,jdbcType=SMALLINT},
+            </if>
+            <if test="sex!=null"> 
+              SEX = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="telephone!=null"> 
+              TELEPHONE = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="address!=null"> 
+              ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="membername!=null"> 
+              MEMBER_NAME = #{membername,jdbcType=VARCHAR},
+            </if>
+            <if test="ismaster!=null"> 
+              IS_MASTER = #{ismaster,jdbcType=BIT},
+            </if>
+            <if test="isserved!=null"> 
+              IS_SERVED = #{isserved,jdbcType=BIT},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_resident_family_member
+        (
+            ID,
+        FAMILY_IDENTITY,
+        FAMILY_NUMBER,
+        HEALTH_IDENTITY,
+        ARCHIVES_NUMBER,
+        MEMBERSHIP,
+        BIRTH_DATE,
+        IDENTITY_NUMBER,
+        AGE,
+        SEX,
+        TELEPHONE,
+        ADDRESS,
+        MEMBER_NAME,
+        IS_MASTER,
+        IS_SERVED,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.familyidentity,jdbcType=VARCHAR},   
+            #{item.familynumber,jdbcType=VARCHAR},   
+            #{item.healthidentity,jdbcType=VARCHAR},   
+            #{item.archivesnumber,jdbcType=VARCHAR},   
+            #{item.membership,jdbcType=SMALLINT},   
+            #{item.birthdate,jdbcType=DATE},   
+            #{item.identitynumber,jdbcType=VARCHAR},   
+            #{item.age,jdbcType=SMALLINT},   
+            #{item.sex,jdbcType=SMALLINT},   
+            #{item.telephone,jdbcType=VARCHAR},   
+            #{item.address,jdbcType=VARCHAR},   
+            #{item.membername,jdbcType=VARCHAR},   
+            #{item.ismaster,jdbcType=BIT},   
+            #{item.isserved,jdbcType=BIT},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

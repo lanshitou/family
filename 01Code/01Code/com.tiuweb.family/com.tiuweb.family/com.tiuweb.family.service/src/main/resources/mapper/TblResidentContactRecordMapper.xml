@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.contact.mapper.TblResidentContactRecordMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.contact.domain.TblResidentContactRecord">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="IS_RESIDENT_APPLY" property="isresidentapply" jdbcType="BIT" />             
+       <result column="IS_RENEW" property="isrenew" jdbcType="BIT" />             
+       <result column="APPLY_IDENTITY" property="applyidentity" jdbcType="VARCHAR" />             
+       <result column="AUTH_IDENTITY" property="authidentity" jdbcType="VARCHAR" />             
+       <result column="APPLY_DATE" property="applydate" jdbcType="TIMESTAMP" />             
+       <result column="ENABLE_DATE" property="enabledate" jdbcType="TIMESTAMP" />             
+       <result column="END_DATE" property="enddate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        IS_RESIDENT_APPLY,
+        IS_RENEW,
+        APPLY_IDENTITY,
+        AUTH_IDENTITY,
+        APPLY_DATE,
+        ENABLE_DATE,
+        END_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_record
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_record	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_record
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="isresidentapply!=null">
+            AND IS_RESIDENT_APPLY = #{isresidentapply}
+        </if>
+        <if test="isrenew!=null">
+            AND IS_RENEW = #{isrenew}
+        </if>
+        <if test="applyidentity!=null">
+            AND APPLY_IDENTITY = #{applyidentity}
+        </if>
+        <if test="authidentity!=null">
+            AND AUTH_IDENTITY = #{authidentity}
+        </if>
+        <if test="applydate!=null">
+            AND APPLY_DATE = #{applydate}
+        </if>
+        <if test="enabledate!=null">
+            AND ENABLE_DATE = #{enabledate}
+        </if>
+        <if test="enddate!=null">
+            AND END_DATE = #{enddate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_contact_record
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.isresidentapply!=null">
+            AND IS_RESIDENT_APPLY = #{searchParams.isresidentapply}
+        </if>
+        <if test="searchParams.isrenew!=null">
+            AND IS_RENEW = #{searchParams.isrenew}
+        </if>
+        <if test="searchParams.applyidentity!=null">
+            AND APPLY_IDENTITY = #{searchParams.applyidentity}
+        </if>
+        <if test="searchParams.authidentity!=null">
+            AND AUTH_IDENTITY = #{searchParams.authidentity}
+        </if>
+        <if test="searchParams.applydate!=null">
+            AND APPLY_DATE = #{searchParams.applydate}
+        </if>
+        <if test="searchParams.enabledate!=null">
+            AND ENABLE_DATE = #{searchParams.enabledate}
+        </if>
+        <if test="searchParams.enddate!=null">
+            AND END_DATE = #{searchParams.enddate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.contact.domain.TblResidentContactRecord">
+       insert into tbl_resident_contact_record 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="isresidentapply!=null">
+                IS_RESIDENT_APPLY, 
+            </if>
+            <if test="isrenew!=null">
+                IS_RENEW, 
+            </if>
+            <if test="applyidentity!=null">
+                APPLY_IDENTITY, 
+            </if>
+            <if test="authidentity!=null">
+                AUTH_IDENTITY, 
+            </if>
+            <if test="applydate!=null">
+                APPLY_DATE, 
+            </if>
+            <if test="enabledate!=null">
+                ENABLE_DATE, 
+            </if>
+            <if test="enddate!=null">
+                END_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="isresidentapply!=null">      
+                #{isresidentapply,jdbcType=BIT}, 
+            </if>
+            <if test="isrenew!=null">      
+                #{isrenew,jdbcType=BIT}, 
+            </if>
+            <if test="applyidentity!=null">      
+                #{applyidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="authidentity!=null">      
+                #{authidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="applydate!=null">      
+                #{applydate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="enabledate!=null">      
+                #{enabledate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="enddate!=null">      
+                #{enddate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.contact.domain.TblResidentContactRecord" >
+        delete from tbl_resident_contact_record  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="isresidentapply!=null">    
+           and IS_RESIDENT_APPLY = #{isresidentapply,jdbcType=BIT}        
+        </if>
+        <if test="isrenew!=null">    
+           and IS_RENEW = #{isrenew,jdbcType=BIT}        
+        </if>
+        <if test="applyidentity!=null">    
+           and APPLY_IDENTITY = #{applyidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="authidentity!=null">    
+           and AUTH_IDENTITY = #{authidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="applydate!=null">    
+           and APPLY_DATE = #{applydate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="enabledate!=null">    
+           and ENABLE_DATE = #{enabledate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="enddate!=null">    
+           and END_DATE = #{enddate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.contact.domain.TblResidentContactRecord" >
+        update tbl_resident_contact_record   
+        <set>
+            <if test="isresidentapply!=null"> 
+              IS_RESIDENT_APPLY = #{isresidentapply,jdbcType=BIT},
+            </if>
+            <if test="isrenew!=null"> 
+              IS_RENEW = #{isrenew,jdbcType=BIT},
+            </if>
+            <if test="applyidentity!=null"> 
+              APPLY_IDENTITY = #{applyidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="authidentity!=null"> 
+              AUTH_IDENTITY = #{authidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="applydate!=null"> 
+              APPLY_DATE = #{applydate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enabledate!=null"> 
+              ENABLE_DATE = #{enabledate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate!=null"> 
+              END_DATE = #{enddate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_resident_contact_record
+        (
+            ID,
+        IS_RESIDENT_APPLY,
+        IS_RENEW,
+        APPLY_IDENTITY,
+        AUTH_IDENTITY,
+        APPLY_DATE,
+        ENABLE_DATE,
+        END_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.isresidentapply,jdbcType=BIT},   
+            #{item.isrenew,jdbcType=BIT},   
+            #{item.applyidentity,jdbcType=VARCHAR},   
+            #{item.authidentity,jdbcType=VARCHAR},   
+            #{item.applydate,jdbcType=TIMESTAMP},   
+            #{item.enabledate,jdbcType=TIMESTAMP},   
+            #{item.enddate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

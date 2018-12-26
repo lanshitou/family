@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.teams.mapper.TblFamilyDoctorTeamMemberMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.teams.domain.TblFamilyDoctorTeamMember">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="MEDICAL_TEAM_IDENTITY" property="medicalteamidentity" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_TEAM_NAME" property="medicalteamname" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_IDENTITY" property="doctoridentity" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_NAME" property="doctorname" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_ROLE_IDENTITY" property="doctorroleidentity" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_ROLE_NAME" property="doctorrolename" jdbcType="VARCHAR" />             
+       <result column="TEAM_DOCTOR_RESPONSIBILITY_ORDER" property="teamdoctorresponsibilityorder" jdbcType="SMALLINT" />             
+       <result column="SERVICE_COUNT" property="servicecount" jdbcType="BIGINT" />             
+       <result column="CONTACT_COUNT" property="contactcount" jdbcType="BIGINT" />             
+       <result column="SCORE_COUNT" property="scorecount" jdbcType="BIGINT" />             
+       <result column="IS_CAPTAIN" property="iscaptain" jdbcType="BIT" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        MEDICAL_TEAM_IDENTITY,
+        MEDICAL_TEAM_NAME,
+        DOCTOR_IDENTITY,
+        DOCTOR_NAME,
+        DOCTOR_ROLE_IDENTITY,
+        DOCTOR_ROLE_NAME,
+        TEAM_DOCTOR_RESPONSIBILITY_ORDER,
+        SERVICE_COUNT,
+        CONTACT_COUNT,
+        SCORE_COUNT,
+        IS_CAPTAIN,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_family_doctor_team_member
+        where DELETE_SIGN=0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_family_doctor_team_member	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_family_doctor_team_member
+        where DELETE_SIGN=0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="medicalteamidentity!=null">
+            AND MEDICAL_TEAM_IDENTITY = #{medicalteamidentity}
+        </if>
+        <if test="medicalteamname!=null">
+            AND MEDICAL_TEAM_NAME = #{medicalteamname}
+        </if>
+        <if test="doctoridentity!=null">
+            AND DOCTOR_IDENTITY = #{doctoridentity}
+        </if>
+        <if test="doctorname!=null">
+            AND DOCTOR_NAME = #{doctorname}
+        </if>
+        <if test="doctorroleidentity!=null">
+            AND DOCTOR_ROLE_IDENTITY = #{doctorroleidentity}
+        </if>
+        <if test="doctorrolename!=null">
+            AND DOCTOR_ROLE_NAME = #{doctorrolename}
+        </if>
+        <if test="teamdoctorresponsibilityorder!=null">
+            AND TEAM_DOCTOR_RESPONSIBILITY_ORDER = #{teamdoctorresponsibilityorder}
+        </if>
+        <if test="servicecount!=null">
+            AND SERVICE_COUNT = #{servicecount}
+        </if>
+        <if test="contactcount!=null">
+            AND CONTACT_COUNT = #{contactcount}
+        </if>
+        <if test="scorecount!=null">
+            AND SCORE_COUNT = #{scorecount}
+        </if>
+        <if test="iscaptain!=null">
+            AND IS_CAPTAIN = #{iscaptain}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_family_doctor_team_member
+        where DELETE_SIGN=0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.medicalteamidentity!=null">
+            AND MEDICAL_TEAM_IDENTITY = #{searchParams.medicalteamidentity}
+        </if>
+        <if test="searchParams.medicalteamname!=null">
+            AND MEDICAL_TEAM_NAME = #{searchParams.medicalteamname}
+        </if>
+        <if test="searchParams.doctoridentity!=null">
+            AND DOCTOR_IDENTITY = #{searchParams.doctoridentity}
+        </if>
+        <if test="searchParams.doctorname!=null">
+            AND DOCTOR_NAME = #{searchParams.doctorname}
+        </if>
+        <if test="searchParams.doctorroleidentity!=null">
+            AND DOCTOR_ROLE_IDENTITY = #{searchParams.doctorroleidentity}
+        </if>
+        <if test="searchParams.doctorrolename!=null">
+            AND DOCTOR_ROLE_NAME = #{searchParams.doctorrolename}
+        </if>
+        <if test="searchParams.teamdoctorresponsibilityorder!=null">
+            AND TEAM_DOCTOR_RESPONSIBILITY_ORDER = #{searchParams.teamdoctorresponsibilityorder}
+        </if>
+        <if test="searchParams.servicecount!=null">
+            AND SERVICE_COUNT = #{searchParams.servicecount}
+        </if>
+        <if test="searchParams.contactcount!=null">
+            AND CONTACT_COUNT = #{searchParams.contactcount}
+        </if>
+        <if test="searchParams.scorecount!=null">
+            AND SCORE_COUNT = #{searchParams.scorecount}
+        </if>
+        <if test="searchParams.iscaptain!=null">
+            AND IS_CAPTAIN = #{searchParams.iscaptain}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.teams.domain.TblFamilyDoctorTeamMember">
+       insert into tbl_family_doctor_team_member 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="medicalteamidentity!=null">
+                MEDICAL_TEAM_IDENTITY, 
+            </if>
+            <if test="medicalteamname!=null">
+                MEDICAL_TEAM_NAME, 
+            </if>
+            <if test="doctoridentity!=null">
+                DOCTOR_IDENTITY, 
+            </if>
+            <if test="doctorname!=null">
+                DOCTOR_NAME, 
+            </if>
+            <if test="doctorroleidentity!=null">
+                DOCTOR_ROLE_IDENTITY, 
+            </if>
+            <if test="doctorrolename!=null">
+                DOCTOR_ROLE_NAME, 
+            </if>
+            <if test="teamdoctorresponsibilityorder!=null">
+                TEAM_DOCTOR_RESPONSIBILITY_ORDER, 
+            </if>
+            <if test="servicecount!=null">
+                SERVICE_COUNT, 
+            </if>
+            <if test="contactcount!=null">
+                CONTACT_COUNT, 
+            </if>
+            <if test="scorecount!=null">
+                SCORE_COUNT, 
+            </if>
+            <if test="iscaptain!=null">
+                IS_CAPTAIN, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalteamidentity!=null">      
+                #{medicalteamidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalteamname!=null">      
+                #{medicalteamname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctoridentity!=null">      
+                #{doctoridentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorname!=null">      
+                #{doctorname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorroleidentity!=null">      
+                #{doctorroleidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorrolename!=null">      
+                #{doctorrolename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="teamdoctorresponsibilityorder!=null">      
+                #{teamdoctorresponsibilityorder,jdbcType=SMALLINT}, 
+            </if>
+            <if test="servicecount!=null">      
+                #{servicecount,jdbcType=BIGINT}, 
+            </if>
+            <if test="contactcount!=null">      
+                #{contactcount,jdbcType=BIGINT}, 
+            </if>
+            <if test="scorecount!=null">      
+                #{scorecount,jdbcType=BIGINT}, 
+            </if>
+            <if test="iscaptain!=null">      
+                #{iscaptain,jdbcType=BIT}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.teams.domain.TblFamilyDoctorTeamMember" >
+        delete from tbl_family_doctor_team_member  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalteamidentity!=null">    
+           and MEDICAL_TEAM_IDENTITY = #{medicalteamidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalteamname!=null">    
+           and MEDICAL_TEAM_NAME = #{medicalteamname,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctoridentity!=null">    
+           and DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorname!=null">    
+           and DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorroleidentity!=null">    
+           and DOCTOR_ROLE_IDENTITY = #{doctorroleidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorrolename!=null">    
+           and DOCTOR_ROLE_NAME = #{doctorrolename,jdbcType=VARCHAR}        
+        </if>
+        <if test="teamdoctorresponsibilityorder!=null">    
+           and TEAM_DOCTOR_RESPONSIBILITY_ORDER = #{teamdoctorresponsibilityorder,jdbcType=SMALLINT}        
+        </if>
+        <if test="servicecount!=null">    
+           and SERVICE_COUNT = #{servicecount,jdbcType=BIGINT}        
+        </if>
+        <if test="contactcount!=null">    
+           and CONTACT_COUNT = #{contactcount,jdbcType=BIGINT}        
+        </if>
+        <if test="scorecount!=null">    
+           and SCORE_COUNT = #{scorecount,jdbcType=BIGINT}        
+        </if>
+        <if test="iscaptain!=null">    
+           and IS_CAPTAIN = #{iscaptain,jdbcType=BIT}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.teams.domain.TblFamilyDoctorTeamMember" >
+        update tbl_family_doctor_team_member   
+        <set>
+            <if test="medicalteamidentity!=null"> 
+              MEDICAL_TEAM_IDENTITY = #{medicalteamidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalteamname!=null"> 
+              MEDICAL_TEAM_NAME = #{medicalteamname,jdbcType=VARCHAR},
+            </if>
+            <if test="doctoridentity!=null"> 
+              DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorname!=null"> 
+              DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorroleidentity!=null"> 
+              DOCTOR_ROLE_IDENTITY = #{doctorroleidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorrolename!=null"> 
+              DOCTOR_ROLE_NAME = #{doctorrolename,jdbcType=VARCHAR},
+            </if>
+            <if test="teamdoctorresponsibilityorder!=null"> 
+              TEAM_DOCTOR_RESPONSIBILITY_ORDER = #{teamdoctorresponsibilityorder,jdbcType=SMALLINT},
+            </if>
+            <if test="servicecount!=null"> 
+              SERVICE_COUNT = #{servicecount,jdbcType=BIGINT},
+            </if>
+            <if test="contactcount!=null"> 
+              CONTACT_COUNT = #{contactcount,jdbcType=BIGINT},
+            </if>
+            <if test="scorecount!=null"> 
+              SCORE_COUNT = #{scorecount,jdbcType=BIGINT},
+            </if>
+            <if test="iscaptain!=null"> 
+              IS_CAPTAIN = #{iscaptain,jdbcType=BIT},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_family_doctor_team_member
+        (
+            ID,
+        MEDICAL_TEAM_IDENTITY,
+        MEDICAL_TEAM_NAME,
+        DOCTOR_IDENTITY,
+        DOCTOR_NAME,
+        DOCTOR_ROLE_IDENTITY,
+        DOCTOR_ROLE_NAME,
+        TEAM_DOCTOR_RESPONSIBILITY_ORDER,
+        SERVICE_COUNT,
+        CONTACT_COUNT,
+        SCORE_COUNT,
+        IS_CAPTAIN,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.medicalteamidentity,jdbcType=VARCHAR},   
+            #{item.medicalteamname,jdbcType=VARCHAR},   
+            #{item.doctoridentity,jdbcType=VARCHAR},   
+            #{item.doctorname,jdbcType=VARCHAR},   
+            #{item.doctorroleidentity,jdbcType=VARCHAR},   
+            #{item.doctorrolename,jdbcType=VARCHAR},   
+            #{item.teamdoctorresponsibilityorder,jdbcType=SMALLINT},   
+            #{item.servicecount,jdbcType=BIGINT},   
+            #{item.contactcount,jdbcType=BIGINT},   
+            #{item.scorecount,jdbcType=BIGINT},   
+            #{item.iscaptain,jdbcType=BIT},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

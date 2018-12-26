@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.remind.mapper.TblSystemMessageWarnMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.remind.domain.TblSystemMessageWarn">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="CATEGORY" property="category" jdbcType="SMALLINT" />             
+       <result column="STATUS" property="status" jdbcType="BIT" />             
+       <result column="MSG_IDENTITY" property="msgidentity" jdbcType="VARCHAR" />             
+       <result column="CONTENT" property="content" jdbcType="VARCHAR" />             
+       <result column="ACCEPT_USER" property="acceptuser" jdbcType="VARCHAR" />             
+       <result column="ACCEPT_LOGIN_NAME" property="acceptloginname" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="READ_DATE" property="readdate" jdbcType="TIMESTAMP" />             
+       <result column="SEND_USER" property="senduser" jdbcType="VARCHAR" />             
+       <result column="SEND_LOGIN_NAME" property="sendloginname" jdbcType="VARCHAR" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        CATEGORY,
+        STATUS,
+        MSG_IDENTITY,
+        CONTENT,
+        ACCEPT_USER,
+        ACCEPT_LOGIN_NAME,
+        CREATE_DATE,
+        READ_DATE,
+        SEND_USER,
+        SEND_LOGIN_NAME
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_warn
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_warn	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_warn
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="category!=null">
+            AND CATEGORY = #{category}
+        </if>
+        <if test="status!=null">
+            AND STATUS = #{status}
+        </if>
+        <if test="msgidentity!=null">
+            AND MSG_IDENTITY = #{msgidentity}
+        </if>
+        <if test="content!=null">
+            AND CONTENT = #{content}
+        </if>
+        <if test="acceptuser!=null">
+            AND ACCEPT_USER = #{acceptuser}
+        </if>
+        <if test="acceptloginname!=null">
+            AND ACCEPT_LOGIN_NAME = #{acceptloginname}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="readdate!=null">
+            AND READ_DATE = #{readdate}
+        </if>
+        <if test="senduser!=null">
+            AND SEND_USER = #{senduser}
+        </if>
+        <if test="sendloginname!=null">
+            AND SEND_LOGIN_NAME = #{sendloginname}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_warn
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.category!=null and searchParams.category != ''">
+            AND CATEGORY = #{searchParams.category}
+        </if>
+        <if test="searchParams.status!=null">
+            AND STATUS = #{searchParams.status}
+        </if>
+        <if test="searchParams.msgidentity!=null">
+            AND MSG_IDENTITY = #{searchParams.msgidentity}
+        </if>
+        <if test="searchParams.content!=null">
+            AND CONTENT = #{searchParams.content}
+        </if>
+        <if test="searchParams.acceptuser!=null">
+            AND ACCEPT_USER = #{searchParams.acceptuser}
+        </if>
+        <if test="searchParams.acceptloginname!=null">
+            AND ACCEPT_LOGIN_NAME = #{searchParams.acceptloginname}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.readdate!=null">
+            AND READ_DATE = #{searchParams.readdate}
+        </if>
+        <if test="searchParams.senduser!=null">
+            AND SEND_USER = #{searchParams.senduser}
+        </if>
+        <if test="searchParams.sendloginname!=null">
+            AND SEND_LOGIN_NAME = #{searchParams.sendloginname}
+        </if>
+        <!-- 根据消息内容作模糊查询 -->
+        <if test="searchParams.keyWords!=null and searchParams.keyWords!=''">
+            AND (content like '%${searchParams.keyWords}%')
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageWarn">
+       insert into tbl_system_message_warn 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="category!=null">
+                CATEGORY, 
+            </if>
+            <if test="status!=null">
+                STATUS, 
+            </if>
+            <if test="msgidentity!=null">
+                MSG_IDENTITY, 
+            </if>
+            <if test="content!=null">
+                CONTENT, 
+            </if>
+            <if test="acceptuser!=null">
+                ACCEPT_USER, 
+            </if>
+            <if test="acceptloginname!=null">
+                ACCEPT_LOGIN_NAME, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="readdate!=null">
+                READ_DATE, 
+            </if>
+            <if test="senduser!=null">
+                SEND_USER, 
+            </if>
+            <if test="sendloginname!=null">
+                SEND_LOGIN_NAME, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="category!=null">      
+                #{category,jdbcType=SMALLINT}, 
+            </if>
+            <if test="status!=null">      
+                #{status,jdbcType=BIT}, 
+            </if>
+            <if test="msgidentity!=null">      
+                #{msgidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="content!=null">      
+                #{content,jdbcType=VARCHAR}, 
+            </if>
+            <if test="acceptuser!=null">      
+                #{acceptuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="acceptloginname!=null">      
+                #{acceptloginname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="readdate!=null">      
+                #{readdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="senduser!=null">      
+                #{senduser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="sendloginname!=null">      
+                #{sendloginname,jdbcType=VARCHAR}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageWarn" >
+        delete from tbl_system_message_warn  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="category!=null">    
+           and CATEGORY = #{category,jdbcType=SMALLINT}        
+        </if>
+        <if test="status!=null">    
+           and STATUS = #{status,jdbcType=BIT}        
+        </if>
+        <if test="msgidentity!=null">    
+           and MSG_IDENTITY = #{msgidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="content!=null">    
+           and CONTENT = #{content,jdbcType=VARCHAR}        
+        </if>
+        <if test="acceptuser!=null">    
+           and ACCEPT_USER = #{acceptuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="acceptloginname!=null">    
+           and ACCEPT_LOGIN_NAME = #{acceptloginname,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="readdate!=null">    
+           and READ_DATE = #{readdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="senduser!=null">    
+           and SEND_USER = #{senduser,jdbcType=VARCHAR}        
+        </if>
+        <if test="sendloginname!=null">    
+           and SEND_LOGIN_NAME = #{sendloginname,jdbcType=VARCHAR}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageWarn" >
+        update tbl_system_message_warn   
+        <set>
+            <if test="category!=null"> 
+              CATEGORY = #{category,jdbcType=SMALLINT},
+            </if>
+            <if test="status!=null"> 
+              STATUS = #{status,jdbcType=BIT},
+            </if>
+            <if test="msgidentity!=null"> 
+              MSG_IDENTITY = #{msgidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="content!=null"> 
+              CONTENT = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptuser!=null"> 
+              ACCEPT_USER = #{acceptuser,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptloginname!=null"> 
+              ACCEPT_LOGIN_NAME = #{acceptloginname,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="readdate!=null"> 
+              READ_DATE = #{readdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="senduser!=null"> 
+              SEND_USER = #{senduser,jdbcType=VARCHAR},
+            </if>
+            <if test="sendloginname!=null"> 
+              SEND_LOGIN_NAME = #{sendloginname,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_system_message_warn
+        (
+            ID,
+        CATEGORY,
+        STATUS,
+        MSG_IDENTITY,
+        CONTENT,
+        ACCEPT_USER,
+        ACCEPT_LOGIN_NAME,
+        CREATE_DATE,
+        READ_DATE,
+        SEND_USER,
+        SEND_LOGIN_NAME 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.category,jdbcType=SMALLINT},   
+            #{item.status,jdbcType=BIT},   
+            #{item.msgidentity,jdbcType=VARCHAR},   
+            #{item.content,jdbcType=VARCHAR},   
+            #{item.acceptuser,jdbcType=VARCHAR},   
+            #{item.acceptloginname,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.readdate,jdbcType=TIMESTAMP},   
+            #{item.senduser,jdbcType=VARCHAR},   
+            #{item.sendloginname,jdbcType=VARCHAR}  
+        )
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.institution.mapper.TblMedicalInstitutionServiceAreaMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.institution.domain.TblMedicalInstitutionServiceArea">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="MEDICAL_INSTITUTION_IDENTITY" property="medicalinstitutionidentity" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_INSTITUTION_NAME" property="medicalinstitutionname" jdbcType="VARCHAR" />             
+       <result column="PROVINCE_CODE" property="provincecode" jdbcType="VARCHAR" />             
+       <result column="PROVINCE_NAME" property="provincename" jdbcType="VARCHAR" />             
+       <result column="CITY_CODE" property="citycode" jdbcType="VARCHAR" />             
+       <result column="CITY_NAME" property="cityname" jdbcType="VARCHAR" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="AREA_NAME" property="areaname" jdbcType="VARCHAR" />             
+       <result column="COUNTY_CODE" property="countycode" jdbcType="VARCHAR" />             
+       <result column="COUNTY_NAME" property="countyname" jdbcType="VARCHAR" />             
+       <result column="TOWNSHIP_CODE" property="townshipcode" jdbcType="VARCHAR" />             
+       <result column="TOWNSHIP_NAME" property="townshipname" jdbcType="VARCHAR" />             
+       <result column="VILLAGE_CODE" property="villagecode" jdbcType="VARCHAR" />             
+       <result column="VILLAGE_NAME" property="villagename" jdbcType="VARCHAR" />             
+       <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />             
+       <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        MEDICAL_INSTITUTION_IDENTITY,
+        MEDICAL_INSTITUTION_NAME,
+        PROVINCE_CODE,
+        PROVINCE_NAME,
+        CITY_CODE,
+        CITY_NAME,
+        AREA_CODE,
+        AREA_NAME,
+        COUNTY_CODE,
+        COUNTY_NAME,
+        TOWNSHIP_CODE,
+        TOWNSHIP_NAME,
+        VILLAGE_CODE,
+        VILLAGE_NAME,
+        LONGITUDE,
+        LATITUDE,
+        DELETE_SIGN,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_service_area
+        where delete_sign = 0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_service_area	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_service_area
+        where delete_sign = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="medicalinstitutionidentity!=null">
+            AND MEDICAL_INSTITUTION_IDENTITY = #{medicalinstitutionidentity}
+        </if>
+        <if test="medicalinstitutionname!=null">
+            AND MEDICAL_INSTITUTION_NAME = #{medicalinstitutionname}
+        </if>
+        <if test="provincecode!=null">
+            AND PROVINCE_CODE = #{provincecode}
+        </if>
+        <if test="provincename!=null">
+            AND PROVINCE_NAME = #{provincename}
+        </if>
+        <if test="citycode!=null">
+            AND CITY_CODE = #{citycode}
+        </if>
+        <if test="cityname!=null">
+            AND CITY_NAME = #{cityname}
+        </if>
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="areaname!=null">
+            AND AREA_NAME = #{areaname}
+        </if>
+        <if test="countycode!=null">
+            AND COUNTY_CODE = #{countycode}
+        </if>
+        <if test="countyname!=null">
+            AND COUNTY_NAME = #{countyname}
+        </if>
+        <if test="townshipcode!=null">
+            AND TOWNSHIP_CODE = #{townshipcode}
+        </if>
+        <if test="townshipname!=null">
+            AND TOWNSHIP_NAME = #{townshipname}
+        </if>
+        <if test="villagecode!=null">
+            AND VILLAGE_CODE = #{villagecode}
+        </if>
+        <if test="villagename!=null">
+            AND VILLAGE_NAME = #{villagename}
+        </if>
+        <if test="longitude!=null">
+            AND LONGITUDE = #{longitude}
+        </if>
+        <if test="latitude!=null">
+            AND LATITUDE = #{latitude}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_service_area
+        where delete_sign = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.medicalinstitutionidentity!=null">
+            AND MEDICAL_INSTITUTION_IDENTITY = #{searchParams.medicalinstitutionidentity}
+        </if>
+        <if test="searchParams.medicalinstitutionname!=null">
+            AND MEDICAL_INSTITUTION_NAME = #{searchParams.medicalinstitutionname}
+        </if>
+        <if test="searchParams.provincecode!=null">
+            AND PROVINCE_CODE = #{searchParams.provincecode}
+        </if>
+        <if test="searchParams.provincename!=null">
+            AND PROVINCE_NAME = #{searchParams.provincename}
+        </if>
+        <if test="searchParams.citycode!=null">
+            AND CITY_CODE = #{searchParams.citycode}
+        </if>
+        <if test="searchParams.cityname!=null">
+            AND CITY_NAME = #{searchParams.cityname}
+        </if>
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.areaname!=null">
+            AND AREA_NAME = #{searchParams.areaname}
+        </if>
+        <if test="searchParams.countycode!=null">
+            AND COUNTY_CODE = #{searchParams.countycode}
+        </if>
+        <if test="searchParams.countyname!=null">
+            AND COUNTY_NAME = #{searchParams.countyname}
+        </if>
+        <if test="searchParams.townshipcode!=null">
+            AND TOWNSHIP_CODE = #{searchParams.townshipcode}
+        </if>
+        <if test="searchParams.townshipname!=null">
+            AND TOWNSHIP_NAME = #{searchParams.townshipname}
+        </if>
+        <if test="searchParams.villagecode!=null">
+            AND VILLAGE_CODE = #{searchParams.villagecode}
+        </if>
+        <if test="searchParams.villagename!=null">
+            AND VILLAGE_NAME = #{searchParams.villagename}
+        </if>
+        <if test="searchParams.longitude!=null">
+            AND LONGITUDE = #{searchParams.longitude}
+        </if>
+        <if test="searchParams.latitude!=null">
+            AND LATITUDE = #{searchParams.latitude}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.institution.domain.TblMedicalInstitutionServiceArea">
+       insert into tbl_medical_institution_service_area 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="medicalinstitutionidentity!=null">
+                MEDICAL_INSTITUTION_IDENTITY, 
+            </if>
+            <if test="medicalinstitutionname!=null">
+                MEDICAL_INSTITUTION_NAME, 
+            </if>
+            <if test="provincecode!=null">
+                PROVINCE_CODE, 
+            </if>
+            <if test="provincename!=null">
+                PROVINCE_NAME, 
+            </if>
+            <if test="citycode!=null">
+                CITY_CODE, 
+            </if>
+            <if test="cityname!=null">
+                CITY_NAME, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="areaname!=null">
+                AREA_NAME, 
+            </if>
+            <if test="countycode!=null">
+                COUNTY_CODE, 
+            </if>
+            <if test="countyname!=null">
+                COUNTY_NAME, 
+            </if>
+            <if test="townshipcode!=null">
+                TOWNSHIP_CODE, 
+            </if>
+            <if test="townshipname!=null">
+                TOWNSHIP_NAME, 
+            </if>
+            <if test="villagecode!=null">
+                VILLAGE_CODE, 
+            </if>
+            <if test="villagename!=null">
+                VILLAGE_NAME, 
+            </if>
+            <if test="longitude!=null">
+                LONGITUDE, 
+            </if>
+            <if test="latitude!=null">
+                LATITUDE, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalinstitutionidentity!=null">      
+                #{medicalinstitutionidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalinstitutionname!=null">      
+                #{medicalinstitutionname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="provincecode!=null">      
+                #{provincecode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="provincename!=null">      
+                #{provincename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="citycode!=null">      
+                #{citycode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="cityname!=null">      
+                #{cityname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="areaname!=null">      
+                #{areaname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="countycode!=null">      
+                #{countycode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="countyname!=null">      
+                #{countyname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="townshipcode!=null">      
+                #{townshipcode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="townshipname!=null">      
+                #{townshipname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="villagecode!=null">      
+                #{villagecode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="villagename!=null">      
+                #{villagename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="longitude!=null">      
+                #{longitude,jdbcType=VARCHAR}, 
+            </if>
+            <if test="latitude!=null">      
+                #{latitude,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.institution.domain.TblMedicalInstitutionServiceArea" >
+        delete from tbl_medical_institution_service_area  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalinstitutionidentity!=null">    
+           and MEDICAL_INSTITUTION_IDENTITY = #{medicalinstitutionidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalinstitutionname!=null">    
+           and MEDICAL_INSTITUTION_NAME = #{medicalinstitutionname,jdbcType=VARCHAR}        
+        </if>
+        <if test="provincecode!=null">    
+           and PROVINCE_CODE = #{provincecode,jdbcType=VARCHAR}        
+        </if>
+        <if test="provincename!=null">    
+           and PROVINCE_NAME = #{provincename,jdbcType=VARCHAR}        
+        </if>
+        <if test="citycode!=null">    
+           and CITY_CODE = #{citycode,jdbcType=VARCHAR}        
+        </if>
+        <if test="cityname!=null">    
+           and CITY_NAME = #{cityname,jdbcType=VARCHAR}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="areaname!=null">    
+           and AREA_NAME = #{areaname,jdbcType=VARCHAR}        
+        </if>
+        <if test="countycode!=null">    
+           and COUNTY_CODE = #{countycode,jdbcType=VARCHAR}        
+        </if>
+        <if test="countyname!=null">    
+           and COUNTY_NAME = #{countyname,jdbcType=VARCHAR}        
+        </if>
+        <if test="townshipcode!=null">    
+           and TOWNSHIP_CODE = #{townshipcode,jdbcType=VARCHAR}        
+        </if>
+        <if test="townshipname!=null">    
+           and TOWNSHIP_NAME = #{townshipname,jdbcType=VARCHAR}        
+        </if>
+        <if test="villagecode!=null">    
+           and VILLAGE_CODE = #{villagecode,jdbcType=VARCHAR}        
+        </if>
+        <if test="villagename!=null">    
+           and VILLAGE_NAME = #{villagename,jdbcType=VARCHAR}        
+        </if>
+        <if test="longitude!=null">    
+           and LONGITUDE = #{longitude,jdbcType=VARCHAR}        
+        </if>
+        <if test="latitude!=null">    
+           and LATITUDE = #{latitude,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.institution.domain.TblMedicalInstitutionServiceArea" >
+        update tbl_medical_institution_service_area   
+        <set>
+            <if test="medicalinstitutionidentity!=null"> 
+              MEDICAL_INSTITUTION_IDENTITY = #{medicalinstitutionidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalinstitutionname!=null"> 
+              MEDICAL_INSTITUTION_NAME = #{medicalinstitutionname,jdbcType=VARCHAR},
+            </if>
+            <if test="provincecode!=null"> 
+              PROVINCE_CODE = #{provincecode,jdbcType=VARCHAR},
+            </if>
+            <if test="provincename!=null"> 
+              PROVINCE_NAME = #{provincename,jdbcType=VARCHAR},
+            </if>
+            <if test="citycode!=null"> 
+              CITY_CODE = #{citycode,jdbcType=VARCHAR},
+            </if>
+            <if test="cityname!=null"> 
+              CITY_NAME = #{cityname,jdbcType=VARCHAR},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="areaname!=null"> 
+              AREA_NAME = #{areaname,jdbcType=VARCHAR},
+            </if>
+            <if test="countycode!=null"> 
+              COUNTY_CODE = #{countycode,jdbcType=VARCHAR},
+            </if>
+            <if test="countyname!=null"> 
+              COUNTY_NAME = #{countyname,jdbcType=VARCHAR},
+            </if>
+            <if test="townshipcode!=null"> 
+              TOWNSHIP_CODE = #{townshipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="townshipname!=null"> 
+              TOWNSHIP_NAME = #{townshipname,jdbcType=VARCHAR},
+            </if>
+            <if test="villagecode!=null"> 
+              VILLAGE_CODE = #{villagecode,jdbcType=VARCHAR},
+            </if>
+            <if test="villagename!=null"> 
+              VILLAGE_NAME = #{villagename,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude!=null"> 
+              LONGITUDE = #{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude!=null"> 
+              LATITUDE = #{latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_medical_institution_service_area
+        (
+            ID,
+        MEDICAL_INSTITUTION_IDENTITY,
+        MEDICAL_INSTITUTION_NAME,
+        PROVINCE_CODE,
+        PROVINCE_NAME,
+        CITY_CODE,
+        CITY_NAME,
+        AREA_CODE,
+        AREA_NAME,
+        COUNTY_CODE,
+        COUNTY_NAME,
+        TOWNSHIP_CODE,
+        TOWNSHIP_NAME,
+        VILLAGE_CODE,
+        VILLAGE_NAME,
+        LONGITUDE,
+        LATITUDE,
+        DELETE_SIGN,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.medicalinstitutionidentity,jdbcType=VARCHAR},   
+            #{item.medicalinstitutionname,jdbcType=VARCHAR},   
+            #{item.provincecode,jdbcType=VARCHAR},   
+            #{item.provincename,jdbcType=VARCHAR},   
+            #{item.citycode,jdbcType=VARCHAR},   
+            #{item.cityname,jdbcType=VARCHAR},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.areaname,jdbcType=VARCHAR},   
+            #{item.countycode,jdbcType=VARCHAR},   
+            #{item.countyname,jdbcType=VARCHAR},   
+            #{item.townshipcode,jdbcType=VARCHAR},   
+            #{item.townshipname,jdbcType=VARCHAR},   
+            #{item.villagecode,jdbcType=VARCHAR},   
+            #{item.villagename,jdbcType=VARCHAR},   
+            #{item.longitude,jdbcType=VARCHAR},   
+            #{item.latitude,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

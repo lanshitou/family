@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.remind.mapper.TblSystemMessageCategoryMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.remind.domain.TblSystemMessageCategory">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="CATEGORY" property="category" jdbcType="VARCHAR" />             
+       <result column="STATUS" property="status" jdbcType="BIT" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        CATEGORY,
+        STATUS
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_category
+        where status = 1
+        ORDER BY ID ASC
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_category	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_category
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="category!=null">
+            AND CATEGORY = #{category}
+        </if>
+        <if test="status!=null">
+            AND STATUS = #{status}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_category
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.category!=null">
+            AND CATEGORY = #{searchParams.category}
+        </if>
+        <if test="searchParams.status!=null">
+            AND STATUS = #{searchParams.status}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageCategory">
+       insert into tbl_system_message_category 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="category!=null">
+                CATEGORY, 
+            </if>
+            <if test="status!=null">
+                STATUS, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="category!=null">      
+                #{category,jdbcType=VARCHAR}, 
+            </if>
+            <if test="status!=null">      
+                #{status,jdbcType=BIT}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageCategory" >
+        delete from tbl_system_message_category  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="category!=null">    
+           and CATEGORY = #{category,jdbcType=VARCHAR}        
+        </if>
+        <if test="status!=null">    
+           and STATUS = #{status,jdbcType=BIT}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageCategory" >
+        update tbl_system_message_category   
+        <set>
+            <if test="category!=null"> 
+              CATEGORY = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="status!=null"> 
+              STATUS = #{status,jdbcType=BIT},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_system_message_category
+        (
+            ID,
+        CATEGORY,
+        STATUS 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.category,jdbcType=VARCHAR},   
+            #{item.status,jdbcType=BIT}  
+        )
+        </foreach>
+    </insert>
+</mapper>

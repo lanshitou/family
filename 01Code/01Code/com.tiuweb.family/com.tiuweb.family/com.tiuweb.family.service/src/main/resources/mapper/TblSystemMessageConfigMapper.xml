@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.remind.mapper.TblSystemMessageConfigMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.remind.domain.TblSystemMessageConfig">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="LOGIN_IDENTITY" property="loginidentity" jdbcType="VARCHAR" />             
+       <result column="MESSAGE_CATEGORY_IDENTITY" property="messagecategoryidentity" jdbcType="VARCHAR" />             
+       <result column="MESSAGE_CATEGORY_NAME" property="messagecategoryname" jdbcType="VARCHAR" />             
+       <result column="CONFIG_STATUS" property="configstatus" jdbcType="BIT" />             
+       <result column="MESSAGE_STATUS" property="messagestatus" jdbcType="BIT" />             
+       <result column="MAIL_STATUS" property="mailstatus" jdbcType="BIT" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        LOGIN_IDENTITY,
+        MESSAGE_CATEGORY_IDENTITY,
+        MESSAGE_CATEGORY_NAME,
+        CONFIG_STATUS,
+        MESSAGE_STATUS,
+        MAIL_STATUS,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_config
+        ORDER BY MESSAGE_CATEGORY_IDENTITY ASC
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_config	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_config
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="loginidentity!=null">
+            AND LOGIN_IDENTITY = #{loginidentity}
+        </if>
+        <if test="messagecategoryidentity!=null">
+            AND MESSAGE_CATEGORY_IDENTITY = #{messagecategoryidentity}
+        </if>
+        <if test="messagecategoryname!=null">
+            AND MESSAGE_CATEGORY_NAME = #{messagecategoryname}
+        </if>
+        <if test="configstatus!=null">
+            AND CONFIG_STATUS = #{configstatus}
+        </if>
+        <if test="messagestatus!=null">
+            AND MESSAGE_STATUS = #{messagestatus}
+        </if>
+        <if test="mailstatus!=null">
+            AND MAIL_STATUS = #{mailstatus}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+        ORDER BY MESSAGE_CATEGORY_IDENTITY ASC
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_system_message_config
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.loginidentity!=null">
+            AND LOGIN_IDENTITY = #{searchParams.loginidentity}
+        </if>
+        <if test="searchParams.messagecategoryidentity!=null">
+            AND MESSAGE_CATEGORY_IDENTITY = #{searchParams.messagecategoryidentity}
+        </if>
+        <if test="searchParams.messagecategoryname!=null">
+            AND MESSAGE_CATEGORY_NAME = #{searchParams.messagecategoryname}
+        </if>
+        <if test="searchParams.configstatus!=null">
+            AND CONFIG_STATUS = #{searchParams.configstatus}
+        </if>
+        <if test="searchParams.messagestatus!=null">
+            AND MESSAGE_STATUS = #{searchParams.messagestatus}
+        </if>
+        <if test="searchParams.mailstatus!=null">
+            AND MAIL_STATUS = #{searchParams.mailstatus}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageConfig">
+       insert into tbl_system_message_config 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="loginidentity!=null">
+                LOGIN_IDENTITY, 
+            </if>
+            <if test="messagecategoryidentity!=null">
+                MESSAGE_CATEGORY_IDENTITY, 
+            </if>
+            <if test="messagecategoryname!=null">
+                MESSAGE_CATEGORY_NAME, 
+            </if>
+            <if test="configstatus!=null">
+                CONFIG_STATUS, 
+            </if>
+            <if test="messagestatus!=null">
+                MESSAGE_STATUS, 
+            </if>
+            <if test="mailstatus!=null">
+                MAIL_STATUS, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="loginidentity!=null">      
+                #{loginidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="messagecategoryidentity!=null">      
+                #{messagecategoryidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="messagecategoryname!=null">      
+                #{messagecategoryname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="configstatus!=null">      
+                #{configstatus,jdbcType=BIT}, 
+            </if>
+            <if test="messagestatus!=null">      
+                #{messagestatus,jdbcType=BIT}, 
+            </if>
+            <if test="mailstatus!=null">      
+                #{mailstatus,jdbcType=BIT}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageConfig" >
+        delete from tbl_system_message_config  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="loginidentity!=null">    
+           and LOGIN_IDENTITY = #{loginidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="messagecategoryidentity!=null">    
+           and MESSAGE_CATEGORY_IDENTITY = #{messagecategoryidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="messagecategoryname!=null">    
+           and MESSAGE_CATEGORY_NAME = #{messagecategoryname,jdbcType=VARCHAR}        
+        </if>
+        <if test="configstatus!=null">    
+           and CONFIG_STATUS = #{configstatus,jdbcType=BIT}        
+        </if>
+        <if test="messagestatus!=null">    
+           and MESSAGE_STATUS = #{messagestatus,jdbcType=BIT}        
+        </if>
+        <if test="mailstatus!=null">    
+           and MAIL_STATUS = #{mailstatus,jdbcType=BIT}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.remind.domain.TblSystemMessageConfig" >
+        update tbl_system_message_config   
+        <set>
+            <if test="loginidentity!=null"> 
+              LOGIN_IDENTITY = #{loginidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="messagecategoryidentity!=null"> 
+              MESSAGE_CATEGORY_IDENTITY = #{messagecategoryidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="messagecategoryname!=null"> 
+              MESSAGE_CATEGORY_NAME = #{messagecategoryname,jdbcType=VARCHAR},
+            </if>
+            <if test="configstatus!=null"> 
+              CONFIG_STATUS = #{configstatus,jdbcType=BIT},
+            </if>
+            <if test="messagestatus!=null"> 
+              MESSAGE_STATUS = #{messagestatus,jdbcType=BIT},
+            </if>
+            <if test="mailstatus!=null"> 
+              MAIL_STATUS = #{mailstatus,jdbcType=BIT},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_system_message_config
+        (
+            ID,
+        LOGIN_IDENTITY,
+        MESSAGE_CATEGORY_IDENTITY,
+        MESSAGE_CATEGORY_NAME,
+        CONFIG_STATUS,
+        MESSAGE_STATUS,
+        MAIL_STATUS,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.loginidentity,jdbcType=VARCHAR},   
+            #{item.messagecategoryidentity,jdbcType=VARCHAR},   
+            #{item.messagecategoryname,jdbcType=VARCHAR},   
+            #{item.configstatus,jdbcType=BIT},   
+            #{item.messagestatus,jdbcType=BIT},   
+            #{item.mailstatus,jdbcType=BIT},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

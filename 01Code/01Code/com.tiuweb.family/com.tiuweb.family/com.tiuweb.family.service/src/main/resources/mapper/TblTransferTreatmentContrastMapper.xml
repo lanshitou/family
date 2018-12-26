@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.plan.mapper.TblTransferTreatmentContrastMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.plan.domain.TblTransferTreatmentContrast">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="CURRENT_ORG_IDENTITY" property="currentorgidentity" jdbcType="VARCHAR" />             
+       <result column="CURRENT_ORG_NAME" property="currentorgname" jdbcType="VARCHAR" />             
+       <result column="COUNTY_ORG_IDENTITY" property="countyorgidentity" jdbcType="VARCHAR" />             
+       <result column="COUNTY_ORG_NAME" property="countyorgname" jdbcType="VARCHAR" />             
+       <result column="CITY_ORG_IDENTITY" property="cityorgidentity" jdbcType="VARCHAR" />             
+       <result column="CITY_ORG_NAME" property="cityorgname" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        CURRENT_ORG_IDENTITY,
+        CURRENT_ORG_NAME,
+        COUNTY_ORG_IDENTITY,
+        COUNTY_ORG_NAME,
+        CITY_ORG_IDENTITY,
+        CITY_ORG_NAME,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_transfer_treatment_contrast
+        WHERE DELETE_SIGN = 0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_transfer_treatment_contrast	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_transfer_treatment_contrast
+        where DELETE_SIGN = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="currentorgidentity!=null">
+            AND CURRENT_ORG_IDENTITY = #{currentorgidentity}
+        </if>
+        <if test="currentorgname!=null">
+            AND CURRENT_ORG_NAME = #{currentorgname}
+        </if>
+        <if test="countyorgidentity!=null">
+            AND COUNTY_ORG_IDENTITY = #{countyorgidentity}
+        </if>
+        <if test="countyorgname!=null">
+            AND COUNTY_ORG_NAME = #{countyorgname}
+        </if>
+        <if test="cityorgidentity!=null">
+            AND CITY_ORG_IDENTITY = #{cityorgidentity}
+        </if>
+        <if test="cityorgname!=null">
+            AND CITY_ORG_NAME = #{cityorgname}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_transfer_treatment_contrast
+        where DELETE_SIGN = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.currentorgidentity!=null">
+            AND CURRENT_ORG_IDENTITY = #{searchParams.currentorgidentity}
+        </if>
+        <if test="searchParams.currentorgname!=null">
+            AND CURRENT_ORG_NAME = #{searchParams.currentorgname}
+        </if>
+        <if test="searchParams.countyorgidentity!=null">
+            AND COUNTY_ORG_IDENTITY = #{searchParams.countyorgidentity}
+        </if>
+        <if test="searchParams.countyorgname!=null">
+            AND COUNTY_ORG_NAME = #{searchParams.countyorgname}
+        </if>
+        <if test="searchParams.cityorgidentity!=null">
+            AND CITY_ORG_IDENTITY = #{searchParams.cityorgidentity}
+        </if>
+        <if test="searchParams.cityorgname!=null">
+            AND CITY_ORG_NAME = #{searchParams.cityorgname}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.plan.domain.TblTransferTreatmentContrast">
+       insert into tbl_transfer_treatment_contrast 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="currentorgidentity!=null">
+                CURRENT_ORG_IDENTITY, 
+            </if>
+            <if test="currentorgname!=null">
+                CURRENT_ORG_NAME, 
+            </if>
+            <if test="countyorgidentity!=null">
+                COUNTY_ORG_IDENTITY, 
+            </if>
+            <if test="countyorgname!=null">
+                COUNTY_ORG_NAME, 
+            </if>
+            <if test="cityorgidentity!=null">
+                CITY_ORG_IDENTITY, 
+            </if>
+            <if test="cityorgname!=null">
+                CITY_ORG_NAME, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="currentorgidentity!=null">      
+                #{currentorgidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="currentorgname!=null">      
+                #{currentorgname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="countyorgidentity!=null">      
+                #{countyorgidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="countyorgname!=null">      
+                #{countyorgname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="cityorgidentity!=null">      
+                #{cityorgidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="cityorgname!=null">      
+                #{cityorgname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.plan.domain.TblTransferTreatmentContrast" >
+        delete from tbl_transfer_treatment_contrast  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="currentorgidentity!=null">    
+           and CURRENT_ORG_IDENTITY = #{currentorgidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="currentorgname!=null">    
+           and CURRENT_ORG_NAME = #{currentorgname,jdbcType=VARCHAR}        
+        </if>
+        <if test="countyorgidentity!=null">    
+           and COUNTY_ORG_IDENTITY = #{countyorgidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="countyorgname!=null">    
+           and COUNTY_ORG_NAME = #{countyorgname,jdbcType=VARCHAR}        
+        </if>
+        <if test="cityorgidentity!=null">    
+           and CITY_ORG_IDENTITY = #{cityorgidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="cityorgname!=null">    
+           and CITY_ORG_NAME = #{cityorgname,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.plan.domain.TblTransferTreatmentContrast" >
+        update tbl_transfer_treatment_contrast   
+        <set>
+            <if test="currentorgidentity!=null"> 
+              CURRENT_ORG_IDENTITY = #{currentorgidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="currentorgname!=null"> 
+              CURRENT_ORG_NAME = #{currentorgname,jdbcType=VARCHAR},
+            </if>
+            <if test="countyorgidentity!=null"> 
+              COUNTY_ORG_IDENTITY = #{countyorgidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="countyorgname!=null"> 
+              COUNTY_ORG_NAME = #{countyorgname,jdbcType=VARCHAR},
+            </if>
+            <if test="cityorgidentity!=null"> 
+              CITY_ORG_IDENTITY = #{cityorgidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="cityorgname!=null"> 
+              CITY_ORG_NAME = #{cityorgname,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_transfer_treatment_contrast
+        (
+            ID,
+        CURRENT_ORG_IDENTITY,
+        CURRENT_ORG_NAME,
+        COUNTY_ORG_IDENTITY,
+        COUNTY_ORG_NAME,
+        CITY_ORG_IDENTITY,
+        CITY_ORG_NAME,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.currentorgidentity,jdbcType=VARCHAR},   
+            #{item.currentorgname,jdbcType=VARCHAR},   
+            #{item.countyorgidentity,jdbcType=VARCHAR},   
+            #{item.countyorgname,jdbcType=VARCHAR},   
+            #{item.cityorgidentity,jdbcType=VARCHAR},   
+            #{item.cityorgname,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

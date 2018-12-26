@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.doctors.mapper.TblMedicalInstitutionDoctorMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.doctors.domain.TblMedicalInstitutionDoctor">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="INSTITUTION_IDENTITY" property="institutionidentity" jdbcType="VARCHAR" />             
+       <result column="INSTITUTION_NAME" property="institutionname" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_INSTITUTION_ADDRESS" property="medicalinstitutionaddress" jdbcType="VARCHAR" />             
+       <result column="P_USER_ID" property="puserid" jdbcType="VARCHAR" />             
+       <result column="P_ACCOUNT" property="paccount" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_NAME" property="doctorname" jdbcType="VARCHAR" />             
+       <result column="PREVIEW_IMAGE" property="previewimage" jdbcType="VARCHAR" />             
+       <result column="AGE" property="age" jdbcType="SMALLINT" />             
+       <result column="SEX" property="sex" jdbcType="SMALLINT" />             
+       <result column="BIRTH_DATE" property="birthdate" jdbcType="DATE" />             
+       <result column="DOCTORS_CERTIFICATE" property="doctorscertificate" jdbcType="VARCHAR" />             
+       <result column="DOCTORS_CERTIFICATE_IMAGE" property="doctorscertificateimage" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_DESC" property="doctordesc" jdbcType="VARCHAR" />             
+       <result column="CERTIFICATE_IDENTITY" property="certificateidentity" jdbcType="VARCHAR" />             
+       <result column="CERTIFICATE_NAME" property="certificatename" jdbcType="VARCHAR" />             
+       <result column="CERTIFICATE_NUMBER" property="certificatenumber" jdbcType="VARCHAR" />             
+       <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />             
+       <result column="EMAIL" property="email" jdbcType="VARCHAR" />             
+       <result column="PROFESSIONAL_LEVEL_IDENTITY" property="professionallevelidentity" jdbcType="VARCHAR" />             
+       <result column="PROFESSIONAL_LEVEL_NAME" property="professionallevelname" jdbcType="VARCHAR" />             
+       <result column="OFFICES_IDENTITY" property="officesidentity" jdbcType="VARCHAR" />             
+       <result column="OFFICES_NAME" property="officesname" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        INSTITUTION_IDENTITY,
+        INSTITUTION_NAME,
+        MEDICAL_INSTITUTION_ADDRESS,
+        P_USER_ID,
+        P_ACCOUNT,
+        DOCTOR_NAME,
+        PREVIEW_IMAGE,
+        AGE,
+        SEX,
+        BIRTH_DATE,
+        DOCTORS_CERTIFICATE,
+        DOCTORS_CERTIFICATE_IMAGE,
+        DOCTOR_DESC,
+        CERTIFICATE_IDENTITY,
+        CERTIFICATE_NAME,
+        CERTIFICATE_NUMBER,
+        TELEPHONE,
+        EMAIL,
+        PROFESSIONAL_LEVEL_IDENTITY,
+        PROFESSIONAL_LEVEL_NAME,
+        OFFICES_IDENTITY,
+        OFFICES_NAME,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_doctor
+        where delete_sign = 0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_doctor	
+        where delete_sign = 0
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_doctor
+        where delete_sign = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="institutionidentity!=null">
+            AND INSTITUTION_IDENTITY = #{institutionidentity}
+        </if>
+        <if test="institutionname!=null">
+            AND INSTITUTION_NAME = #{institutionname}
+        </if>
+        <if test="medicalinstitutionaddress!=null">
+            AND MEDICAL_INSTITUTION_ADDRESS = #{medicalinstitutionaddress}
+        </if>
+        <if test="puserid!=null">
+            AND P_USER_ID = #{puserid}
+        </if>
+        <if test="paccount!=null">
+            AND P_ACCOUNT = #{paccount}
+        </if>
+        <if test="doctorname!=null">
+            AND DOCTOR_NAME = #{doctorname}
+        </if>
+        <if test="previewimage!=null">
+            AND PREVIEW_IMAGE = #{previewimage}
+        </if>
+        <if test="age!=null">
+            AND AGE = #{age}
+        </if>
+        <if test="sex!=null">
+            AND SEX = #{sex}
+        </if>
+        <if test="birthdate!=null">
+            AND BIRTH_DATE = #{birthdate}
+        </if>
+        <if test="doctorscertificate!=null">
+            AND DOCTORS_CERTIFICATE = #{doctorscertificate}
+        </if>
+        <if test="doctorscertificateimage!=null">
+            AND DOCTORS_CERTIFICATE_IMAGE = #{doctorscertificateimage}
+        </if>
+        <if test="doctordesc!=null">
+            AND DOCTOR_DESC = #{doctordesc}
+        </if>
+        <if test="certificateidentity!=null">
+            AND CERTIFICATE_IDENTITY = #{certificateidentity}
+        </if>
+        <if test="certificatename!=null">
+            AND CERTIFICATE_NAME = #{certificatename}
+        </if>
+        <if test="certificatenumber!=null">
+            AND CERTIFICATE_NUMBER = #{certificatenumber}
+        </if>
+        <if test="telephone!=null">
+            AND TELEPHONE = #{telephone}
+        </if>
+        <if test="email!=null">
+            AND EMAIL = #{email}
+        </if>
+        <if test="professionallevelidentity!=null">
+            AND PROFESSIONAL_LEVEL_IDENTITY = #{professionallevelidentity}
+        </if>
+        <if test="professionallevelname!=null">
+            AND PROFESSIONAL_LEVEL_NAME = #{professionallevelname}
+        </if>
+        <if test="officesidentity!=null">
+            AND OFFICES_IDENTITY = #{officesidentity}
+        </if>
+        <if test="officesname!=null">
+            AND OFFICES_NAME = #{officesname}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_medical_institution_doctor
+        where delete_sign = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.institutionidentity!=null">
+            AND INSTITUTION_IDENTITY = #{searchParams.institutionidentity}
+        </if>
+        <if test="searchParams.institutionname!=null">
+            AND INSTITUTION_NAME = #{searchParams.institutionname}
+        </if>
+        <if test="searchParams.medicalinstitutionaddress!=null">
+            AND MEDICAL_INSTITUTION_ADDRESS = #{searchParams.medicalinstitutionaddress}
+        </if>
+        <if test="searchParams.puserid!=null">
+            AND P_USER_ID = #{searchParams.puserid}
+        </if>
+        <if test="searchParams.paccount!=null">
+            AND P_ACCOUNT = #{searchParams.paccount}
+        </if>
+        <if test="searchParams.doctorname!=null">
+            AND DOCTOR_NAME = #{searchParams.doctorname}
+        </if>
+        <if test="searchParams.previewimage!=null">
+            AND PREVIEW_IMAGE = #{searchParams.previewimage}
+        </if>
+        <if test="searchParams.age!=null">
+            AND AGE = #{searchParams.age}
+        </if>
+        <if test="searchParams.sex!=null">
+            AND SEX = #{searchParams.sex}
+        </if>
+        <if test="searchParams.birthdate!=null">
+            AND BIRTH_DATE = #{searchParams.birthdate}
+        </if>
+        <if test="searchParams.doctorscertificate!=null">
+            AND DOCTORS_CERTIFICATE = #{searchParams.doctorscertificate}
+        </if>
+        <if test="searchParams.doctorscertificateimage!=null">
+            AND DOCTORS_CERTIFICATE_IMAGE = #{searchParams.doctorscertificateimage}
+        </if>
+        <if test="searchParams.doctordesc!=null">
+            AND DOCTOR_DESC = #{searchParams.doctordesc}
+        </if>
+        <if test="searchParams.certificateidentity!=null">
+            AND CERTIFICATE_IDENTITY = #{searchParams.certificateidentity}
+        </if>
+        <if test="searchParams.certificatename!=null">
+            AND CERTIFICATE_NAME = #{searchParams.certificatename}
+        </if>
+        <if test="searchParams.certificatenumber!=null">
+            AND CERTIFICATE_NUMBER = #{searchParams.certificatenumber}
+        </if>
+        <if test="searchParams.telephone!=null">
+            AND TELEPHONE = #{searchParams.telephone}
+        </if>
+        <if test="searchParams.email!=null">
+            AND EMAIL = #{searchParams.email}
+        </if>
+        <if test="searchParams.professionallevelidentity!=null">
+            AND PROFESSIONAL_LEVEL_IDENTITY = #{searchParams.professionallevelidentity}
+        </if>
+        <if test="searchParams.professionallevelname!=null">
+            AND PROFESSIONAL_LEVEL_NAME = #{searchParams.professionallevelname}
+        </if>
+        <if test="searchParams.officesidentity!=null">
+            AND OFFICES_IDENTITY = #{searchParams.officesidentity}
+        </if>
+        <if test="searchParams.officesname!=null">
+            AND OFFICES_NAME = #{searchParams.officesname}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+        <if test="searchParams.keyWords!=null and searchParams.keyWords!=''">
+            AND (doctor_name like '%${searchParams.keyWords}%' OR professional_level_name like '%${searchParams.keyWords}%' 
+             OR institution_name like '%${searchParams.keyWords}%')
+        </if>     
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.doctors.domain.TblMedicalInstitutionDoctor">
+       insert into tbl_medical_institution_doctor 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="institutionidentity!=null">
+                INSTITUTION_IDENTITY, 
+            </if>
+            <if test="institutionname!=null">
+                INSTITUTION_NAME, 
+            </if>
+            <if test="medicalinstitutionaddress!=null">
+                MEDICAL_INSTITUTION_ADDRESS, 
+            </if>
+            <if test="puserid!=null">
+                P_USER_ID, 
+            </if>
+            <if test="paccount!=null">
+                P_ACCOUNT, 
+            </if>
+            <if test="doctorname!=null">
+                DOCTOR_NAME, 
+            </if>
+            <if test="previewimage!=null">
+                PREVIEW_IMAGE, 
+            </if>
+            <if test="age!=null">
+                AGE, 
+            </if>
+            <if test="sex!=null">
+                SEX, 
+            </if>
+            <if test="birthdate!=null">
+                BIRTH_DATE, 
+            </if>
+            <if test="doctorscertificate!=null">
+                DOCTORS_CERTIFICATE, 
+            </if>
+            <if test="doctorscertificateimage!=null">
+                DOCTORS_CERTIFICATE_IMAGE, 
+            </if>
+            <if test="doctordesc!=null">
+                DOCTOR_DESC, 
+            </if>
+            <if test="certificateidentity!=null">
+                CERTIFICATE_IDENTITY, 
+            </if>
+            <if test="certificatename!=null">
+                CERTIFICATE_NAME, 
+            </if>
+            <if test="certificatenumber!=null">
+                CERTIFICATE_NUMBER, 
+            </if>
+            <if test="telephone!=null">
+                TELEPHONE, 
+            </if>
+            <if test="email!=null">
+                EMAIL, 
+            </if>
+            <if test="professionallevelidentity!=null">
+                PROFESSIONAL_LEVEL_IDENTITY, 
+            </if>
+            <if test="professionallevelname!=null">
+                PROFESSIONAL_LEVEL_NAME, 
+            </if>
+            <if test="officesidentity!=null">
+                OFFICES_IDENTITY, 
+            </if>
+            <if test="officesname!=null">
+                OFFICES_NAME, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="institutionidentity!=null">      
+                #{institutionidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="institutionname!=null">      
+                #{institutionname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalinstitutionaddress!=null">      
+                #{medicalinstitutionaddress,jdbcType=VARCHAR}, 
+            </if>
+            <if test="puserid!=null">      
+                #{puserid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="paccount!=null">      
+                #{paccount,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorname!=null">      
+                #{doctorname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="previewimage!=null">      
+                #{previewimage,jdbcType=VARCHAR}, 
+            </if>
+            <if test="age!=null">      
+                #{age,jdbcType=BIT}, 
+            </if>
+            <if test="sex!=null">      
+                #{sex,jdbcType=BIT}, 
+            </if>
+            <if test="birthdate!=null">      
+                #{birthdate,jdbcType=DATE}, 
+            </if>
+            <if test="doctorscertificate!=null">      
+                #{doctorscertificate,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorscertificateimage!=null">      
+                #{doctorscertificateimage,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctordesc!=null">      
+                #{doctordesc,jdbcType=VARCHAR}, 
+            </if>
+            <if test="certificateidentity!=null">      
+                #{certificateidentity,jdbcType=BIGINT}, 
+            </if>
+            <if test="certificatename!=null">      
+                #{certificatename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="certificatenumber!=null">      
+                #{certificatenumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="telephone!=null">      
+                #{telephone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="email!=null">      
+                #{email,jdbcType=VARCHAR}, 
+            </if>
+            <if test="professionallevelidentity!=null">      
+                #{professionallevelidentity,jdbcType=BIGINT}, 
+            </if>
+            <if test="professionallevelname!=null">      
+                #{professionallevelname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="officesidentity!=null">      
+                #{officesidentity,jdbcType=BIGINT}, 
+            </if>
+            <if test="officesname!=null">      
+                #{officesname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.doctors.domain.TblMedicalInstitutionDoctor" >
+        delete from tbl_medical_institution_doctor  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="institutionidentity!=null">    
+           and INSTITUTION_IDENTITY = #{institutionidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="institutionname!=null">    
+           and INSTITUTION_NAME = #{institutionname,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalinstitutionaddress!=null">    
+           and MEDICAL_INSTITUTION_ADDRESS = #{medicalinstitutionaddress,jdbcType=VARCHAR}        
+        </if>
+        <if test="puserid!=null">    
+           and P_USER_ID = #{puserid,jdbcType=VARCHAR}        
+        </if>
+        <if test="paccount!=null">    
+           and P_ACCOUNT = #{paccount,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorname!=null">    
+           and DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR}        
+        </if>
+        <if test="previewimage!=null">    
+           and PREVIEW_IMAGE = #{previewimage,jdbcType=VARCHAR}        
+        </if>
+        <if test="age!=null">    
+           and AGE = #{age,jdbcType=BIT}        
+        </if>
+        <if test="sex!=null">    
+           and SEX = #{sex,jdbcType=BIT}        
+        </if>
+        <if test="birthdate!=null">    
+           and BIRTH_DATE = #{birthdate,jdbcType=DATE}        
+        </if>
+        <if test="doctorscertificate!=null">    
+           and DOCTORS_CERTIFICATE = #{doctorscertificate,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorscertificateimage!=null">    
+           and DOCTORS_CERTIFICATE_IMAGE = #{doctorscertificateimage,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctordesc!=null">    
+           and DOCTOR_DESC = #{doctordesc,jdbcType=VARCHAR}        
+        </if>
+        <if test="certificateidentity!=null">    
+           and CERTIFICATE_IDENTITY = #{certificateidentity,jdbcType=BIGINT}        
+        </if>
+        <if test="certificatename!=null">    
+           and CERTIFICATE_NAME = #{certificatename,jdbcType=VARCHAR}        
+        </if>
+        <if test="certificatenumber!=null">    
+           and CERTIFICATE_NUMBER = #{certificatenumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="telephone!=null">    
+           and TELEPHONE = #{telephone,jdbcType=VARCHAR}        
+        </if>
+        <if test="email!=null">    
+           and EMAIL = #{email,jdbcType=VARCHAR}        
+        </if>
+        <if test="professionallevelidentity!=null">    
+           and PROFESSIONAL_LEVEL_IDENTITY = #{professionallevelidentity,jdbcType=BIGINT}        
+        </if>
+        <if test="professionallevelname!=null">    
+           and PROFESSIONAL_LEVEL_NAME = #{professionallevelname,jdbcType=VARCHAR}        
+        </if>
+        <if test="officesidentity!=null">    
+           and OFFICES_IDENTITY = #{officesidentity,jdbcType=BIGINT}        
+        </if>
+        <if test="officesname!=null">    
+           and OFFICES_NAME = #{officesname,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.doctors.domain.TblMedicalInstitutionDoctor" >
+        update tbl_medical_institution_doctor   
+        <set>
+            <if test="institutionidentity!=null"> 
+              INSTITUTION_IDENTITY = #{institutionidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="institutionname!=null"> 
+              INSTITUTION_NAME = #{institutionname,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalinstitutionaddress!=null"> 
+              MEDICAL_INSTITUTION_ADDRESS = #{medicalinstitutionaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="puserid!=null"> 
+              P_USER_ID = #{puserid,jdbcType=VARCHAR},
+            </if>
+            <if test="paccount!=null"> 
+              P_ACCOUNT = #{paccount,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorname!=null"> 
+              DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR},
+            </if>
+            <if test="previewimage!=null"> 
+              PREVIEW_IMAGE = #{previewimage,jdbcType=VARCHAR},
+            </if>
+            <if test="age!=null"> 
+              AGE = #{age,jdbcType=BIT},
+            </if>
+            <if test="sex!=null"> 
+              SEX = #{sex,jdbcType=BIT},
+            </if>
+            <if test="birthdate!=null"> 
+              BIRTH_DATE = #{birthdate,jdbcType=DATE},
+            </if>
+            <if test="doctorscertificate!=null"> 
+              DOCTORS_CERTIFICATE = #{doctorscertificate,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorscertificateimage!=null"> 
+              DOCTORS_CERTIFICATE_IMAGE = #{doctorscertificateimage,jdbcType=VARCHAR},
+            </if>
+            <if test="doctordesc!=null"> 
+              DOCTOR_DESC = #{doctordesc,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateidentity!=null"> 
+              CERTIFICATE_IDENTITY = #{certificateidentity,jdbcType=BIGINT},
+            </if>
+            <if test="certificatename!=null"> 
+              CERTIFICATE_NAME = #{certificatename,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatenumber!=null"> 
+              CERTIFICATE_NUMBER = #{certificatenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone!=null"> 
+              TELEPHONE = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="email!=null"> 
+              EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="professionallevelidentity!=null"> 
+              PROFESSIONAL_LEVEL_IDENTITY = #{professionallevelidentity,jdbcType=BIGINT},
+            </if>
+            <if test="professionallevelname!=null"> 
+              PROFESSIONAL_LEVEL_NAME = #{professionallevelname,jdbcType=VARCHAR},
+            </if>
+            <if test="officesidentity!=null"> 
+              OFFICES_IDENTITY = #{officesidentity,jdbcType=BIGINT},
+            </if>
+            <if test="officesname!=null"> 
+              OFFICES_NAME = #{officesname,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_medical_institution_doctor
+        (
+            ID,
+        INSTITUTION_IDENTITY,
+        INSTITUTION_NAME,
+        MEDICAL_INSTITUTION_ADDRESS,
+        P_USER_ID,
+        P_ACCOUNT,
+        DOCTOR_NAME,
+        PREVIEW_IMAGE,
+        AGE,
+        SEX,
+        BIRTH_DATE,
+        DOCTORS_CERTIFICATE,
+        DOCTORS_CERTIFICATE_IMAGE,
+        DOCTOR_DESC,
+        CERTIFICATE_IDENTITY,
+        CERTIFICATE_NAME,
+        CERTIFICATE_NUMBER,
+        TELEPHONE,
+        EMAIL,
+        PROFESSIONAL_LEVEL_IDENTITY,
+        PROFESSIONAL_LEVEL_NAME,
+        OFFICES_IDENTITY,
+        OFFICES_NAME,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.institutionidentity,jdbcType=VARCHAR},   
+            #{item.institutionname,jdbcType=VARCHAR},   
+            #{item.medicalinstitutionaddress,jdbcType=VARCHAR},   
+            #{item.puserid,jdbcType=VARCHAR},   
+            #{item.paccount,jdbcType=VARCHAR},   
+            #{item.doctorname,jdbcType=VARCHAR},   
+            #{item.previewimage,jdbcType=VARCHAR},   
+            #{item.age,jdbcType=BIT},   
+            #{item.sex,jdbcType=BIT},   
+            #{item.birthdate,jdbcType=DATE},   
+            #{item.doctorscertificate,jdbcType=VARCHAR},   
+            #{item.doctorscertificateimage,jdbcType=VARCHAR},   
+            #{item.doctordesc,jdbcType=VARCHAR},   
+            #{item.certificateidentity,jdbcType=BIGINT},   
+            #{item.certificatename,jdbcType=VARCHAR},   
+            #{item.certificatenumber,jdbcType=VARCHAR},   
+            #{item.telephone,jdbcType=VARCHAR},   
+            #{item.email,jdbcType=VARCHAR},   
+            #{item.professionallevelidentity,jdbcType=BIGINT},   
+            #{item.professionallevelname,jdbcType=VARCHAR},   
+            #{item.officesidentity,jdbcType=BIGINT},   
+            #{item.officesname,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

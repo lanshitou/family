@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.plan.mapper.TblTreatmentRecordsEvaluateMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.plan.domain.TblTreatmentRecordsEvaluate">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="SERVICE_RECORD_IDENTIFY" property="servicerecordidentify" jdbcType="VARCHAR" />             
+       <result column="RECORD_IDENTITY" property="recordidentity" jdbcType="VARCHAR" />             
+       <result column="PLAN_IDENTIFY" property="planidentify" jdbcType="VARCHAR" />             
+       <result column="SERVICE_IDENTIFY" property="serviceidentify" jdbcType="VARCHAR" />             
+       <result column="SERVICE_NAME" property="servicename" jdbcType="VARCHAR" />             
+       <result column="CONTACT_IDENTIFY" property="contactidentify" jdbcType="VARCHAR" />             
+       <result column="CONTACT_NUMBER" property="contactnumber" jdbcType="VARCHAR" />             
+       <result column="TEAM_IDENTITY" property="teamidentity" jdbcType="VARCHAR" />             
+       <result column="TEAM_NAME" property="teamname" jdbcType="VARCHAR" />             
+       <result column="SERVICE_TREATMENT_DOCTOR_IDENTITY" property="servicetreatmentdoctoridentity" jdbcType="VARCHAR" />             
+       <result column="SERVICE_TREATMENT_DOCTOR_NAME" property="servicetreatmentdoctorname" jdbcType="VARCHAR" />             
+       <result column="COMMENT" property="comment" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="LOGIN_NAME" property="loginname" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        SERVICE_RECORD_IDENTIFY,
+        RECORD_IDENTITY,
+        PLAN_IDENTIFY,
+        SERVICE_IDENTIFY,
+        SERVICE_NAME,
+        CONTACT_IDENTIFY,
+        CONTACT_NUMBER,
+        TEAM_IDENTITY,
+        TEAM_NAME,
+        SERVICE_TREATMENT_DOCTOR_IDENTITY,
+        SERVICE_TREATMENT_DOCTOR_NAME,
+        COMMENT,
+        CREATE_USER,
+        LOGIN_NAME,
+        CREATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_treatment_records_evaluate
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_treatment_records_evaluate	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_treatment_records_evaluate
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="servicerecordidentify!=null">
+            AND SERVICE_RECORD_IDENTIFY = #{servicerecordidentify}
+        </if>
+        <if test="recordidentity!=null">
+            AND RECORD_IDENTITY = #{recordidentity}
+        </if>
+        <if test="planidentify!=null">
+            AND PLAN_IDENTIFY = #{planidentify}
+        </if>
+        <if test="serviceidentify!=null">
+            AND SERVICE_IDENTIFY = #{serviceidentify}
+        </if>
+        <if test="servicename!=null">
+            AND SERVICE_NAME = #{servicename}
+        </if>
+        <if test="contactidentify!=null">
+            AND CONTACT_IDENTIFY = #{contactidentify}
+        </if>
+        <if test="contactnumber!=null">
+            AND CONTACT_NUMBER = #{contactnumber}
+        </if>
+        <if test="teamidentity!=null">
+            AND TEAM_IDENTITY = #{teamidentity}
+        </if>
+        <if test="teamname!=null">
+            AND TEAM_NAME = #{teamname}
+        </if>
+        <if test="servicetreatmentdoctoridentity!=null">
+            AND SERVICE_TREATMENT_DOCTOR_IDENTITY = #{servicetreatmentdoctoridentity}
+        </if>
+        <if test="servicetreatmentdoctorname!=null">
+            AND SERVICE_TREATMENT_DOCTOR_NAME = #{servicetreatmentdoctorname}
+        </if>
+        <if test="comment!=null">
+            AND COMMENT = #{comment}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="loginname!=null">
+            AND LOGIN_NAME = #{loginname}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_treatment_records_evaluate
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.servicerecordidentify!=null">
+            AND SERVICE_RECORD_IDENTIFY = #{searchParams.servicerecordidentify}
+        </if>
+        <if test="searchParams.recordidentity!=null">
+            AND RECORD_IDENTITY = #{searchParams.recordidentity}
+        </if>
+        <if test="searchParams.planidentify!=null">
+            AND PLAN_IDENTIFY = #{searchParams.planidentify}
+        </if>
+        <if test="searchParams.serviceidentify!=null">
+            AND SERVICE_IDENTIFY = #{searchParams.serviceidentify}
+        </if>
+        <if test="searchParams.servicename!=null">
+            AND SERVICE_NAME = #{searchParams.servicename}
+        </if>
+        <if test="searchParams.contactidentify!=null">
+            AND CONTACT_IDENTIFY = #{searchParams.contactidentify}
+        </if>
+        <if test="searchParams.contactnumber!=null">
+            AND CONTACT_NUMBER = #{searchParams.contactnumber}
+        </if>
+        <if test="searchParams.teamidentity!=null">
+            AND TEAM_IDENTITY = #{searchParams.teamidentity}
+        </if>
+        <if test="searchParams.teamname!=null">
+            AND TEAM_NAME = #{searchParams.teamname}
+        </if>
+        <if test="searchParams.servicetreatmentdoctoridentity!=null">
+            AND SERVICE_TREATMENT_DOCTOR_IDENTITY = #{searchParams.servicetreatmentdoctoridentity}
+        </if>
+        <if test="searchParams.servicetreatmentdoctorname!=null">
+            AND SERVICE_TREATMENT_DOCTOR_NAME = #{searchParams.servicetreatmentdoctorname}
+        </if>
+        <if test="searchParams.comment!=null">
+            AND COMMENT = #{searchParams.comment}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.loginname!=null">
+            AND LOGIN_NAME = #{searchParams.loginname}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.plan.domain.TblTreatmentRecordsEvaluate">
+       insert into tbl_treatment_records_evaluate 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="servicerecordidentify!=null">
+                SERVICE_RECORD_IDENTIFY, 
+            </if>
+            <if test="recordidentity!=null">
+                RECORD_IDENTITY, 
+            </if>
+            <if test="planidentify!=null">
+                PLAN_IDENTIFY, 
+            </if>
+            <if test="serviceidentify!=null">
+                SERVICE_IDENTIFY, 
+            </if>
+            <if test="servicename!=null">
+                SERVICE_NAME, 
+            </if>
+            <if test="contactidentify!=null">
+                CONTACT_IDENTIFY, 
+            </if>
+            <if test="contactnumber!=null">
+                CONTACT_NUMBER, 
+            </if>
+            <if test="teamidentity!=null">
+                TEAM_IDENTITY, 
+            </if>
+            <if test="teamname!=null">
+                TEAM_NAME, 
+            </if>
+            <if test="servicetreatmentdoctoridentity!=null">
+                SERVICE_TREATMENT_DOCTOR_IDENTITY, 
+            </if>
+            <if test="servicetreatmentdoctorname!=null">
+                SERVICE_TREATMENT_DOCTOR_NAME, 
+            </if>
+            <if test="comment!=null">
+                COMMENT, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="loginname!=null">
+                LOGIN_NAME, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicerecordidentify!=null">      
+                #{servicerecordidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="recordidentity!=null">      
+                #{recordidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="planidentify!=null">      
+                #{planidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="serviceidentify!=null">      
+                #{serviceidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicename!=null">      
+                #{servicename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="contactidentify!=null">      
+                #{contactidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="contactnumber!=null">      
+                #{contactnumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="teamidentity!=null">      
+                #{teamidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="teamname!=null">      
+                #{teamname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicetreatmentdoctoridentity!=null">      
+                #{servicetreatmentdoctoridentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicetreatmentdoctorname!=null">      
+                #{servicetreatmentdoctorname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="comment!=null">      
+                #{comment,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="loginname!=null">      
+                #{loginname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.plan.domain.TblTreatmentRecordsEvaluate" >
+        delete from tbl_treatment_records_evaluate  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicerecordidentify!=null">    
+           and SERVICE_RECORD_IDENTIFY = #{servicerecordidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="recordidentity!=null">    
+           and RECORD_IDENTITY = #{recordidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="planidentify!=null">    
+           and PLAN_IDENTIFY = #{planidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="serviceidentify!=null">    
+           and SERVICE_IDENTIFY = #{serviceidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicename!=null">    
+           and SERVICE_NAME = #{servicename,jdbcType=VARCHAR}        
+        </if>
+        <if test="contactidentify!=null">    
+           and CONTACT_IDENTIFY = #{contactidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="contactnumber!=null">    
+           and CONTACT_NUMBER = #{contactnumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="teamidentity!=null">    
+           and TEAM_IDENTITY = #{teamidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="teamname!=null">    
+           and TEAM_NAME = #{teamname,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicetreatmentdoctoridentity!=null">    
+           and SERVICE_TREATMENT_DOCTOR_IDENTITY = #{servicetreatmentdoctoridentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicetreatmentdoctorname!=null">    
+           and SERVICE_TREATMENT_DOCTOR_NAME = #{servicetreatmentdoctorname,jdbcType=VARCHAR}        
+        </if>
+        <if test="comment!=null">    
+           and COMMENT = #{comment,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="loginname!=null">    
+           and LOGIN_NAME = #{loginname,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.plan.domain.TblTreatmentRecordsEvaluate" >
+        update tbl_treatment_records_evaluate   
+        <set>
+            <if test="servicerecordidentify!=null"> 
+              SERVICE_RECORD_IDENTIFY = #{servicerecordidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="recordidentity!=null"> 
+              RECORD_IDENTITY = #{recordidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="planidentify!=null"> 
+              PLAN_IDENTIFY = #{planidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceidentify!=null"> 
+              SERVICE_IDENTIFY = #{serviceidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="servicename!=null"> 
+              SERVICE_NAME = #{servicename,jdbcType=VARCHAR},
+            </if>
+            <if test="contactidentify!=null"> 
+              CONTACT_IDENTIFY = #{contactidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="contactnumber!=null"> 
+              CONTACT_NUMBER = #{contactnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="teamidentity!=null"> 
+              TEAM_IDENTITY = #{teamidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="teamname!=null"> 
+              TEAM_NAME = #{teamname,jdbcType=VARCHAR},
+            </if>
+            <if test="servicetreatmentdoctoridentity!=null"> 
+              SERVICE_TREATMENT_DOCTOR_IDENTITY = #{servicetreatmentdoctoridentity,jdbcType=VARCHAR},
+            </if>
+            <if test="servicetreatmentdoctorname!=null"> 
+              SERVICE_TREATMENT_DOCTOR_NAME = #{servicetreatmentdoctorname,jdbcType=VARCHAR},
+            </if>
+            <if test="comment!=null"> 
+              COMMENT = #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="loginname!=null"> 
+              LOGIN_NAME = #{loginname,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_treatment_records_evaluate
+        (
+            ID,
+        SERVICE_RECORD_IDENTIFY,
+        RECORD_IDENTITY,
+        PLAN_IDENTIFY,
+        SERVICE_IDENTIFY,
+        SERVICE_NAME,
+        CONTACT_IDENTIFY,
+        CONTACT_NUMBER,
+        TEAM_IDENTITY,
+        TEAM_NAME,
+        SERVICE_TREATMENT_DOCTOR_IDENTITY,
+        SERVICE_TREATMENT_DOCTOR_NAME,
+        COMMENT,
+        CREATE_USER,
+        LOGIN_NAME,
+        CREATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.servicerecordidentify,jdbcType=VARCHAR},   
+            #{item.recordidentity,jdbcType=VARCHAR},   
+            #{item.planidentify,jdbcType=VARCHAR},   
+            #{item.serviceidentify,jdbcType=VARCHAR},   
+            #{item.servicename,jdbcType=VARCHAR},   
+            #{item.contactidentify,jdbcType=VARCHAR},   
+            #{item.contactnumber,jdbcType=VARCHAR},   
+            #{item.teamidentity,jdbcType=VARCHAR},   
+            #{item.teamname,jdbcType=VARCHAR},   
+            #{item.servicetreatmentdoctoridentity,jdbcType=VARCHAR},   
+            #{item.servicetreatmentdoctorname,jdbcType=VARCHAR},   
+            #{item.comment,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.loginname,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.home.mapper.TblResidentFamilyMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.home.domain.TblResidentFamily">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="FAMILY_NUMBER" property="familynumber" jdbcType="VARCHAR" />             
+       <result column="HEALTH_IDENTITY" property="healthidentity" jdbcType="VARCHAR" />             
+       <result column="MEMBER_NAME" property="membername" jdbcType="VARCHAR" />             
+       <result column="IDENTITY_NUMBER" property="identitynumber" jdbcType="VARCHAR" />             
+       <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />             
+       <result column="ADDRESS" property="address" jdbcType="VARCHAR" />             
+       <result column="MEMBR_COUNT" property="membrcount" jdbcType="INTEGER" />             
+       <result column="CONTACT_COUNT" property="contactcount" jdbcType="INTEGER" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        FAMILY_NUMBER,
+        HEALTH_IDENTITY,
+        MEMBER_NAME,
+        IDENTITY_NUMBER,
+        TELEPHONE,
+        ADDRESS,
+        MEMBR_COUNT,
+        CONTACT_COUNT,
+        AREA_CODE,
+        DELETE_SIGN,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family
+        where DELETE_SIGN=0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family	
+        where DELETE_SIGN=0
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family
+        where DELETE_SIGN=0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="familynumber!=null">
+            AND FAMILY_NUMBER = #{familynumber}
+        </if>
+        <if test="healthidentity!=null">
+            AND HEALTH_IDENTITY = #{healthidentity}
+        </if>
+        <if test="membername!=null">
+            AND MEMBER_NAME = #{membername}
+        </if>
+        <if test="identitynumber!=null">
+            AND IDENTITY_NUMBER = #{identitynumber}
+        </if>
+        <if test="telephone!=null">
+            AND TELEPHONE = #{telephone}
+        </if>
+        <if test="address!=null">
+            AND ADDRESS = #{address}
+        </if>
+        <if test="membrcount!=null">
+            AND MEMBR_COUNT = #{membrcount}
+        </if>
+        <if test="contactcount!=null">
+            AND CONTACT_COUNT = #{contactcount}
+        </if>
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_family
+        where DELETE_SIGN=0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.familynumber!=null">
+            AND FAMILY_NUMBER = #{searchParams.familynumber}
+        </if>
+        <if test="searchParams.healthidentity!=null">
+            AND HEALTH_IDENTITY = #{searchParams.healthidentity}
+        </if>
+        <if test="searchParams.membername!=null">
+            AND MEMBER_NAME = #{searchParams.membername}
+        </if>
+        <if test="searchParams.identitynumber!=null">
+            AND IDENTITY_NUMBER = #{searchParams.identitynumber}
+        </if>
+        <if test="searchParams.telephone!=null">
+            AND TELEPHONE = #{searchParams.telephone}
+        </if>
+        <if test="searchParams.address!=null">
+            AND ADDRESS = #{searchParams.address}
+        </if>
+        <if test="searchParams.membrcount!=null">
+            AND MEMBR_COUNT = #{searchParams.membrcount}
+        </if>
+        <if test="searchParams.contactcount!=null">
+            AND CONTACT_COUNT = #{searchParams.contactcount}
+        </if>
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+        <if test="searchParams.keyWords!=null and searchParams.keyWords!=''">
+            AND (member_name like '%${searchParams.keyWords}%' OR address like '%${searchParams.keyWords}%')
+        </if>      
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.home.domain.TblResidentFamily">
+       insert into tbl_resident_family 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="familynumber!=null">
+                FAMILY_NUMBER, 
+            </if>
+            <if test="healthidentity!=null">
+                HEALTH_IDENTITY, 
+            </if>
+            <if test="membername!=null">
+                MEMBER_NAME, 
+            </if>
+            <if test="identitynumber!=null">
+                IDENTITY_NUMBER, 
+            </if>
+            <if test="telephone!=null">
+                TELEPHONE, 
+            </if>
+            <if test="address!=null">
+                ADDRESS, 
+            </if>
+            <if test="membrcount!=null">
+                MEMBR_COUNT, 
+            </if>
+            <if test="contactcount!=null">
+                CONTACT_COUNT, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="familynumber!=null">      
+                #{familynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="healthidentity!=null">      
+                #{healthidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="membername!=null">      
+                #{membername,jdbcType=VARCHAR}, 
+            </if>
+            <if test="identitynumber!=null">      
+                #{identitynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="telephone!=null">      
+                #{telephone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="address!=null">      
+                #{address,jdbcType=VARCHAR}, 
+            </if>
+            <if test="membrcount!=null">      
+                #{membrcount,jdbcType=INTEGER}, 
+            </if>
+            <if test="contactcount!=null">      
+                #{contactcount,jdbcType=INTEGER}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.home.domain.TblResidentFamily" >
+        delete from tbl_resident_family  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="familynumber!=null">    
+           and FAMILY_NUMBER = #{familynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="healthidentity!=null">    
+           and HEALTH_IDENTITY = #{healthidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="membername!=null">    
+           and MEMBER_NAME = #{membername,jdbcType=VARCHAR}        
+        </if>
+        <if test="identitynumber!=null">    
+           and IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="telephone!=null">    
+           and TELEPHONE = #{telephone,jdbcType=VARCHAR}        
+        </if>
+        <if test="address!=null">    
+           and ADDRESS = #{address,jdbcType=VARCHAR}        
+        </if>
+        <if test="membrcount!=null">    
+           and MEMBR_COUNT = #{membrcount,jdbcType=INTEGER}        
+        </if>
+        <if test="contactcount!=null">    
+           and CONTACT_COUNT = #{contactcount,jdbcType=INTEGER}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.home.domain.TblResidentFamily" >
+        update tbl_resident_family   
+        <set>
+            <if test="familynumber!=null"> 
+              FAMILY_NUMBER = #{familynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="healthidentity!=null"> 
+              HEALTH_IDENTITY = #{healthidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="membername!=null"> 
+              MEMBER_NAME = #{membername,jdbcType=VARCHAR},
+            </if>
+            <if test="identitynumber!=null"> 
+              IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone!=null"> 
+              TELEPHONE = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="address!=null"> 
+              ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="membrcount!=null"> 
+              MEMBR_COUNT = #{membrcount,jdbcType=INTEGER},
+            </if>
+            <if test="contactcount!=null"> 
+              CONTACT_COUNT = #{contactcount,jdbcType=INTEGER},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_resident_family
+        (
+            ID,
+        FAMILY_NUMBER,
+        HEALTH_IDENTITY,
+        MEMBER_NAME,
+        IDENTITY_NUMBER,
+        TELEPHONE,
+        ADDRESS,
+        MEMBR_COUNT,
+        CONTACT_COUNT,
+        AREA_CODE,
+        DELETE_SIGN,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.familynumber,jdbcType=VARCHAR},   
+            #{item.healthidentity,jdbcType=VARCHAR},   
+            #{item.membername,jdbcType=VARCHAR},   
+            #{item.identitynumber,jdbcType=VARCHAR},   
+            #{item.telephone,jdbcType=VARCHAR},   
+            #{item.address,jdbcType=VARCHAR},   
+            #{item.membrcount,jdbcType=INTEGER},   
+            #{item.contactcount,jdbcType=INTEGER},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

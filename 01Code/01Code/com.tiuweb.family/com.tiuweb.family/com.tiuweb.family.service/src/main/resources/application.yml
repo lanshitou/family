@@ -1,0 +1,111 @@
+# The appno of registration
+climb:
+    appno: D1049945950A4B00B7EC5485930899AB
+    #是否将日志交给权限系统记录
+    logasync: false
+    logasyncurl: http://192.168.25.143:8021
+    #权限过滤器 true为黑名单 false为白名单
+    blackwhitelist: false
+
+# The config of cleanlog 清理登录、登出、操作、系统异常、业务异常日志
+cleanlog:
+    #是否开启清理日志功能
+    flag: true
+    #清理日志默认保存天数
+    savedays: 30
+    
+# LOGGING
+logging:
+    level:
+       com.ibatis:DEBUG
+    path: d:/logs-family-doctor
+    file: ${logging.path}/stdout.log
+    config: classpath:logback.xml
+
+# Server settings
+server:
+    port: 9527 
+    tomcat.uri-encoding: UTF-8
+    tomcat.basedir: ${logging.path}/tmp
+    tomcat.accesslog.enabled: true
+    tomcat.accesslog.directory: ${logging.path}/tmp
+
+    tomcat.max-threads: 100
+    tomcat.min-spare-threads: 20
+    tomcat.connection-timeout: 5000
+    
+    undertow.accesslog.dir: ${logging.path}/tmp
+    undertow.accesslog.enabled: true
+ 
+# DATASOURCE
+datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.25.143:3306/familydb?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+ 
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    
+#redis
+redis: 
+    hostName: 192.168.25.143  
+    port: 6379    
+    password: 123456
+    
+    database: 6
+    pool.maxActive: 200    
+    pool.maxWait: 300
+    pool.maxIdle: 50    
+    pool.minIdle: 10    
+    timeout: 10000
+    testOnBorrow: true
+
+# druid monitor
+druidMonitor:
+    allow: 192.168.23.80,127.0.0.1 
+    deny:
+    loginUsername: boot
+    loginPassword: 123456
+    resetEnable: false
+
+# SPRING PROFILES
+spring:       
+    # HTTP ENCODING
+    http:
+        encoding.charset: UTF-8
+        encoding.enable: true
+        encoding.force: true
+   
+# MyBatis
+mybatis:
+    typeAliasesPackage: com.tiuweb.**.**.domain
+    mapperLocations: classpath:/mapper/*.xml
+    configLocation: classpath:/mybatis-config.xml
+       
+# Swagger2
+swagger:
+    enable: true 
+    contact: family-doctor
+    
+#task config
+task:
+    orgRefreshTrigger:
+    planOverDueTrigger:  
+
+roles:
+    ordinaryDoctorRole: 709860616CA442BFA2CE02A832E3C675            
+    

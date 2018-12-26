@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.items.mapper.TblServcieItemMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.items.domain.TblServcieItem">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="SERVICE_CATEGORY_ID" property="servicecategoryid" jdbcType="VARCHAR" />             
+       <result column="SERVICE_CATEGORY_NAME" property="servicecategoryname" jdbcType="VARCHAR" />             
+       <result column="SERVICE_NAME" property="servicename" jdbcType="VARCHAR" />             
+       <result column="IS_FOUNDATION" property="isfoundation" jdbcType="BIT" />             
+       <result column="IS_APPOINTMENT" property="isappointment" jdbcType="SMALLINT" />             
+       <result column="IS_ENABLE" property="isenable" jdbcType="BIT" />             
+       <result column="DETAIL" property="detail" jdbcType="VARCHAR" />             
+       <result column="SERVICE_MESURE" property="servicemesure" jdbcType="SMALLINT" />             
+       <result column="SERVICE_MESURE_UNIT" property="servicemesureunit" jdbcType="VARCHAR" />             
+       <result column="PERIOD_IDENTITY" property="periodidentity" jdbcType="VARCHAR" />             
+       <result column="PEROID_NAME" property="peroidname" jdbcType="VARCHAR" />             
+       <result column="SERVICE_CHARGE" property="servicecharge" jdbcType="DECIMAL" />             
+       <result column="SERVICE_CHARGE_UNIT" property="servicechargeunit" jdbcType="VARCHAR" />             
+       <result column="SERVICE_CHARGE_FREQUENCY_IDENTITY" property="servicechargefrequencyidentity" jdbcType="VARCHAR" />             
+       <result column="CHARGE_FREQUENCY_NAME" property="chargefrequencyname" jdbcType="VARCHAR" />             
+       <result column="SERVICE_REWARD" property="servicereward" jdbcType="DECIMAL" />             
+       <result column="DOCTOR_MESURE" property="doctormesure" jdbcType="SMALLINT" />             
+       <result column="DOCTOR_MESURE_UNIT" property="doctormesureunit" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_EQUIPMENT_IDENTITY" property="medicalequipmentidentity" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_EQUIPMENT_NAME" property="medicalequipmentname" jdbcType="VARCHAR" />             
+       <result column="APPROVAL_IDENTITY" property="approvalidentity" jdbcType="VARCHAR" />             
+       <result column="AUDIT_ORG_ID" property="auditorgid" jdbcType="VARCHAR" />             
+       <result column="APPLY_ORG_ID" property="applyorgid" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        SERVICE_CATEGORY_ID,
+        SERVICE_CATEGORY_NAME,
+        SERVICE_NAME,
+        IS_FOUNDATION,
+        IS_APPOINTMENT,
+        IS_ENABLE,
+        DETAIL,
+        SERVICE_MESURE,
+        SERVICE_MESURE_UNIT,
+        PERIOD_IDENTITY,
+        PEROID_NAME,
+        SERVICE_CHARGE,
+        SERVICE_CHARGE_UNIT,
+        SERVICE_CHARGE_FREQUENCY_IDENTITY,
+        CHARGE_FREQUENCY_NAME,
+        SERVICE_REWARD,
+        DOCTOR_MESURE,
+        DOCTOR_MESURE_UNIT,
+        MEDICAL_EQUIPMENT_IDENTITY,
+        MEDICAL_EQUIPMENT_NAME,
+        APPROVAL_IDENTITY,
+        AUDIT_ORG_ID,
+        APPLY_ORG_ID,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item
+        where delete_sign = 0
+    </select> 
+
+    <select id="findByTeamsKey" parameterType="com.tiuweb.family.items.domain.TblServcieItem" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item	
+        where is_enable = 1 
+        <if test="servicecategoryid!=null">
+            AND SERVICE_CATEGORY_ID = #{servicecategoryid}
+        </if>        
+        AND ID IN(
+          SELECT servcie_item_identify 
+          FROM tbl_medical_team_service 
+          WHERE 1=1 AND delete_sign=0 AND TEAM_IDENTIFY = #{teamidentify}
+        )  		  
+    </select> 
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item	
+        where delete_sign = 0
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item
+        where delete_sign = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="servicecategoryid!=null">
+            AND SERVICE_CATEGORY_ID = #{servicecategoryid}
+        </if>
+        <if test="servicecategoryname!=null">
+            AND SERVICE_CATEGORY_NAME = #{servicecategoryname}
+        </if>
+        <if test="servicename!=null">
+            AND SERVICE_NAME = #{servicename}
+        </if>
+        <if test="isfoundation!=null">
+            AND IS_FOUNDATION = #{isfoundation}
+        </if>
+        <if test="isappointment!=null">
+            AND IS_APPOINTMENT = #{isappointment}
+        </if>
+        <if test="isenable!=null">
+            AND IS_ENABLE = #{isenable}
+        </if>
+        <if test="detail!=null">
+            AND DETAIL = #{detail}
+        </if>
+        <if test="servicemesure!=null">
+            AND SERVICE_MESURE = #{servicemesure}
+        </if>
+        <if test="servicemesureunit!=null">
+            AND SERVICE_MESURE_UNIT = #{servicemesureunit}
+        </if>
+        <if test="periodidentity!=null">
+            AND PERIOD_IDENTITY = #{periodidentity}
+        </if>
+        <if test="peroidname!=null">
+            AND PEROID_NAME = #{peroidname}
+        </if>
+        <if test="servicecharge!=null">
+            AND SERVICE_CHARGE = #{servicecharge}
+        </if>
+        <if test="servicechargeunit!=null">
+            AND SERVICE_CHARGE_UNIT = #{servicechargeunit}
+        </if>
+        <if test="servicechargefrequencyidentity!=null">
+            AND SERVICE_CHARGE_FREQUENCY_IDENTITY = #{servicechargefrequencyidentity}
+        </if>
+        <if test="chargefrequencyname!=null">
+            AND CHARGE_FREQUENCY_NAME = #{chargefrequencyname}
+        </if>
+        <if test="servicereward!=null">
+            AND SERVICE_REWARD = #{servicereward}
+        </if>
+        <if test="doctormesure!=null">
+            AND DOCTOR_MESURE = #{doctormesure}
+        </if>
+        <if test="doctormesureunit!=null">
+            AND DOCTOR_MESURE_UNIT = #{doctormesureunit}
+        </if>
+        <if test="medicalequipmentidentity!=null">
+            AND MEDICAL_EQUIPMENT_IDENTITY = #{medicalequipmentidentity}
+        </if>
+        <if test="medicalequipmentname!=null">
+            AND MEDICAL_EQUIPMENT_NAME = #{medicalequipmentname}
+        </if>
+        <if test="approvalidentity!=null">
+            AND APPROVAL_IDENTITY = #{approvalidentity}
+        </if>
+        <if test="auditorgid!=null">
+            AND AUDIT_ORG_ID = #{auditorgid}
+        </if>
+        <if test="applyorgid!=null">
+            AND APPLY_ORG_ID = #{applyorgid}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item
+        where delete_sign = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.servicecategoryid!=null">
+            AND SERVICE_CATEGORY_ID = #{searchParams.servicecategoryid}
+        </if>
+        <if test="searchParams.servicecategoryname!=null">
+            AND SERVICE_CATEGORY_NAME = #{searchParams.servicecategoryname}
+        </if>
+        <if test="searchParams.servicename!=null">
+            AND SERVICE_NAME = #{searchParams.servicename}
+        </if>
+        <if test="searchParams.isfoundation!=null">
+            AND IS_FOUNDATION = #{searchParams.isfoundation}
+        </if>
+        <if test="searchParams.isappointment!=null">
+            AND IS_APPOINTMENT = #{searchParams.isappointment}
+        </if>
+        <if test="searchParams.isenable!=null">
+            AND IS_ENABLE = #{searchParams.isenable}
+        </if>
+        <if test="searchParams.detail!=null">
+            AND DETAIL = #{searchParams.detail}
+        </if>
+        <if test="searchParams.servicemesure!=null">
+            AND SERVICE_MESURE = #{searchParams.servicemesure}
+        </if>
+        <if test="searchParams.servicemesureunit!=null">
+            AND SERVICE_MESURE_UNIT = #{searchParams.servicemesureunit}
+        </if>
+        <if test="searchParams.periodidentity!=null">
+            AND PERIOD_IDENTITY = #{searchParams.periodidentity}
+        </if>
+        <if test="searchParams.peroidname!=null">
+            AND PEROID_NAME = #{searchParams.peroidname}
+        </if>
+        <if test="searchParams.servicecharge!=null">
+            AND SERVICE_CHARGE = #{searchParams.servicecharge}
+        </if>
+        <if test="searchParams.servicechargeunit!=null">
+            AND SERVICE_CHARGE_UNIT = #{searchParams.servicechargeunit}
+        </if>
+        <if test="searchParams.servicechargefrequencyidentity!=null">
+            AND SERVICE_CHARGE_FREQUENCY_IDENTITY = #{searchParams.servicechargefrequencyidentity}
+        </if>
+        <if test="searchParams.chargefrequencyname!=null">
+            AND CHARGE_FREQUENCY_NAME = #{searchParams.chargefrequencyname}
+        </if>
+        <if test="searchParams.servicereward!=null">
+            AND SERVICE_REWARD = #{searchParams.servicereward}
+        </if>
+        <if test="searchParams.doctormesure!=null">
+            AND DOCTOR_MESURE = #{searchParams.doctormesure}
+        </if>
+        <if test="searchParams.doctormesureunit!=null">
+            AND DOCTOR_MESURE_UNIT = #{searchParams.doctormesureunit}
+        </if>
+        <if test="searchParams.medicalequipmentidentity!=null">
+            AND MEDICAL_EQUIPMENT_IDENTITY = #{searchParams.medicalequipmentidentity}
+        </if>
+        <if test="searchParams.medicalequipmentname!=null">
+            AND MEDICAL_EQUIPMENT_NAME = #{searchParams.medicalequipmentname}
+        </if>
+        <if test="searchParams.approvalidentity!=null">
+            AND APPROVAL_IDENTITY = #{searchParams.approvalidentity}
+        </if>
+        <if test="searchParams.auditorgid!=null">
+            AND AUDIT_ORG_ID = #{searchParams.auditorgid}
+        </if>
+        <if test="searchParams.applyorgid!=null">
+            AND APPLY_ORG_ID = #{searchParams.applyorgid}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+<!--         <if test="searchParams.keyWords!=null and searchParams.keyWords!=''"> -->
+<!--             AND (service_category_name like '%${searchParams.keyWords}%' OR  -->
+<!--             service_name like '%${searchParams.keyWords}%') -->
+<!--         </if>    -->
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.items.domain.TblServcieItem">
+       insert into tbl_servcie_item 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="servicecategoryid!=null">
+                SERVICE_CATEGORY_ID, 
+            </if>
+            <if test="servicecategoryname!=null">
+                SERVICE_CATEGORY_NAME, 
+            </if>
+            <if test="servicename!=null">
+                SERVICE_NAME, 
+            </if>
+            <if test="isfoundation!=null">
+                IS_FOUNDATION, 
+            </if>
+            <if test="isappointment!=null">
+                IS_APPOINTMENT, 
+            </if>
+            <if test="isenable!=null">
+                IS_ENABLE, 
+            </if>
+            <if test="detail!=null">
+                DETAIL, 
+            </if>
+            <if test="servicemesure!=null">
+                SERVICE_MESURE, 
+            </if>
+            <if test="servicemesureunit!=null">
+                SERVICE_MESURE_UNIT, 
+            </if>
+            <if test="periodidentity!=null">
+                PERIOD_IDENTITY, 
+            </if>
+            <if test="peroidname!=null">
+                PEROID_NAME, 
+            </if>
+            <if test="servicecharge!=null">
+                SERVICE_CHARGE, 
+            </if>
+            <if test="servicechargeunit!=null">
+                SERVICE_CHARGE_UNIT, 
+            </if>
+            <if test="servicechargefrequencyidentity!=null">
+                SERVICE_CHARGE_FREQUENCY_IDENTITY, 
+            </if>
+            <if test="chargefrequencyname!=null">
+                CHARGE_FREQUENCY_NAME, 
+            </if>
+            <if test="servicereward!=null">
+                SERVICE_REWARD, 
+            </if>
+            <if test="doctormesure!=null">
+                DOCTOR_MESURE, 
+            </if>
+            <if test="doctormesureunit!=null">
+                DOCTOR_MESURE_UNIT, 
+            </if>
+            <if test="medicalequipmentidentity!=null">
+                MEDICAL_EQUIPMENT_IDENTITY, 
+            </if>
+            <if test="medicalequipmentname!=null">
+                MEDICAL_EQUIPMENT_NAME, 
+            </if>
+            <if test="approvalidentity!=null">
+                APPROVAL_IDENTITY, 
+            </if>
+            <if test="auditorgid!=null">
+                AUDIT_ORG_ID, 
+            </if>
+            <if test="applyorgid!=null">
+                APPLY_ORG_ID, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicecategoryid!=null">      
+                #{servicecategoryid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicecategoryname!=null">      
+                #{servicecategoryname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicename!=null">      
+                #{servicename,jdbcType=VARCHAR}, 
+            </if>
+            <if test="isfoundation!=null">      
+                #{isfoundation,jdbcType=BIT}, 
+            </if>
+            <if test="isappointment!=null">      
+                #{isappointment,jdbcType=SMALLINT}, 
+            </if>
+            <if test="isenable!=null">      
+                #{isenable,jdbcType=BIT}, 
+            </if>
+            <if test="detail!=null">      
+                #{detail,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicemesure!=null">      
+                #{servicemesure,jdbcType=SMALLINT}, 
+            </if>
+            <if test="servicemesureunit!=null">      
+                #{servicemesureunit,jdbcType=VARCHAR}, 
+            </if>
+            <if test="periodidentity!=null">      
+                #{periodidentity,jdbcType=BIGINT}, 
+            </if>
+            <if test="peroidname!=null">      
+                #{peroidname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicecharge!=null">      
+                #{servicecharge,jdbcType=DECIMAL}, 
+            </if>
+            <if test="servicechargeunit!=null">      
+                #{servicechargeunit,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicechargefrequencyidentity!=null">      
+                #{servicechargefrequencyidentity,jdbcType=BIGINT}, 
+            </if>
+            <if test="chargefrequencyname!=null">      
+                #{chargefrequencyname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servicereward!=null">      
+                #{servicereward,jdbcType=DECIMAL}, 
+            </if>
+            <if test="doctormesure!=null">      
+                #{doctormesure,jdbcType=BIT}, 
+            </if>
+            <if test="doctormesureunit!=null">      
+                #{doctormesureunit,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalequipmentidentity!=null">      
+                #{medicalequipmentidentity,jdbcType=BIGINT}, 
+            </if>
+            <if test="medicalequipmentname!=null">      
+                #{medicalequipmentname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="approvalidentity!=null">      
+                #{approvalidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="auditorgid!=null">      
+                #{auditorgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="applyorgid!=null">      
+                #{applyorgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.items.domain.TblServcieItem" >
+        delete from tbl_servcie_item  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicecategoryid!=null">    
+           and SERVICE_CATEGORY_ID = #{servicecategoryid,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicecategoryname!=null">    
+           and SERVICE_CATEGORY_NAME = #{servicecategoryname,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicename!=null">    
+           and SERVICE_NAME = #{servicename,jdbcType=VARCHAR}        
+        </if>
+        <if test="isfoundation!=null">    
+           and IS_FOUNDATION = #{isfoundation,jdbcType=BIT}        
+        </if>
+        <if test="isappointment!=null">    
+           and IS_APPOINTMENT = #{isappointment,jdbcType=SMALLINT}        
+        </if>
+        <if test="isenable!=null">    
+           and IS_ENABLE = #{isenable,jdbcType=BIT}        
+        </if>
+        <if test="detail!=null">    
+           and DETAIL = #{detail,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicemesure!=null">    
+           and SERVICE_MESURE = #{servicemesure,jdbcType=SMALLINT}        
+        </if>
+        <if test="servicemesureunit!=null">    
+           and SERVICE_MESURE_UNIT = #{servicemesureunit,jdbcType=VARCHAR}        
+        </if>
+        <if test="periodidentity!=null">    
+           and PERIOD_IDENTITY = #{periodidentity,jdbcType=BIGINT}        
+        </if>
+        <if test="peroidname!=null">    
+           and PEROID_NAME = #{peroidname,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicecharge!=null">    
+           and SERVICE_CHARGE = #{servicecharge,jdbcType=DECIMAL}        
+        </if>
+        <if test="servicechargeunit!=null">    
+           and SERVICE_CHARGE_UNIT = #{servicechargeunit,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicechargefrequencyidentity!=null">    
+           and SERVICE_CHARGE_FREQUENCY_IDENTITY = #{servicechargefrequencyidentity,jdbcType=BIGINT}        
+        </if>
+        <if test="chargefrequencyname!=null">    
+           and CHARGE_FREQUENCY_NAME = #{chargefrequencyname,jdbcType=VARCHAR}        
+        </if>
+        <if test="servicereward!=null">    
+           and SERVICE_REWARD = #{servicereward,jdbcType=DECIMAL}        
+        </if>
+        <if test="doctormesure!=null">    
+           and DOCTOR_MESURE = #{doctormesure,jdbcType=BIT}        
+        </if>
+        <if test="doctormesureunit!=null">    
+           and DOCTOR_MESURE_UNIT = #{doctormesureunit,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalequipmentidentity!=null">    
+           and MEDICAL_EQUIPMENT_IDENTITY = #{medicalequipmentidentity,jdbcType=BIGINT}        
+        </if>
+        <if test="medicalequipmentname!=null">    
+           and MEDICAL_EQUIPMENT_NAME = #{medicalequipmentname,jdbcType=VARCHAR}        
+        </if>
+        <if test="approvalidentity!=null">    
+           and APPROVAL_IDENTITY = #{approvalidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="auditorgid!=null">    
+           and AUDIT_ORG_ID = #{auditorgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="applyorgid!=null">    
+           and APPLY_ORG_ID = #{applyorgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.items.domain.TblServcieItem" >
+        update tbl_servcie_item   
+        <set>
+            <if test="servicecategoryid!=null"> 
+              SERVICE_CATEGORY_ID = #{servicecategoryid,jdbcType=VARCHAR},
+            </if>
+            <if test="servicecategoryname!=null"> 
+              SERVICE_CATEGORY_NAME = #{servicecategoryname,jdbcType=VARCHAR},
+            </if>
+            <if test="servicename!=null"> 
+              SERVICE_NAME = #{servicename,jdbcType=VARCHAR},
+            </if>
+            <if test="isfoundation!=null"> 
+              IS_FOUNDATION = #{isfoundation,jdbcType=BIT},
+            </if>
+            <if test="isappointment!=null"> 
+              IS_APPOINTMENT = #{isappointment,jdbcType=SMALLINT},
+            </if>
+            <if test="isenable!=null"> 
+              IS_ENABLE = #{isenable,jdbcType=BIT},
+            </if>
+            <if test="detail!=null"> 
+              DETAIL = #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="servicemesure!=null"> 
+              SERVICE_MESURE = #{servicemesure,jdbcType=SMALLINT},
+            </if>
+            <if test="servicemesureunit!=null"> 
+              SERVICE_MESURE_UNIT = #{servicemesureunit,jdbcType=VARCHAR},
+            </if>
+            <if test="periodidentity!=null"> 
+              PERIOD_IDENTITY = #{periodidentity,jdbcType=BIGINT},
+            </if>
+            <if test="peroidname!=null"> 
+              PEROID_NAME = #{peroidname,jdbcType=VARCHAR},
+            </if>
+            <if test="servicecharge!=null"> 
+              SERVICE_CHARGE = #{servicecharge,jdbcType=DECIMAL},
+            </if>
+            <if test="servicechargeunit!=null"> 
+              SERVICE_CHARGE_UNIT = #{servicechargeunit,jdbcType=VARCHAR},
+            </if>
+            <if test="servicechargefrequencyidentity!=null"> 
+              SERVICE_CHARGE_FREQUENCY_IDENTITY = #{servicechargefrequencyidentity,jdbcType=BIGINT},
+            </if>
+            <if test="chargefrequencyname!=null"> 
+              CHARGE_FREQUENCY_NAME = #{chargefrequencyname,jdbcType=VARCHAR},
+            </if>
+            <if test="servicereward!=null"> 
+              SERVICE_REWARD = #{servicereward,jdbcType=DECIMAL},
+            </if>
+            <if test="doctormesure!=null"> 
+              DOCTOR_MESURE = #{doctormesure,jdbcType=BIT},
+            </if>
+            <if test="doctormesureunit!=null"> 
+              DOCTOR_MESURE_UNIT = #{doctormesureunit,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalequipmentidentity!=null"> 
+              MEDICAL_EQUIPMENT_IDENTITY = #{medicalequipmentidentity,jdbcType=BIGINT},
+            </if>
+            <if test="medicalequipmentname!=null"> 
+              MEDICAL_EQUIPMENT_NAME = #{medicalequipmentname,jdbcType=VARCHAR},
+            </if>
+            <if test="approvalidentity!=null"> 
+              APPROVAL_IDENTITY = #{approvalidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="auditorgid!=null"> 
+              AUDIT_ORG_ID = #{auditorgid,jdbcType=VARCHAR},
+            </if>
+            <if test="applyorgid!=null"> 
+              APPLY_ORG_ID = #{applyorgid,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_servcie_item
+        (
+            ID,
+        SERVICE_CATEGORY_ID,
+        SERVICE_CATEGORY_NAME,
+        SERVICE_NAME,
+        IS_FOUNDATION,
+        IS_APPOINTMENT,
+        IS_ENABLE,
+        DETAIL,
+        SERVICE_MESURE,
+        SERVICE_MESURE_UNIT,
+        PERIOD_IDENTITY,
+        PEROID_NAME,
+        SERVICE_CHARGE,
+        SERVICE_CHARGE_UNIT,
+        SERVICE_CHARGE_FREQUENCY_IDENTITY,
+        CHARGE_FREQUENCY_NAME,
+        SERVICE_REWARD,
+        DOCTOR_MESURE,
+        DOCTOR_MESURE_UNIT,
+        MEDICAL_EQUIPMENT_IDENTITY,
+        MEDICAL_EQUIPMENT_NAME,
+        APPROVAL_IDENTITY,
+        AUDIT_ORG_ID,
+        APPLY_ORG_ID,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.servicecategoryid,jdbcType=VARCHAR},   
+            #{item.servicecategoryname,jdbcType=VARCHAR},   
+            #{item.servicename,jdbcType=VARCHAR},   
+            #{item.isfoundation,jdbcType=BIT},   
+            #{item.isappointment,jdbcType=SMALLINT},   
+            #{item.isenable,jdbcType=BIT},   
+            #{item.detail,jdbcType=VARCHAR},   
+            #{item.servicemesure,jdbcType=SMALLINT},   
+            #{item.servicemesureunit,jdbcType=VARCHAR},   
+            #{item.periodidentity,jdbcType=BIGINT},   
+            #{item.peroidname,jdbcType=VARCHAR},   
+            #{item.servicecharge,jdbcType=DECIMAL},   
+            #{item.servicechargeunit,jdbcType=VARCHAR},   
+            #{item.servicechargefrequencyidentity,jdbcType=BIGINT},   
+            #{item.chargefrequencyname,jdbcType=VARCHAR},   
+            #{item.servicereward,jdbcType=DECIMAL},   
+            #{item.doctormesure,jdbcType=BIT},   
+            #{item.doctormesureunit,jdbcType=VARCHAR},   
+            #{item.medicalequipmentidentity,jdbcType=BIGINT},   
+            #{item.medicalequipmentname,jdbcType=VARCHAR},   
+            #{item.approvalidentity,jdbcType=VARCHAR},   
+            #{item.auditorgid,jdbcType=VARCHAR},   
+            #{item.applyorgid,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

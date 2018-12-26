@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.items.mapper.TblServcieItemRoleMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.items.domain.TblServcieItemRole">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="SERVCIE_ITEM_IDENTITY" property="servcieitemidentity" jdbcType="VARCHAR" />             
+       <result column="MEDICAL_TEAM_ROLE_IDENTITY" property="medicalteamroleidentity" jdbcType="VARCHAR" />             
+       <result column="ROLE_NAME" property="rolename" jdbcType="VARCHAR" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        SERVCIE_ITEM_IDENTITY,
+        MEDICAL_TEAM_ROLE_IDENTITY,
+        ROLE_NAME
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item_role
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item_role	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item_role
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="servcieitemidentity!=null">
+            AND SERVCIE_ITEM_IDENTITY = #{servcieitemidentity}
+        </if>
+        <if test="medicalteamroleidentity!=null">
+            AND MEDICAL_TEAM_ROLE_IDENTITY = #{medicalteamroleidentity}
+        </if>
+        <if test="rolename!=null">
+            AND ROLE_NAME = #{rolename}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_servcie_item_role
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.servcieitemidentity!=null">
+            AND SERVCIE_ITEM_IDENTITY = #{searchParams.servcieitemidentity}
+        </if>
+        <if test="searchParams.medicalteamroleidentity!=null">
+            AND MEDICAL_TEAM_ROLE_IDENTITY = #{searchParams.medicalteamroleidentity}
+        </if>
+        <if test="searchParams.rolename!=null">
+            AND ROLE_NAME = #{searchParams.rolename}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.items.domain.TblServcieItemRole">
+       insert into tbl_servcie_item_role 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="servcieitemidentity!=null">
+                SERVCIE_ITEM_IDENTITY, 
+            </if>
+            <if test="medicalteamroleidentity!=null">
+                MEDICAL_TEAM_ROLE_IDENTITY, 
+            </if>
+            <if test="rolename!=null">
+                ROLE_NAME, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="servcieitemidentity!=null">      
+                #{servcieitemidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="medicalteamroleidentity!=null">      
+                #{medicalteamroleidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="rolename!=null">      
+                #{rolename,jdbcType=VARCHAR}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.items.domain.TblServcieItemRole" >
+        delete from tbl_servcie_item_role  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="servcieitemidentity!=null">    
+           and SERVCIE_ITEM_IDENTITY = #{servcieitemidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="medicalteamroleidentity!=null">    
+           and MEDICAL_TEAM_ROLE_IDENTITY = #{medicalteamroleidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="rolename!=null">    
+           and ROLE_NAME = #{rolename,jdbcType=VARCHAR}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.items.domain.TblServcieItemRole" >
+        update tbl_servcie_item_role   
+        <set>
+            <if test="servcieitemidentity!=null"> 
+              SERVCIE_ITEM_IDENTITY = #{servcieitemidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalteamroleidentity!=null"> 
+              MEDICAL_TEAM_ROLE_IDENTITY = #{medicalteamroleidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="rolename!=null"> 
+              ROLE_NAME = #{rolename,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_servcie_item_role
+        (
+            ID,
+        SERVCIE_ITEM_IDENTITY,
+        MEDICAL_TEAM_ROLE_IDENTITY,
+        ROLE_NAME 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.servcieitemidentity,jdbcType=VARCHAR},   
+            #{item.medicalteamroleidentity,jdbcType=VARCHAR},   
+            #{item.rolename,jdbcType=VARCHAR}  
+        )
+        </foreach>
+    </insert>
+</mapper>

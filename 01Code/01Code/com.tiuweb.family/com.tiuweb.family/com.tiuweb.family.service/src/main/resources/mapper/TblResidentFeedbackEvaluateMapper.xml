@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.feedback.mapper.TblResidentFeedbackEvaluateMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.feedback.domain.TblResidentFeedbackEvaluate">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="FEEDBACK_IDENTITY" property="feedbackidentity" jdbcType="VARCHAR" />             
+       <result column="RESDIENT_IDENTITY" property="resdientidentity" jdbcType="VARCHAR" />             
+       <result column="LOGIN_NAME" property="loginname" jdbcType="VARCHAR" />             
+       <result column="IS_RESOLVE" property="isresolve" jdbcType="BIT" />             
+       <result column="IS_AUTO" property="isauto" jdbcType="SMALLINT" />             
+       <result column="RESPONSE_RATE" property="responserate" jdbcType="SMALLINT" />             
+       <result column="RESULT_RATE" property="resultrate" jdbcType="SMALLINT" />             
+       <result column="REPLY" property="reply" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        FEEDBACK_IDENTITY,
+        RESDIENT_IDENTITY,
+        LOGIN_NAME,
+        IS_RESOLVE,
+        IS_AUTO,
+        RESPONSE_RATE,
+        RESULT_RATE,
+        REPLY,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_feedback_evaluate
+        where delete_sign = 0
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_feedback_evaluate	
+        where delete_sign = 0
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_feedback_evaluate
+        where delete_sign = 0
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="feedbackidentity!=null">
+            AND FEEDBACK_IDENTITY = #{feedbackidentity}
+        </if>
+        <if test="resdientidentity!=null">
+            AND RESDIENT_IDENTITY = #{resdientidentity}
+        </if>
+        <if test="loginname!=null">
+            AND LOGIN_NAME = #{loginname}
+        </if>
+        <if test="isresolve!=null">
+            AND IS_RESOLVE = #{isresolve}
+        </if>
+        <if test="isauto!=null">
+            AND IS_AUTO = #{isauto}
+        </if>
+        <if test="responserate!=null">
+            AND RESPONSE_RATE = #{responserate}
+        </if>
+        <if test="resultrate!=null">
+            AND RESULT_RATE = #{resultrate}
+        </if>
+        <if test="reply!=null">
+            AND REPLY = #{reply}
+        </if>
+<!--         <if test="deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{deletesign} -->
+<!--         </if> -->
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_resident_feedback_evaluate
+        where delete_sign = 0
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.feedbackidentity!=null">
+            AND FEEDBACK_IDENTITY = #{searchParams.feedbackidentity}
+        </if>
+        <if test="searchParams.resdientidentity!=null">
+            AND RESDIENT_IDENTITY = #{searchParams.resdientidentity}
+        </if>
+        <if test="searchParams.loginname!=null">
+            AND LOGIN_NAME = #{searchParams.loginname}
+        </if>
+        <if test="searchParams.isresolve!=null">
+            AND IS_RESOLVE = #{searchParams.isresolve}
+        </if>
+        <if test="searchParams.isauto!=null">
+            AND IS_AUTO = #{searchParams.isauto}
+        </if>
+        <if test="searchParams.responserate!=null">
+            AND RESPONSE_RATE = #{searchParams.responserate}
+        </if>
+        <if test="searchParams.resultrate!=null">
+            AND RESULT_RATE = #{searchParams.resultrate}
+        </if>
+        <if test="searchParams.reply!=null">
+            AND REPLY = #{searchParams.reply}
+        </if>
+<!--         <if test="searchParams.deletesign!=null"> -->
+<!--             AND DELETE_SIGN = #{searchParams.deletesign} -->
+<!--         </if> -->
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.feedback.domain.TblResidentFeedbackEvaluate">
+       insert into tbl_resident_feedback_evaluate 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="feedbackidentity!=null">
+                FEEDBACK_IDENTITY, 
+            </if>
+            <if test="resdientidentity!=null">
+                RESDIENT_IDENTITY, 
+            </if>
+            <if test="loginname!=null">
+                LOGIN_NAME, 
+            </if>
+            <if test="isresolve!=null">
+                IS_RESOLVE, 
+            </if>
+            <if test="isauto!=null">
+                IS_AUTO, 
+            </if>
+            <if test="responserate!=null">
+                RESPONSE_RATE, 
+            </if>
+            <if test="resultrate!=null">
+                RESULT_RATE, 
+            </if>
+            <if test="reply!=null">
+                REPLY, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="feedbackidentity!=null">      
+                #{feedbackidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="resdientidentity!=null">      
+                #{resdientidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="loginname!=null">      
+                #{loginname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="isresolve!=null">      
+                #{isresolve,jdbcType=BIT}, 
+            </if>
+            <if test="isauto!=null">      
+                #{isauto,jdbcType=SMALLINT}, 
+            </if>
+            <if test="responserate!=null">      
+                #{responserate,jdbcType=SMALLINT}, 
+            </if>
+            <if test="resultrate!=null">      
+                #{resultrate,jdbcType=SMALLINT}, 
+            </if>
+            <if test="reply!=null">      
+                #{reply,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.feedback.domain.TblResidentFeedbackEvaluate" >
+        delete from tbl_resident_feedback_evaluate  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="feedbackidentity!=null">    
+           and FEEDBACK_IDENTITY = #{feedbackidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="resdientidentity!=null">    
+           and RESDIENT_IDENTITY = #{resdientidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="loginname!=null">    
+           and LOGIN_NAME = #{loginname,jdbcType=VARCHAR}        
+        </if>
+        <if test="isresolve!=null">    
+           and IS_RESOLVE = #{isresolve,jdbcType=BIT}        
+        </if>
+        <if test="isauto!=null">    
+           and IS_AUTO = #{isauto,jdbcType=SMALLINT}        
+        </if>
+        <if test="responserate!=null">    
+           and RESPONSE_RATE = #{responserate,jdbcType=SMALLINT}        
+        </if>
+        <if test="resultrate!=null">    
+           and RESULT_RATE = #{resultrate,jdbcType=SMALLINT}        
+        </if>
+        <if test="reply!=null">    
+           and REPLY = #{reply,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.feedback.domain.TblResidentFeedbackEvaluate" >
+        update tbl_resident_feedback_evaluate   
+        <set>
+            <if test="feedbackidentity!=null"> 
+              FEEDBACK_IDENTITY = #{feedbackidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="resdientidentity!=null"> 
+              RESDIENT_IDENTITY = #{resdientidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="loginname!=null"> 
+              LOGIN_NAME = #{loginname,jdbcType=VARCHAR},
+            </if>
+            <if test="isresolve!=null"> 
+              IS_RESOLVE = #{isresolve,jdbcType=BIT},
+            </if>
+            <if test="isauto!=null"> 
+              IS_AUTO = #{isauto,jdbcType=SMALLINT},
+            </if>
+            <if test="responserate!=null"> 
+              RESPONSE_RATE = #{responserate,jdbcType=SMALLINT},
+            </if>
+            <if test="resultrate!=null"> 
+              RESULT_RATE = #{resultrate,jdbcType=SMALLINT},
+            </if>
+            <if test="reply!=null"> 
+              REPLY = #{reply,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_resident_feedback_evaluate
+        (
+            ID,
+        FEEDBACK_IDENTITY,
+        RESDIENT_IDENTITY,
+        LOGIN_NAME,
+        IS_RESOLVE,
+        IS_AUTO,
+        RESPONSE_RATE,
+        RESULT_RATE,
+        REPLY,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.feedbackidentity,jdbcType=VARCHAR},   
+            #{item.resdientidentity,jdbcType=VARCHAR},   
+            #{item.loginname,jdbcType=VARCHAR},   
+            #{item.isresolve,jdbcType=BIT},   
+            #{item.isauto,jdbcType=SMALLINT},   
+            #{item.responserate,jdbcType=SMALLINT},   
+            #{item.resultrate,jdbcType=SMALLINT},   
+            #{item.reply,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>

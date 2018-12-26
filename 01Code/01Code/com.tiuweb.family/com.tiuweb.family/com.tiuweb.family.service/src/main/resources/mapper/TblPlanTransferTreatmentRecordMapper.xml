@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiuweb.family.plan.mapper.TblPlanTransferTreatmentRecordMapper">
+     
+    <!-- 单表操作频繁 并无频繁增删改，可加二级缓存 -->
+    <!-- <cache type="com.tiuweb.climb.framework.config.ehcache.RedisCache"/> --> 
+     
+    <resultMap id="BaseResultMap" type="com.tiuweb.family.plan.domain.TblPlanTransferTreatmentRecord">
+       <id column="ID" property="id" jdbcType="VARCHAR" />           
+       <result column="TRANSFER_NUMBER" property="transfernumber" jdbcType="VARCHAR" />             
+       <result column="RECORD_IDENTIFY" property="recordidentify" jdbcType="VARCHAR" />             
+       <result column="RESIDENT_CONTACT_IDENTIFY" property="residentcontactidentify" jdbcType="VARCHAR" />             
+       <result column="RESIDENT_HEALTH_ARCHIVES_IDENTIFY" property="residenthealtharchivesidentify" jdbcType="VARCHAR" />             
+       <result column="PLAN_IDENTIFY" property="planidentify" jdbcType="VARCHAR" />             
+       <result column="TRANSFER_CONTRAST_IDENTIFY" property="transfercontrastidentify" jdbcType="VARCHAR" />             
+       <result column="CURRENT_ORG_IDENTITY" property="currentorgidentity" jdbcType="VARCHAR" />             
+       <result column="CURRENT_ORG_NAME" property="currentorgname" jdbcType="VARCHAR" />             
+       <result column="ABUTMENT_ORG_IDENTITY" property="abutmentorgidentity" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_IDENTITY" property="doctoridentity" jdbcType="VARCHAR" />             
+       <result column="DOCTOR_NAME" property="doctorname" jdbcType="VARCHAR" />             
+       <result column="ABUTMENT_ORG_NAME" property="abutmentorgname" jdbcType="VARCHAR" />             
+       <result column="TRANSFER_TREATMENT_CATEGORY" property="transfertreatmentcategory" jdbcType="BIT" />             
+       <result column="STATUS" property="status" jdbcType="SMALLINT" />             
+       <result column="RESIDENT_NAME" property="residentname" jdbcType="VARCHAR" />             
+       <result column="AGE" property="age" jdbcType="SMALLINT" />             
+       <result column="SEX" property="sex" jdbcType="SMALLINT" />             
+       <result column="BIRTH_DATE" property="birthdate" jdbcType="DATE" />             
+       <result column="IDENTITY_NUMBER" property="identitynumber" jdbcType="VARCHAR" />             
+       <result column="LINKMAN_PHONE" property="linkmanphone" jdbcType="VARCHAR" />             
+       <result column="ADDRESS" property="address" jdbcType="VARCHAR" />             
+       <result column="DELETE_SIGN" property="deletesign" jdbcType="BIT" />             
+       <result column="AREA_CODE" property="areacode" jdbcType="VARCHAR" />             
+       <result column="ORG_ID" property="orgid" jdbcType="VARCHAR" />             
+       <result column="CREATE_USER" property="createuser" jdbcType="VARCHAR" />             
+       <result column="CREATE_DATE" property="createdate" jdbcType="TIMESTAMP" />             
+       <result column="UPDATE_USER" property="updateuser" jdbcType="VARCHAR" />             
+       <result column="UPDATE_DATE" property="updatedate" jdbcType="TIMESTAMP" />             
+    </resultMap>
+      
+    <sql id="Base_Column_List" >
+        ID,
+        TRANSFER_NUMBER,
+        RECORD_IDENTIFY,
+        RESIDENT_CONTACT_IDENTIFY,
+        RESIDENT_HEALTH_ARCHIVES_IDENTIFY,
+        PLAN_IDENTIFY,
+        TRANSFER_CONTRAST_IDENTIFY,
+        CURRENT_ORG_IDENTITY,
+        CURRENT_ORG_NAME,
+        ABUTMENT_ORG_IDENTITY,
+        DOCTOR_IDENTITY,
+        DOCTOR_NAME,
+        ABUTMENT_ORG_NAME,
+        TRANSFER_TREATMENT_CATEGORY,
+        STATUS,
+        RESIDENT_NAME,
+        AGE,
+        SEX,
+        BIRTH_DATE,
+        IDENTITY_NUMBER,
+        LINKMAN_PHONE,
+        ADDRESS,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_plan_transfer_treatment_record
+    </select> 
+
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_plan_transfer_treatment_record	
+        where 1 = 1
+        AND ID = #{id}  		  
+    </select> 
+
+    <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_plan_transfer_treatment_record
+        where 1=1
+        <if test="id!=null">
+            AND ID = #{id}
+        </if>
+        <if test="transfernumber!=null">
+            AND TRANSFER_NUMBER = #{transfernumber}
+        </if>
+        <if test="recordidentify!=null">
+            AND RECORD_IDENTIFY = #{recordidentify}
+        </if>
+        <if test="residentcontactidentify!=null">
+            AND RESIDENT_CONTACT_IDENTIFY = #{residentcontactidentify}
+        </if>
+        <if test="residenthealtharchivesidentify!=null">
+            AND RESIDENT_HEALTH_ARCHIVES_IDENTIFY = #{residenthealtharchivesidentify}
+        </if>
+        <if test="planidentify!=null">
+            AND PLAN_IDENTIFY = #{planidentify}
+        </if>
+        <if test="transfercontrastidentify!=null">
+            AND TRANSFER_CONTRAST_IDENTIFY = #{transfercontrastidentify}
+        </if>
+        <if test="currentorgidentity!=null">
+            AND CURRENT_ORG_IDENTITY = #{currentorgidentity}
+        </if>
+        <if test="currentorgname!=null">
+            AND CURRENT_ORG_NAME = #{currentorgname}
+        </if>
+        <if test="abutmentorgidentity!=null">
+            AND ABUTMENT_ORG_IDENTITY = #{abutmentorgidentity}
+        </if>
+        <if test="doctoridentity!=null">
+            AND DOCTOR_IDENTITY = #{doctoridentity}
+        </if>
+        <if test="doctorname!=null">
+            AND DOCTOR_NAME = #{doctorname}
+        </if>
+        <if test="abutmentorgname!=null">
+            AND ABUTMENT_ORG_NAME = #{abutmentorgname}
+        </if>
+        <if test="transfertreatmentcategory!=null">
+            AND TRANSFER_TREATMENT_CATEGORY = #{transfertreatmentcategory}
+        </if>
+        <if test="status!=null">
+            AND STATUS = #{status}
+        </if>
+        <if test="residentname!=null">
+            AND RESIDENT_NAME = #{residentname}
+        </if>
+        <if test="age!=null">
+            AND AGE = #{age}
+        </if>
+        <if test="sex!=null">
+            AND SEX = #{sex}
+        </if>
+        <if test="birthdate!=null">
+            AND BIRTH_DATE = #{birthdate}
+        </if>
+        <if test="identitynumber!=null">
+            AND IDENTITY_NUMBER = #{identitynumber}
+        </if>
+        <if test="linkmanphone!=null">
+            AND LINKMAN_PHONE = #{linkmanphone}
+        </if>
+        <if test="address!=null">
+            AND ADDRESS = #{address}
+        </if>
+        <if test="deletesign!=null">
+            AND DELETE_SIGN = #{deletesign}
+        </if>
+        <if test="areacode!=null">
+            AND AREA_CODE = #{areacode}
+        </if>
+        <if test="orgid!=null">
+            AND ORG_ID = #{orgid}
+        </if>
+        <if test="createuser!=null">
+            AND CREATE_USER = #{createuser}
+        </if>
+        <if test="createdate!=null">
+            AND CREATE_DATE = #{createdate}
+        </if>
+        <if test="updateuser!=null">
+            AND UPDATE_USER = #{updateuser}
+        </if>
+        <if test="updatedate!=null">
+            AND UPDATE_DATE = #{updatedate}
+        </if>
+    </select>
+
+    <select id="findByPage" parameterType="com.tiuweb.climb.framework.commons.util.SearchParams" resultMap="BaseResultMap">
+        select                               
+        <include refid="Base_Column_List" /> 
+        from tbl_plan_transfer_treatment_record
+        where 1=1
+        <if test="searchParams.id!=null">
+            AND ID = #{searchParams.id}
+        </if>
+        <if test="searchParams.transfernumber!=null">
+            AND TRANSFER_NUMBER = #{searchParams.transfernumber}
+        </if>
+        <if test="searchParams.recordidentify!=null">
+            AND RECORD_IDENTIFY = #{searchParams.recordidentify}
+        </if>
+        <if test="searchParams.residentcontactidentify!=null">
+            AND RESIDENT_CONTACT_IDENTIFY = #{searchParams.residentcontactidentify}
+        </if>
+        <if test="searchParams.residenthealtharchivesidentify!=null">
+            AND RESIDENT_HEALTH_ARCHIVES_IDENTIFY = #{searchParams.residenthealtharchivesidentify}
+        </if>
+        <if test="searchParams.planidentify!=null">
+            AND PLAN_IDENTIFY = #{searchParams.planidentify}
+        </if>
+        <if test="searchParams.transfercontrastidentify!=null">
+            AND TRANSFER_CONTRAST_IDENTIFY = #{searchParams.transfercontrastidentify}
+        </if>
+        <if test="searchParams.currentorgidentity!=null">
+            AND CURRENT_ORG_IDENTITY = #{searchParams.currentorgidentity}
+        </if>
+        <if test="searchParams.currentorgname!=null">
+            AND CURRENT_ORG_NAME = #{searchParams.currentorgname}
+        </if>
+        <if test="searchParams.abutmentorgidentity!=null">
+            AND ABUTMENT_ORG_IDENTITY = #{searchParams.abutmentorgidentity}
+        </if>
+        <if test="searchParams.doctoridentity!=null">
+            AND DOCTOR_IDENTITY = #{searchParams.doctoridentity}
+        </if>
+        <if test="searchParams.doctorname!=null">
+            AND DOCTOR_NAME = #{searchParams.doctorname}
+        </if>
+        <if test="searchParams.abutmentorgname!=null">
+            AND ABUTMENT_ORG_NAME = #{searchParams.abutmentorgname}
+        </if>
+        <if test="searchParams.transfertreatmentcategory!=null">
+            AND TRANSFER_TREATMENT_CATEGORY = #{searchParams.transfertreatmentcategory}
+        </if>
+        <if test="searchParams.status!=null">
+            AND STATUS = #{searchParams.status}
+        </if>
+        <if test="searchParams.residentname!=null">
+            AND RESIDENT_NAME = #{searchParams.residentname}
+        </if>
+        <if test="searchParams.age!=null">
+            AND AGE = #{searchParams.age}
+        </if>
+        <if test="searchParams.sex!=null">
+            AND SEX = #{searchParams.sex}
+        </if>
+        <if test="searchParams.birthdate!=null">
+            AND BIRTH_DATE = #{searchParams.birthdate}
+        </if>
+        <if test="searchParams.identitynumber!=null">
+            AND IDENTITY_NUMBER = #{searchParams.identitynumber}
+        </if>
+        <if test="searchParams.linkmanphone!=null">
+            AND LINKMAN_PHONE = #{searchParams.linkmanphone}
+        </if>
+        <if test="searchParams.address!=null">
+            AND ADDRESS = #{searchParams.address}
+        </if>
+        <if test="searchParams.deletesign!=null">
+            AND DELETE_SIGN = #{searchParams.deletesign}
+        </if>
+        <if test="searchParams.areacode!=null">
+            AND AREA_CODE = #{searchParams.areacode}
+        </if>
+        <if test="searchParams.orgid!=null">
+            AND ORG_ID = #{searchParams.orgid}
+        </if>
+        <if test="searchParams.createuser!=null">
+            AND CREATE_USER = #{searchParams.createuser}
+        </if>
+        <if test="searchParams.createdate!=null">
+            AND CREATE_DATE = #{searchParams.createdate}
+        </if>
+        <if test="searchParams.updateuser!=null">
+            AND UPDATE_USER = #{searchParams.updateuser}
+        </if>
+        <if test="searchParams.updatedate!=null">
+            AND UPDATE_DATE = #{searchParams.updatedate}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.tiuweb.family.plan.domain.TblPlanTransferTreatmentRecord">
+       insert into tbl_plan_transfer_treatment_record 
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id!=null">
+                ID, 
+            </if>
+            <if test="transfernumber!=null">
+                TRANSFER_NUMBER, 
+            </if>
+            <if test="recordidentify!=null">
+                RECORD_IDENTIFY, 
+            </if>
+            <if test="residentcontactidentify!=null">
+                RESIDENT_CONTACT_IDENTIFY, 
+            </if>
+            <if test="residenthealtharchivesidentify!=null">
+                RESIDENT_HEALTH_ARCHIVES_IDENTIFY, 
+            </if>
+            <if test="planidentify!=null">
+                PLAN_IDENTIFY, 
+            </if>
+            <if test="transfercontrastidentify!=null">
+                TRANSFER_CONTRAST_IDENTIFY, 
+            </if>
+            <if test="currentorgidentity!=null">
+                CURRENT_ORG_IDENTITY, 
+            </if>
+            <if test="currentorgname!=null">
+                CURRENT_ORG_NAME, 
+            </if>
+            <if test="abutmentorgidentity!=null">
+                ABUTMENT_ORG_IDENTITY, 
+            </if>
+            <if test="doctoridentity!=null">
+                DOCTOR_IDENTITY, 
+            </if>
+            <if test="doctorname!=null">
+                DOCTOR_NAME, 
+            </if>
+            <if test="abutmentorgname!=null">
+                ABUTMENT_ORG_NAME, 
+            </if>
+            <if test="transfertreatmentcategory!=null">
+                TRANSFER_TREATMENT_CATEGORY, 
+            </if>
+            <if test="status!=null">
+                STATUS, 
+            </if>
+            <if test="residentname!=null">
+                RESIDENT_NAME, 
+            </if>
+            <if test="age!=null">
+                AGE, 
+            </if>
+            <if test="sex!=null">
+                SEX, 
+            </if>
+            <if test="birthdate!=null">
+                BIRTH_DATE, 
+            </if>
+            <if test="identitynumber!=null">
+                IDENTITY_NUMBER, 
+            </if>
+            <if test="linkmanphone!=null">
+                LINKMAN_PHONE, 
+            </if>
+            <if test="address!=null">
+                ADDRESS, 
+            </if>
+            <if test="deletesign!=null">
+                DELETE_SIGN, 
+            </if>
+            <if test="areacode!=null">
+                AREA_CODE, 
+            </if>
+            <if test="orgid!=null">
+                ORG_ID, 
+            </if>
+            <if test="createuser!=null">
+                CREATE_USER, 
+            </if>
+            <if test="createdate!=null">
+                CREATE_DATE, 
+            </if>
+            <if test="updateuser!=null">
+                UPDATE_USER, 
+            </if>
+            <if test="updatedate!=null">
+                UPDATE_DATE, 
+            </if>
+        </trim>  
+        <trim prefix="values (" suffix=")" suffixOverrides="," > 
+            <if test="id!=null">      
+                #{id,jdbcType=VARCHAR}, 
+            </if>
+            <if test="transfernumber!=null">      
+                #{transfernumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="recordidentify!=null">      
+                #{recordidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="residentcontactidentify!=null">      
+                #{residentcontactidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="residenthealtharchivesidentify!=null">      
+                #{residenthealtharchivesidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="planidentify!=null">      
+                #{planidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="transfercontrastidentify!=null">      
+                #{transfercontrastidentify,jdbcType=VARCHAR}, 
+            </if>
+            <if test="currentorgidentity!=null">      
+                #{currentorgidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="currentorgname!=null">      
+                #{currentorgname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="abutmentorgidentity!=null">      
+                #{abutmentorgidentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctoridentity!=null">      
+                #{doctoridentity,jdbcType=VARCHAR}, 
+            </if>
+            <if test="doctorname!=null">      
+                #{doctorname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="abutmentorgname!=null">      
+                #{abutmentorgname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="transfertreatmentcategory!=null">      
+                #{transfertreatmentcategory,jdbcType=BIT}, 
+            </if>
+            <if test="status!=null">      
+                #{status,jdbcType=SMALLINT}, 
+            </if>
+            <if test="residentname!=null">      
+                #{residentname,jdbcType=VARCHAR}, 
+            </if>
+            <if test="age!=null">      
+                #{age,jdbcType=SMALLINT}, 
+            </if>
+            <if test="sex!=null">      
+                #{sex,jdbcType=SMALLINT}, 
+            </if>
+            <if test="birthdate!=null">      
+                #{birthdate,jdbcType=DATE}, 
+            </if>
+            <if test="identitynumber!=null">      
+                #{identitynumber,jdbcType=VARCHAR}, 
+            </if>
+            <if test="linkmanphone!=null">      
+                #{linkmanphone,jdbcType=VARCHAR}, 
+            </if>
+            <if test="address!=null">      
+                #{address,jdbcType=VARCHAR}, 
+            </if>
+            <if test="deletesign!=null">      
+                #{deletesign,jdbcType=BIT}, 
+            </if>
+            <if test="areacode!=null">      
+                #{areacode,jdbcType=VARCHAR}, 
+            </if>
+            <if test="orgid!=null">      
+                #{orgid,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createuser!=null">      
+                #{createuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="createdate!=null">      
+                #{createdate,jdbcType=TIMESTAMP}, 
+            </if>
+            <if test="updateuser!=null">      
+                #{updateuser,jdbcType=VARCHAR}, 
+            </if>
+            <if test="updatedate!=null">      
+                #{updatedate,jdbcType=TIMESTAMP}, 
+            </if>
+        </trim> 
+    </insert>
+
+    <delete id="delete" parameterType="com.tiuweb.family.plan.domain.TblPlanTransferTreatmentRecord" >
+        delete from tbl_plan_transfer_treatment_record  
+        where  1=1 
+        <if test="id!=null">    
+           and ID = #{id,jdbcType=VARCHAR}        
+        </if>
+        <if test="transfernumber!=null">    
+           and TRANSFER_NUMBER = #{transfernumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="recordidentify!=null">    
+           and RECORD_IDENTIFY = #{recordidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="residentcontactidentify!=null">    
+           and RESIDENT_CONTACT_IDENTIFY = #{residentcontactidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="residenthealtharchivesidentify!=null">    
+           and RESIDENT_HEALTH_ARCHIVES_IDENTIFY = #{residenthealtharchivesidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="planidentify!=null">    
+           and PLAN_IDENTIFY = #{planidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="transfercontrastidentify!=null">    
+           and TRANSFER_CONTRAST_IDENTIFY = #{transfercontrastidentify,jdbcType=VARCHAR}        
+        </if>
+        <if test="currentorgidentity!=null">    
+           and CURRENT_ORG_IDENTITY = #{currentorgidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="currentorgname!=null">    
+           and CURRENT_ORG_NAME = #{currentorgname,jdbcType=VARCHAR}        
+        </if>
+        <if test="abutmentorgidentity!=null">    
+           and ABUTMENT_ORG_IDENTITY = #{abutmentorgidentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctoridentity!=null">    
+           and DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR}        
+        </if>
+        <if test="doctorname!=null">    
+           and DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR}        
+        </if>
+        <if test="abutmentorgname!=null">    
+           and ABUTMENT_ORG_NAME = #{abutmentorgname,jdbcType=VARCHAR}        
+        </if>
+        <if test="transfertreatmentcategory!=null">    
+           and TRANSFER_TREATMENT_CATEGORY = #{transfertreatmentcategory,jdbcType=BIT}        
+        </if>
+        <if test="status!=null">    
+           and STATUS = #{status,jdbcType=SMALLINT}        
+        </if>
+        <if test="residentname!=null">    
+           and RESIDENT_NAME = #{residentname,jdbcType=VARCHAR}        
+        </if>
+        <if test="age!=null">    
+           and AGE = #{age,jdbcType=SMALLINT}        
+        </if>
+        <if test="sex!=null">    
+           and SEX = #{sex,jdbcType=SMALLINT}        
+        </if>
+        <if test="birthdate!=null">    
+           and BIRTH_DATE = #{birthdate,jdbcType=DATE}        
+        </if>
+        <if test="identitynumber!=null">    
+           and IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR}        
+        </if>
+        <if test="linkmanphone!=null">    
+           and LINKMAN_PHONE = #{linkmanphone,jdbcType=VARCHAR}        
+        </if>
+        <if test="address!=null">    
+           and ADDRESS = #{address,jdbcType=VARCHAR}        
+        </if>
+        <if test="deletesign!=null">    
+           and DELETE_SIGN = #{deletesign,jdbcType=BIT}        
+        </if>
+        <if test="areacode!=null">    
+           and AREA_CODE = #{areacode,jdbcType=VARCHAR}        
+        </if>
+        <if test="orgid!=null">    
+           and ORG_ID = #{orgid,jdbcType=VARCHAR}        
+        </if>
+        <if test="createuser!=null">    
+           and CREATE_USER = #{createuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="createdate!=null">    
+           and CREATE_DATE = #{createdate,jdbcType=TIMESTAMP}        
+        </if>
+        <if test="updateuser!=null">    
+           and UPDATE_USER = #{updateuser,jdbcType=VARCHAR}        
+        </if>
+        <if test="updatedate!=null">    
+           and UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP}        
+        </if>
+    </delete>
+
+    <update id="update" parameterType="com.tiuweb.family.plan.domain.TblPlanTransferTreatmentRecord" >
+        update tbl_plan_transfer_treatment_record   
+        <set>
+            <if test="transfernumber!=null"> 
+              TRANSFER_NUMBER = #{transfernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="recordidentify!=null"> 
+              RECORD_IDENTIFY = #{recordidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="residentcontactidentify!=null"> 
+              RESIDENT_CONTACT_IDENTIFY = #{residentcontactidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="residenthealtharchivesidentify!=null"> 
+              RESIDENT_HEALTH_ARCHIVES_IDENTIFY = #{residenthealtharchivesidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="planidentify!=null"> 
+              PLAN_IDENTIFY = #{planidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="transfercontrastidentify!=null"> 
+              TRANSFER_CONTRAST_IDENTIFY = #{transfercontrastidentify,jdbcType=VARCHAR},
+            </if>
+            <if test="currentorgidentity!=null"> 
+              CURRENT_ORG_IDENTITY = #{currentorgidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="currentorgname!=null"> 
+              CURRENT_ORG_NAME = #{currentorgname,jdbcType=VARCHAR},
+            </if>
+            <if test="abutmentorgidentity!=null"> 
+              ABUTMENT_ORG_IDENTITY = #{abutmentorgidentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctoridentity!=null"> 
+              DOCTOR_IDENTITY = #{doctoridentity,jdbcType=VARCHAR},
+            </if>
+            <if test="doctorname!=null"> 
+              DOCTOR_NAME = #{doctorname,jdbcType=VARCHAR},
+            </if>
+            <if test="abutmentorgname!=null"> 
+              ABUTMENT_ORG_NAME = #{abutmentorgname,jdbcType=VARCHAR},
+            </if>
+            <if test="transfertreatmentcategory!=null"> 
+              TRANSFER_TREATMENT_CATEGORY = #{transfertreatmentcategory,jdbcType=BIT},
+            </if>
+            <if test="status!=null"> 
+              STATUS = #{status,jdbcType=SMALLINT},
+            </if>
+            <if test="residentname!=null"> 
+              RESIDENT_NAME = #{residentname,jdbcType=VARCHAR},
+            </if>
+            <if test="age!=null"> 
+              AGE = #{age,jdbcType=SMALLINT},
+            </if>
+            <if test="sex!=null"> 
+              SEX = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="birthdate!=null"> 
+              BIRTH_DATE = #{birthdate,jdbcType=DATE},
+            </if>
+            <if test="identitynumber!=null"> 
+              IDENTITY_NUMBER = #{identitynumber,jdbcType=VARCHAR},
+            </if>
+            <if test="linkmanphone!=null"> 
+              LINKMAN_PHONE = #{linkmanphone,jdbcType=VARCHAR},
+            </if>
+            <if test="address!=null"> 
+              ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="deletesign!=null"> 
+              DELETE_SIGN = #{deletesign,jdbcType=BIT},
+            </if>
+            <if test="areacode!=null"> 
+              AREA_CODE = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid!=null"> 
+              ORG_ID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="createuser!=null"> 
+              CREATE_USER = #{createuser,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate!=null"> 
+              CREATE_DATE = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateuser!=null"> 
+              UPDATE_USER = #{updateuser,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedate!=null"> 
+              UPDATE_DATE = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where> 
+            <if test="id!=null"> 
+               and ID = #{id,jdbcType=VARCHAR}        
+            </if>
+        </where> 
+    </update>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert into tbl_plan_transfer_treatment_record
+        (
+            ID,
+        TRANSFER_NUMBER,
+        RECORD_IDENTIFY,
+        RESIDENT_CONTACT_IDENTIFY,
+        RESIDENT_HEALTH_ARCHIVES_IDENTIFY,
+        PLAN_IDENTIFY,
+        TRANSFER_CONTRAST_IDENTIFY,
+        CURRENT_ORG_IDENTITY,
+        CURRENT_ORG_NAME,
+        ABUTMENT_ORG_IDENTITY,
+        DOCTOR_IDENTITY,
+        DOCTOR_NAME,
+        ABUTMENT_ORG_NAME,
+        TRANSFER_TREATMENT_CATEGORY,
+        STATUS,
+        RESIDENT_NAME,
+        AGE,
+        SEX,
+        BIRTH_DATE,
+        IDENTITY_NUMBER,
+        LINKMAN_PHONE,
+        ADDRESS,
+        DELETE_SIGN,
+        AREA_CODE,
+        ORG_ID,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE 
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," > 
+        (
+            #{item.id,jdbcType=VARCHAR},   
+            #{item.transfernumber,jdbcType=VARCHAR},   
+            #{item.recordidentify,jdbcType=VARCHAR},   
+            #{item.residentcontactidentify,jdbcType=VARCHAR},   
+            #{item.residenthealtharchivesidentify,jdbcType=VARCHAR},   
+            #{item.planidentify,jdbcType=VARCHAR},   
+            #{item.transfercontrastidentify,jdbcType=VARCHAR},   
+            #{item.currentorgidentity,jdbcType=VARCHAR},   
+            #{item.currentorgname,jdbcType=VARCHAR},   
+            #{item.abutmentorgidentity,jdbcType=VARCHAR},   
+            #{item.doctoridentity,jdbcType=VARCHAR},   
+            #{item.doctorname,jdbcType=VARCHAR},   
+            #{item.abutmentorgname,jdbcType=VARCHAR},   
+            #{item.transfertreatmentcategory,jdbcType=BIT},   
+            #{item.status,jdbcType=SMALLINT},   
+            #{item.residentname,jdbcType=VARCHAR},   
+            #{item.age,jdbcType=SMALLINT},   
+            #{item.sex,jdbcType=SMALLINT},   
+            #{item.birthdate,jdbcType=DATE},   
+            #{item.identitynumber,jdbcType=VARCHAR},   
+            #{item.linkmanphone,jdbcType=VARCHAR},   
+            #{item.address,jdbcType=VARCHAR},   
+            #{item.deletesign,jdbcType=BIT},   
+            #{item.areacode,jdbcType=VARCHAR},   
+            #{item.orgid,jdbcType=VARCHAR},   
+            #{item.createuser,jdbcType=VARCHAR},   
+            #{item.createdate,jdbcType=TIMESTAMP},   
+            #{item.updateuser,jdbcType=VARCHAR},   
+            #{item.updatedate,jdbcType=TIMESTAMP}  
+        )
+        </foreach>
+    </insert>
+</mapper>
